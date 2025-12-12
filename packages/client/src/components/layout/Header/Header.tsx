@@ -25,13 +25,7 @@ export default function Header() {
         <nav className={styles.nav}>
           {navLinks.map(link => (
             <Link key={link.path} to={link.path} className={styles.navLink}>
-              <Button
-                variant={isActive(link.path) ? 'default' : 'ghost'}
-                className={
-                  isActive(link.path)
-                    ? styles.navButtonActive
-                    : styles.navButtonInactive
-                }>
+              <Button variant={isActive(link.path) ? 'default' : 'ghost'}>
                 {link.label}
               </Button>
             </Link>
@@ -45,7 +39,7 @@ export default function Header() {
                 <Button variant="outline">Login</Button>
               </Link>
               <Link to={ROUTES.PUBLIC.REGISTRATION}>
-                <Button className={styles.authButtonPrimary}>Sign Up</Button>
+                <Button variant="primary">Sign Up</Button>
               </Link>
             </>
           ) : (
@@ -54,7 +48,7 @@ export default function Header() {
                 <Button variant="outline">Profile</Button>
               </Link>
               <Button
-                className={styles.authButtonLogout}
+                variant="secondary"
                 onClick={() => {
                   // TODO: Handle logout
                 }}>
@@ -70,12 +64,7 @@ export default function Header() {
           <Link key={link.path} to={link.path} className={styles.navLink}>
             <Button
               variant={isActive(link.path) ? 'default' : 'ghost'}
-              size="sm"
-              className={
-                isActive(link.path)
-                  ? styles.navButtonActive
-                  : styles.navButtonInactive
-              }>
+              size="sm">
               {link.label}
             </Button>
           </Link>

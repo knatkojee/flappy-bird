@@ -1,0 +1,133 @@
+.container {
+  min-height: calc(100vh - 20rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-md);
+  padding-top: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+}
+
+.formWrapper {
+  width: 100%;
+  max-width: 448px;
+}
+
+.card {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: var(--spacing-lg);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-lg);
+}
+
+.birdIcon {
+  font-size: 60px;
+  margin-bottom: var(--spacing-md);
+  animation: birdWing 2s ease-in-out infinite;
+}
+
+.title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: var(--spacing-sm);
+}
+
+.subtitle {
+  color: var(--muted-foreground);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.fieldLabel {
+  font-size: var(--font-md);
+  font-weight: 600;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.inputIcon {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  width: 20px;
+  height: 20px;
+  color: var(--bird-orange);
+}
+
+.checkbox {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  cursor: pointer;
+}
+
+.checkboxInput {
+  margin-top: 4px;
+  border-radius: var(--radius-sm);
+}
+
+.checkboxText {
+  font-size: var(--font-sm);
+  color: var(--foreground);
+}
+
+.link {
+  color: var(--bird-orange);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.link:hover {
+  color: var(--bird-yellow);
+}
+
+.signInText {
+  text-align: center;
+  color: var(--muted-foreground);
+  margin-top: var(--spacing-lg);
+}
+
+.additionalInfo {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+}
+
+.additionalInfoText {
+  font-size: var(--font-sm);
+  color: rgba(0, 0, 0, 0.6);
+}
+
+@keyframes birdWing {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 40px;
+  }
+}

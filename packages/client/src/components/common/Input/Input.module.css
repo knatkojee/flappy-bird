@@ -1,0 +1,63 @@
+.input {
+  display: flex;
+  height: var(--button-height-md);
+  width: 100%;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--input-border);
+  background-color: var(--background);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-md);
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.input::placeholder {
+  color: var(--muted-foreground);
+}
+
+.input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring-color);
+  border-color: var(--ring-color);
+}
+
+.input:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.input[type='file'] {
+  border: 0;
+  background: transparent;
+  font-size: var(--font-sm);
+  font-weight: 500;
+  color: var(--foreground);
+}
+
+.sm {
+  height: var(--button-height-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  font-size: var(--font-sm);
+}
+
+.md {
+  height: var(--button-height-md);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-md);
+}
+
+.lg {
+  height: 48px;
+  padding: var(--spacing-md) var(--spacing-md);
+  font-size: var(--font-md);
+}
+
+.withIcon {
+  width: calc(100% - 50px);
+  padding-left: 40px;
+}
+
+@media (min-width: 768px) {
+  .input {
+    font-size: var(--font-sm);
+  }
+}

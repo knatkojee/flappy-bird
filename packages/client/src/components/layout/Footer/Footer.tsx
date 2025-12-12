@@ -51,9 +51,6 @@ export default function Footer() {
             </ul>
           </div>
         </div>
-        <div className={styles.footerBottom}>
-          <p>&copy; 2024 Flappy Bird. All rights reserved.</p>
-        </div>
       </div>
     </footer>
   )

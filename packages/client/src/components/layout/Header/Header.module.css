@@ -43,46 +43,9 @@
   text-decoration: none;
 }
 
-.navButtonActive {
-  background-color: var(--bird-yellow);
-  color: var(--foreground);
-}
-
-.navButtonActive:hover {
-  background-color: var(--bird-yellow);
-}
-
-.navButtonInactive {
-  color: var(--foreground);
-}
-
-.navButtonInactive:hover {
-  background-color: var(--sky-light);
-}
-
 .authButtons {
   display: flex;
   gap: var(--spacing-sm);
-}
-
-.authButtonPrimary {
-  background-color: var(--bird-yellow);
-  color: var(--foreground);
-  font-weight: 600;
-}
-
-.authButtonPrimary:hover {
-  background-color: var(--bird-orange);
-}
-
-.authButtonLogout {
-  background-color: var(--bird-orange);
-  color: var(--foreground);
-  font-weight: 600;
-}
-
-.authButtonLogout:hover {
-  background-color: var(--bird-yellow);
 }
 
 .mobileNav {

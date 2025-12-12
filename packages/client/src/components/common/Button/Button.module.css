@@ -20,26 +20,53 @@
 }
 
 .default {
-  background-color: var(--primary);
-  color: var(--primary-foreground);
+  background-color: var(--bird-yellow);
+  color: var(--foreground);
 }
 
 .default:hover {
-  background-color: var(--primary-hover);
+  background-color: var(--bird-orange);
 }
 
 .outline {
   border: 1px solid var(--input-border);
+  background-color: transparent;
+  color: var(--foreground);
 }
 
 .outline:hover {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background-color: var(--sky-light);
+  color: var(--foreground);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--foreground);
 }
 
 .ghost:hover {
-  background-color: var(--accent);
-  color: var(--accent-foreground);
+  background-color: var(--sky-light);
+  color: var(--foreground);
+}
+
+.primary {
+  background-color: var(--bird-yellow);
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.primary:hover {
+  background-color: var(--bird-orange);
+}
+
+.secondary {
+  background-color: var(--bird-orange);
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.secondary:hover {
+  background-color: var(--bird-yellow);
 }
 
 .sm {
@@ -56,4 +83,5 @@
 .lg {
   height: var(--button-height-lg);
   padding: 0 var(--spacing-lg);
+  width: 100%;
 }
