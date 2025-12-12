@@ -1,19 +1,19 @@
 import { lazy } from 'react'
 import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
-import { ROUTES } from '../constants/routes'
-import { usePageTitle } from '../hooks/usePageTitle'
-import { PAGE_TITLES } from '../constants/pageTitles'
+import { ROUTES } from '@/constants/routes'
+import { usePageTitle } from '@/hooks/usePageTitle'
+import { PAGE_TITLES } from '@/constants/pageTitles'
 import { PageWithTitleProps } from './types'
 
-const Forum = lazy(() => import('../pages/Forum'))
-const ForumTopic = lazy(() => import('../pages/ForumTopic'))
-const Game = lazy(() => import('../pages/Game'))
-const Home = lazy(() => import('../pages/Home'))
-const Leaderboard = lazy(() => import('../pages/Leaderboard'))
-const Login = lazy(() => import('../pages/Login'))
-const NotFound = lazy(() => import('../pages/ErrorPage'))
-const Profile = lazy(() => import('../pages/Profile'))
-const Registration = lazy(() => import('../pages/Registration'))
+const Forum = lazy(() => import('@/pages/Forum/Forum'))
+const ForumTopic = lazy(() => import('@/pages/ForumTopic/ForumTopic'))
+const Game = lazy(() => import('@/pages/Game/Game'))
+const Home = lazy(() => import('@/pages/Home/Home'))
+const Leaderboard = lazy(() => import('@/pages/Leaderboard/Leaderboard'))
+const Login = lazy(() => import('@/pages/Login/Login'))
+const NotFound = lazy(() => import('@/pages/ErrorPage/ErrorPage'))
+const Profile = lazy(() => import('@/pages/Profile/Profile'))
+const Registration = lazy(() => import('@/pages/Registration/Registration'))
 
 export type RouteKeys = keyof typeof ROUTES
 

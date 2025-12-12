@@ -1,0 +1,41 @@
+:root {
+  --primary: #000;
+  --primary-foreground: #fff;
+  --primary-hover: #000000e6;
+
+  --foreground: #000;
+  --background: #fff;
+  --muted-foreground: #6b7280;
+
+  --accent: #f3f4f6;
+  --accent-foreground: #000;
+
+  --border: #e5e7eb;
+  --input-border: #d1d5db;
+  --ring-color: #3b82f6;
+
+  --sky-light: #87ceeb;
+  --sky-main: #4682b4;
+  --sky-dark: #1e3a8a;
+
+  --bird-yellow: #fbbf24;
+  --bird-orange: #f97316;
+
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 32px;
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+
+  --font-sm: 14px;
+  --font-md: 16px;
+  --font-lg: 18px;
+  --font-xl: 24px;
+
+  --button-height-sm: 36px;
+  --button-height-md: 40px;
+  --button-height-lg: 44px;
+}
