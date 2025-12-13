@@ -10,8 +10,8 @@ export default function Header() {
   const isActive = (path: string) => location.pathname === path
 
   const navLinks = [
-    { path: ROUTES.PUBLIC.HOME, label: 'Home' },
-    { path: ROUTES.PROTECTED.LEADERBOARD, label: 'Leaderboard' },
+    { path: ROUTES.PUBLIC.HOME, label: 'Главная' },
+    { path: ROUTES.PROTECTED.LEADERBOARD, label: 'Лидерборд' },
   ]
 
   return (
@@ -36,23 +36,23 @@ export default function Header() {
           {!isAuthenticated ? (
             <>
               <Link to={ROUTES.PUBLIC.LOGIN}>
-                <Button variant="outline">Login</Button>
+                <Button variant="outline">Вход</Button>
               </Link>
               <Link to={ROUTES.PUBLIC.REGISTRATION}>
-                <Button variant="primary">Sign Up</Button>
+                <Button variant="primary">Регистрация</Button>
               </Link>
             </>
           ) : (
             <>
               <Link to={ROUTES.PROTECTED.PROFILE}>
-                <Button variant="outline">Profile</Button>
+                <Button variant="outline">Профиль</Button>
               </Link>
               <Button
                 variant="secondary"
                 onClick={() => {
                   // TODO: Handle logout
                 }}>
-                Logout
+                Выход
               </Button>
             </>
           )}
