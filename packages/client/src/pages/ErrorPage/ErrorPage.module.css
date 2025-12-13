@@ -1,0 +1,30 @@
+.container {
+  min-height: calc(100vh - 20rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-lg) var(--spacing-md) var(--spacing-lg);
+}
+
+.img {
+  width: 100%;
+  max-width: 480px;
+}
+
+.text {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.code {
+  font-size: 120px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.message {
+  font-size: var(--font-xl);
+  font-weight: 900;
+  margin: 0;
+}
