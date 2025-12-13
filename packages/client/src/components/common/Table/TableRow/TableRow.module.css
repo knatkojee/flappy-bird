@@ -1,8 +1,27 @@
 .row {
-  border-bottom: 1px solid var(--border);
   transition: background-color 0.2s;
 }
 
 .row:hover {
   background-color: var(--accent);
+}
+
+.highlighted {
+  background: linear-gradient(
+    to right,
+    rgba(251, 191, 36, 0.1),
+    rgba(249, 115, 22, 0.1)
+  );
+  font-weight: 600;
+}
+
+.highlighted:hover {
+  background: rgba(135, 206, 235, 0.2);
+}
+
+.headerRow {
+}
+
+.headerRow:hover {
+  background: transparent;
 }

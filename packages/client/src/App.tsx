@@ -1,9 +1,8 @@
 import { Suspense, useEffect } from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import AppRoutes from './routes/routes'
-import LoadingSpinner from './components/common/LoadingSpinner/LoadingSpinner'
 import './App.css'
-import { ApplicationLayout } from './components'
+import { ApplicationLayout, LoadingSpinner } from '@/components'
 
 const PageLayout: React.FC = () => {
   return (

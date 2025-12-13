@@ -18,4 +18,4 @@ export {
   TableCaption,
 } from './common/Table'
 
-export { User, Mail, Lock } from './common/Icon/Icon'
+export { User, Mail, Lock, Search, Trophy } from './common/Icon/Icon'

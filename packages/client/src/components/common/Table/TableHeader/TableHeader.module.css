@@ -1,3 +1,10 @@
 .header tr {
-  border-bottom: 1px solid var(--border);
+}
+
+.gradient {
+  background: linear-gradient(
+    to right,
+    rgba(251, 191, 36, 0.2),
+    rgba(249, 115, 22, 0.2)
+  );
 }

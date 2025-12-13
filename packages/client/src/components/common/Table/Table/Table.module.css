@@ -8,4 +8,6 @@
   width: 100%;
   caption-side: bottom;
   font-size: var(--font-sm);
+  border-collapse: collapse;
+  user-select: none;
 }
