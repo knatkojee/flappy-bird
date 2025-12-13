@@ -69,6 +69,31 @@ const generateMockPlayers = (): Player[] => {
     }))
 }
 
+const statsConfig = [
+  {
+    emoji: '🔥',
+    label: 'Лучший результат',
+    getValue: () => players[0].score.toLocaleString(),
+    valueColor: 'orange',
+    getAuthor: () => `игрок ${players[0].username}`,
+  },
+  {
+    emoji: '📊',
+    label: 'Средний результат',
+    getValue: () =>
+      Math.floor(
+        players.reduce((sum, p) => sum + p.score, 0) / players.length
+      ).toLocaleString(),
+    valueColor: 'yellow',
+  },
+  {
+    emoji: '👥',
+    label: 'Активных игроков',
+    getValue: () => players.length.toLocaleString(),
+    valueColor: 'orange',
+  },
+]
+
 const players = generateMockPlayers() as RankedPlayer[]
 
 export default function Leaderboard() {
@@ -96,32 +121,26 @@ export default function Leaderboard() {
       </div>
 
       <div className={styles.statsGrid}>
-        <div className={styles.statCard}>
-          <div className={styles.statEmoji}>🔥</div>
-          <p className={styles.statLabel}>Лучший результат</p>
-          <p className={`${styles.statValue} ${styles.statValueOrange}`}>
-            {players[0].score.toLocaleString()}
-          </p>
-          <p className={styles.statAuthor}>игрок {players[0].username}</p>
-        </div>
-
-        <div className={styles.statCard}>
-          <div className={styles.statEmoji}>📊</div>
-          <p className={styles.statLabel}>Средний результат</p>
-          <p className={`${styles.statValue} ${styles.statValueYellow}`}>
-            {Math.floor(
-              players.reduce((sum, p) => sum + p.score, 0) / players.length
-            ).toLocaleString()}
-          </p>
-        </div>
-
-        <div className={styles.statCard}>
-          <div className={styles.statEmoji}>👥</div>
-          <p className={styles.statLabel}>Активных игроков</p>
-          <p className={`${styles.statValue} ${styles.statValueOrange}`}>
-            {players.length}
-          </p>
-        </div>
+        {statsConfig.map((stat, index) => (
+          <div key={index} className={styles.statCard}>
+            <div className={styles.statEmoji}>{stat.emoji}</div>
+            <p className={styles.statLabel}>{stat.label}</p>
+            <p
+              className={`${styles.statValue} ${
+                styles[
+                  `statValue${
+                    stat.valueColor.charAt(0).toUpperCase() +
+                    stat.valueColor.slice(1)
+                  }`
+                ]
+              }`}>
+              {stat.getValue()}
+            </p>
+            {stat.getAuthor && (
+              <p className={styles.statAuthor}>{stat.getAuthor()}</p>
+            )}
+          </div>
+        ))}
       </div>
 
       <div className={styles.filterSection}>

@@ -19,9 +19,6 @@
   background: rgba(135, 206, 235, 0.2);
 }
 
-.headerRow {
-}
-
 .headerRow:hover {
   background: transparent;
 }
