@@ -11,7 +11,7 @@ const Game = lazy(() => import('@/pages/Game/Game'))
 const Home = lazy(() => import('@/pages/Home/Home'))
 const Leaderboard = lazy(() => import('@/pages/Leaderboard/Leaderboard'))
 const Login = lazy(() => import('@/pages/Login/Login'))
-const NotFound = lazy(() => import('@/pages/ErrorPage/ErrorPage'))
+const ErrorPage = lazy(() => import('@/pages/ErrorPage/ErrorPage'))
 const Profile = lazy(() => import('@/pages/Profile/Profile'))
 const Registration = lazy(() => import('@/pages/Registration/Registration'))
 
@@ -99,7 +99,7 @@ const AppRoutes = () => {
         path={ROUTES.ERRORS.NOT_FOUND}
         element={
           <PageWithTitle
-            component={NotFound}
+            component={ErrorPage}
             title={PAGE_TITLES.NOT_FOUND}
             componentProps={{ error: '404' }}
           />
@@ -109,7 +109,7 @@ const AppRoutes = () => {
         path={ROUTES.ERRORS.SERVER_ERROR}
         element={
           <PageWithTitle<{ error: '404' | '500' }>
-            component={NotFound}
+            component={ErrorPage}
             title={PAGE_TITLES.NOT_FOUND}
             componentProps={{ error: '500' }}
           />
