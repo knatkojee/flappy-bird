@@ -1,0 +1,61 @@
+.container {
+  max-width: 1152px;
+  padding: var(--spacing-md);
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--background);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  font-weight: 700;
+
+  tr {
+    border-bottom: 1px solid var(--border);
+  }
+
+  th {
+    text-align: left;
+    background-color: var(--bird-yellow);
+  }
+
+  th,
+  td {
+    padding: 16px;
+  }
+}
+
+.link {
+  color: var(--primary);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--bird-orange);
+  }
+}
+
+.count {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.addForum {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--bird-orange);
+  color: var(--bird-orange);
+  background-color: transparent;
+}
