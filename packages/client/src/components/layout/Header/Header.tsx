@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'react-router-dom'
-import styles from './Header.module.css'
-import Button from '@/components/common/Button/Button'
+import { Button } from '@/components'
 import { ROUTES } from '@/constants/routes'
+import styles from './Header.module.css'
 
 export default function Header() {
   const location = useLocation()

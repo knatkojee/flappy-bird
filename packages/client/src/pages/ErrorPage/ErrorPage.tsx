@@ -1,4 +1,4 @@
-import { PAGE_TITLES } from '../../constants/pageTitles'
+import { PAGE_TITLES } from '@/constants/pageTitles'
 
 const ErrorPage: React.FC<{ error: '404' | '500' }> = ({ error }) => {
   const title =

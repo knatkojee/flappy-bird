@@ -1,7 +1,6 @@
 import React from 'react'
-import { Input } from '../Input/Input'
-import { Label } from '../Label/Label'
 import styles from './FormField.module.css'
+import { Input, Label } from '@/components'
 
 interface FormFieldProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
