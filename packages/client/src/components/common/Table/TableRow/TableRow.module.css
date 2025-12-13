@@ -1,0 +1,8 @@
+.row {
+  border-bottom: 1px solid var(--border);
+  transition: background-color 0.2s;
+}
+
+.row:hover {
+  background-color: var(--accent);
+}

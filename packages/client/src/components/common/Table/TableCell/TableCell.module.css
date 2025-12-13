@@ -1,0 +1,4 @@
+.cell {
+  padding: var(--spacing-md);
+  vertical-align: middle;
+}
