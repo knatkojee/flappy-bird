@@ -7,17 +7,16 @@ interface InputProps
   withIcon?: boolean
 }
 
-export const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  (
-    { className = '', type = 'text', size = 'md', withIcon = false, ...props },
-    ref
-  ) => {
-    const classes = `${styles.input} ${styles[size]} ${
-      withIcon ? styles.withIcon : ''
-    } ${className}`
+export const Input: React.FC<InputProps> = ({
+  className = '',
+  type = 'text',
+  size = 'md',
+  withIcon = false,
+  ...props
+}) => {
+  const classes = `${styles.input} ${styles[size]} ${
+    withIcon ? styles.withIcon : ''
+  } ${className}`
 
-    return <input ref={ref} type={type} className={classes} {...props} />
-  }
-)
-
-Input.displayName = 'Input'
+  return <input type={type} className={classes} {...props} />
+}

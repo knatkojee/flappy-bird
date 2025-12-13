@@ -1,4 +1,4 @@
-import { PAGE_TITLES } from '../../constants/pageTitles'
+import { PAGE_TITLES } from '@/constants/pageTitles'
 import styles from './ErrorPage.module.css'
 import birdImg from '@/assets/images/bird-dead.webp'
 

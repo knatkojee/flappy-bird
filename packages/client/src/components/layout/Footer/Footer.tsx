@@ -12,40 +12,40 @@ export default function Footer() {
               <span className={styles.footerBrandIcon}>🐦</span> Flappy Bird
             </h3>
             <p className={styles.footerDescription}>
-              Master the classic game with friends. Compete, learn, and achieve
-              new heights.
+              Освойте классическую игру с друзьями. Соревнуйтесь, учитесь и
+              достигайте новых высот.
             </p>
           </div>
           <div>
-            <h4 className={styles.footerSectionTitle}>Game</h4>
+            <h4 className={styles.footerSectionTitle}>Игра</h4>
             <ul className={styles.footerLinks}>
               <li>
                 <Link to={ROUTES.PROTECTED.GAME} className={styles.footerLink}>
-                  Play Now
+                  Играть сейчас
                 </Link>
               </li>
               <li>
                 <Link
                   to={ROUTES.PROTECTED.LEADERBOARD}
                   className={styles.footerLink}>
-                  Leaderboard
+                  Лидерборд
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h4 className={styles.footerSectionTitle}>Account</h4>
+            <h4 className={styles.footerSectionTitle}>Аккаунт</h4>
             <ul className={styles.footerLinks}>
               <li>
                 <Link to={ROUTES.PUBLIC.LOGIN} className={styles.footerLink}>
-                  Login
+                  Вход
                 </Link>
               </li>
               <li>
                 <Link
                   to={ROUTES.PUBLIC.REGISTRATION}
                   className={styles.footerLink}>
-                  Register
+                  Регистрация
                 </Link>
               </li>
             </ul>

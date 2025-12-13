@@ -28,7 +28,7 @@ const PageWithTitle = <T extends object = object>({
 
 const ProtectedRoute = () => {
   //   const { isAuthenticated } = useAuth() // TODO: реализовать запрос
-  const isAuthenticated = false
+  const isAuthenticated = true
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.PUBLIC.LOGIN} replace />

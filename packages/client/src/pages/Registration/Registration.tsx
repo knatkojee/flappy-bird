@@ -1,6 +1,5 @@
 import { Button } from '@/components'
-import { Input } from '@/components/common/Input/Input'
-import { Label } from '@/components/common/Label/Label'
+import { FormField } from '@/components/common/FormField/FormField'
 import { User, Mail, Lock } from '@/components/common/Icon/Icon'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -8,14 +7,15 @@ import { ROUTES } from '@/constants/routes'
 import styles from './Registration.module.css'
 
 const Registration = () => {
-  const [email, setEmail] = useState('')
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
+
+    const formData = new FormData(e.currentTarget as HTMLFormElement)
+    const data = Object.fromEntries(formData.entries())
+    console.log(data)
+
     setIsLoading(true)
     // TODO: Implement registration logic
     setTimeout(() => setIsLoading(false), 1000)
@@ -27,88 +27,82 @@ const Registration = () => {
         <div className={styles.card}>
           <div className={styles.header}>
             <div className={styles.birdIcon}>🐦</div>
-            <h1 className={styles.title}>Join the Flock!</h1>
+            <h1 className={styles.title}>Присоединяйся к стае!</h1>
             <p className={styles.subtitle}>
-              Create your account and start your flying adventure
+              Создай аккаунт и начни свое приключение
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className={styles.form}>
-            <div className={styles.fieldGroup}>
-              <Label htmlFor="username" className={styles.fieldLabel}>
-                Username
-              </Label>
-              <div className={styles.inputWrapper}>
-                <User className={styles.inputIcon} />
-                <Input
-                  id="username"
-                  type="text"
-                  placeholder="flyingbird123"
-                  value={username}
-                  onChange={e => setUsername(e.target.value)}
-                  size="sm"
-                  withIcon
-                  required
-                />
-              </div>
-            </div>
+          <form action="#" onSubmit={handleSubmit} className={styles.form}>
+            <FormField
+              id="first_name"
+              name="first_name"
+              type="text"
+              label="Имя"
+              placeholder="Имя"
+              icon={User}
+              required
+            />
 
-            <div className={styles.fieldGroup}>
-              <Label htmlFor="email" className={styles.fieldLabel}>
-                Email Address
-              </Label>
-              <div className={styles.inputWrapper}>
-                <Mail className={styles.inputIcon} />
-                <Input
-                  id="email"
-                  type="email"
-                  placeholder="you@example.com"
-                  value={email}
-                  onChange={e => setEmail(e.target.value)}
-                  size="sm"
-                  withIcon
-                  required
-                />
-              </div>
-            </div>
+            <FormField
+              id="second_name"
+              name="second_name"
+              type="text"
+              label="Фамилия"
+              placeholder="Фамилия"
+              icon={User}
+              required
+            />
 
-            <div className={styles.fieldGroup}>
-              <Label htmlFor="password" className={styles.fieldLabel}>
-                Password
-              </Label>
-              <div className={styles.inputWrapper}>
-                <Lock className={styles.inputIcon} />
-                <Input
-                  id="password"
-                  type="password"
-                  placeholder="••••••••"
-                  value={password}
-                  onChange={e => setPassword(e.target.value)}
-                  size="sm"
-                  withIcon
-                  required
-                />
-              </div>
-            </div>
+            <FormField
+              id="login"
+              name="login"
+              type="text"
+              label="Имя пользователя"
+              placeholder="username"
+              icon={User}
+              required
+            />
 
-            <div className={styles.fieldGroup}>
-              <Label htmlFor="passwordConfirm" className={styles.fieldLabel}>
-                Confirm Password
-              </Label>
-              <div className={styles.inputWrapper}>
-                <Lock className={styles.inputIcon} />
-                <Input
-                  id="passwordConfirm"
-                  type="password"
-                  placeholder="••••••••"
-                  value={passwordConfirm}
-                  onChange={e => setPasswordConfirm(e.target.value)}
-                  size="sm"
-                  withIcon
-                  required
-                />
-              </div>
-            </div>
+            <FormField
+              id="phone"
+              name="phone"
+              type="tel"
+              label="Телефон"
+              placeholder="Телефон"
+              icon={User}
+              required
+            />
+
+            <FormField
+              id="email"
+              name="email"
+              type="email"
+              label="Электронная почта"
+              placeholder="email@example.com"
+              icon={Mail}
+              required
+            />
+
+            <FormField
+              id="password"
+              name="password"
+              type="password"
+              label="Пароль"
+              placeholder="••••••••"
+              icon={Lock}
+              required
+            />
+
+            <FormField
+              id="passwordConfirm"
+              name="passwordConfirm"
+              type="password"
+              label="Подтвердите пароль"
+              placeholder="••••••••"
+              icon={Lock}
+              required
+            />
 
             <label className={styles.checkbox}>
               <input
@@ -117,13 +111,13 @@ const Registration = () => {
                 required
               />
               <span className={styles.checkboxText}>
-                I agree to the{' '}
+                Я соглашаюсь с{' '}
                 <Link to="#" className={styles.link}>
-                  Terms of Service
+                  Условиями обслуживания
                 </Link>{' '}
-                and{' '}
+                и{' '}
                 <Link to="#" className={styles.link}>
-                  Privacy Policy
+                  Политикой конфиденциальности
                 </Link>
               </span>
             </label>
@@ -133,21 +127,21 @@ const Registration = () => {
               disabled={isLoading}
               variant="primary"
               size="lg">
-              {isLoading ? 'Creating Account...' : 'Create Account'}
+              {isLoading ? 'Создание аккаунта...' : 'Создать аккаунт'}
             </Button>
           </form>
 
           <p className={styles.signInText}>
-            Already have an account?{' '}
+            Уже есть аккаунт?{' '}
             <Link to={ROUTES.PUBLIC.LOGIN} className={styles.link}>
-              Sign in here
+              Войдите здесь
             </Link>
           </p>
         </div>
 
         <div className={styles.additionalInfo}>
           <p className={styles.additionalInfoText}>
-            Join thousands of players in the ultimate flying challenge.
+            Присоединяйтесь к тысячам игроков в непревзойденном летном вызове.
           </p>
         </div>
       </div>

@@ -5,7 +5,7 @@ export enum PAGE_TITLES {
   FORUM = 'Форум',
   FORUM_TOPIC = 'Форум топик',
   PROFILE = 'Профиль',
-  LEADERBOARD = 'Лидерборд',
+  LEADERBOARD = 'Таблица лидеров',
   GAME = 'Игра',
   NOT_FOUND = '404',
   SERVER_ERROR = '500',
