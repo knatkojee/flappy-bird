@@ -1,0 +1,16 @@
+.appLayout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+    to bottom,
+    var(--sky-light),
+    var(--sky-main),
+    var(--sky-dark)
+  );
+}
+
+.mainContent {
+  flex: 1;
+  width: 100%;
+}
