@@ -5,7 +5,7 @@ import { PAGE_TITLES } from '@/constants/pageTitles'
 import { FORUMS } from '@/constants/forums'
 import { Button } from '@/components'
 
-import type { ChangeEvent, FormHTMLAttributes } from 'react'
+import type { ChangeEvent } from 'react'
 
 import classes from './Forum.module.css'
 
