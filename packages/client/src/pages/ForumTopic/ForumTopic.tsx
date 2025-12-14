@@ -1,10 +1,13 @@
+import { useEffect, useState } from 'react'
+import { useLocation } from 'react-router-dom'
+
 import { Button } from '@/components'
 import Comment from './Comment/Comment'
 
-import type { FC } from 'react'
-import type { IForumTopicProps } from './ForumTopic.props'
+import type { ChangeEvent } from 'react'
 
 import classes from './ForumTopic.module.css'
+import { FORUMS } from '@/constants/forums'
 
 const COMMENTS = [
   {
@@ -27,7 +30,21 @@ const COMMENTS = [
   },
 ]
 
-const ForumTopic: FC<IForumTopicProps> = ({ title = 'Gamedev' }) => {
+const ForumTopic = () => {
+  const [textComment, setTextComment] = useState('')
+  const [title, setTitle] = useState('')
+
+  const location = useLocation()
+  const forumSlug = location.pathname.split('/')[2]
+
+  const handleChangeTextComment = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setTextComment(e.target.value)
+  }
+
+  const handleSubmitComment = (e: ChangeEvent<HTMLFormElement>) => {
+    e.preventDefault()
+  }
+
   const COMMENTS_LIST = COMMENTS.map(comment => (
     <Comment
       key={comment.id}
@@ -38,13 +55,31 @@ const ForumTopic: FC<IForumTopicProps> = ({ title = 'Gamedev' }) => {
     />
   ))
 
+  useEffect(() => {
+    const findForum = FORUMS.find(item => item.slug === forumSlug)
+
+    if (findForum) {
+      setTitle(findForum.name)
+    }
+  }, [])
+
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>{title}</h1>
 
       <ul className={classes.comments}>{COMMENTS_LIST}</ul>
 
-      <Button>Add comment</Button>
+      <form onSubmit={handleSubmitComment}>
+        <textarea
+          value={textComment}
+          placeholder="Оставить комментарий"
+          className={classes.editor}
+          onChange={handleChangeTextComment}
+        />
+        <Button disabled={textComment.length < 1} type="submit">
+          Add comment
+        </Button>
+      </form>
     </div>
   )
 }

@@ -2,6 +2,11 @@
   max-width: 1152px;
   padding: var(--spacing-md);
   margin: 0 auto;
+  box-sizing: border-box;
+
+  * {
+    box-sizing: border-box;
+  }
 }
 
 .title {
@@ -15,4 +20,19 @@
   border-radius: var(--radius-lg);
   padding: 0;
   overflow: hidden;
+}
+
+.editor {
+  display: block;
+  width: 100%;
+  min-height: 100px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin: 10px 0;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
 }

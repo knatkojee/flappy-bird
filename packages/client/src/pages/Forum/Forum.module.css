@@ -49,13 +49,19 @@
 
 .addForum {
   cursor: pointer;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  border: 1px solid var(--bird-orange);
-  color: var(--bird-orange);
-  background-color: transparent;
+  margin: 10px auto;
+}
+
+.editor {
+  display: block;
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin: 10px 0;
+  resize: none;
+
+  &:focus {
+    outline: none;
+  }
 }
