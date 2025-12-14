@@ -60,7 +60,7 @@ const Forum = () => {
       </table>
 
       <Button onClick={handleShowEditor} className={classes.addForum}>
-        {!showEditor ? 'Создать топик' : 'отмена'}
+        {!showEditor ? 'Создать топик' : 'Отмена'}
       </Button>
 
       {showEditor && (
