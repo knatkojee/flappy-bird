@@ -1,0 +1,34 @@
+.comment {
+  font-weight: 700;
+  padding: 16px;
+  border-bottom: 1px solid var(--border);
+}
+
+.name {
+  font-size: var(--font-lg);
+  margin: 0 0 15px;
+  color: var(--bird-orange);
+}
+
+.message {
+  font-size: var(--font-md);
+  margin: 0 0 15px;
+}
+
+.like {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  cursor: pointer;
+  color: var(--bird-yellow);
+  border: none;
+  background-color: transparent;
+}
+
+.liked {
+  color: var(--bird-orange);
+}
+
+.heart {
+  font-size: var(--font-xl);
+}
