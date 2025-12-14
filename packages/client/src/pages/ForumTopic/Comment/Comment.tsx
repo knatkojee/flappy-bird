@@ -2,14 +2,9 @@ import { useState } from 'react'
 import classes from './Comment.module.css'
 
 import type { FC } from 'react'
-import type { ICommentProps } from './Comment.props'
+import type { CommentProps } from './Comment.props'
 
-const Comment: FC<ICommentProps> = ({
-  id,
-  authorName,
-  message,
-  likesCount,
-}) => {
+const Comment: FC<CommentProps> = ({ id, authorName, message, likesCount }) => {
   const [liked, setLiked] = useState(false)
 
   const handleLiked = () => {

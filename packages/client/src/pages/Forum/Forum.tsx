@@ -2,12 +2,28 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import { PAGE_TITLES } from '@/constants/pageTitles'
-import { FORUMS } from '@/constants/forums'
-import { Button } from '@/components'
+import { Button, Table, TableBody, TableRow } from '@/components'
 
 import type { ChangeEvent } from 'react'
 
 import classes from './Forum.module.css'
+
+export const forums = [
+  {
+    id: 0,
+    name: 'New games',
+    countTopic: 222,
+    countComments: 35,
+    slug: 'newgames',
+  },
+  {
+    id: 1,
+    name: 'Gamedev',
+    countTopic: 22,
+    countComments: 3,
+    slug: 'gamedev',
+  },
+]
 
 const Forum = () => {
   const [showEditor, setShowEditor] = useState(false)
@@ -25,39 +41,47 @@ const Forum = () => {
     e.preventDefault()
 
     if (topicName.length > 0) {
+      forums.push({
+        id: Number(new Date()),
+        name: topicName,
+        countTopic: 0,
+        countComments: 0,
+        slug: topicName,
+      })
+      setTopicName('')
       setShowEditor(false)
     }
   }
-
-  const FORUM_ROWS = FORUMS.map(forum => (
-    <tr key={forum.id}>
-      <td>
-        <Link className={classes.link} to={`/forum/${forum.slug}`}>
-          {forum.name}
-        </Link>
-      </td>
-      <td>
-        <span className={classes.count}>{forum.countTopic}</span>
-      </td>
-      <td>{forum.countComments}</td>
-    </tr>
-  ))
 
   return (
     <div className={classes.container}>
       <h1 className={classes.title}>{PAGE_TITLES.FORUM}</h1>
 
-      <table className={classes.table}>
+      <Table className={classes.table}>
         <thead>
-          <tr>
+          <TableRow>
             <th>Название</th>
             <th>Топики</th>
             <th>Комментарии</th>
-          </tr>
+          </TableRow>
         </thead>
 
-        <tbody>{FORUM_ROWS}</tbody>
-      </table>
+        <TableBody>
+          {forums.map(forum => (
+            <TableRow key={forum.id}>
+              <td>
+                <Link className={classes.link} to={`/forum/${forum.slug}`}>
+                  {forum.name}
+                </Link>
+              </td>
+              <td>
+                <span className={classes.count}>{forum.countTopic}</span>
+              </td>
+              <td>{forum.countComments}</td>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
 
       <Button onClick={handleShowEditor} className={classes.addForum}>
         {!showEditor ? 'Создать топик' : 'Отмена'}

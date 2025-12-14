@@ -10,7 +10,6 @@
 }
 
 .table {
-  width: 100%;
   border-collapse: collapse;
   background-color: var(--background);
   border-radius: var(--radius-lg);

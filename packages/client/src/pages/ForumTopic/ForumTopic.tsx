@@ -4,12 +4,13 @@ import { useLocation } from 'react-router-dom'
 import { Button } from '@/components'
 import Comment from './Comment/Comment'
 
+import { forums } from '../Forum/Forum'
+
 import type { ChangeEvent } from 'react'
 
 import classes from './ForumTopic.module.css'
-import { FORUMS } from '@/constants/forums'
 
-const COMMENTS = [
+export const comments = [
   {
     id: 0,
     authorName: 'Pumpkin Pandas',
@@ -43,20 +44,17 @@ const ForumTopic = () => {
 
   const handleSubmitComment = (e: ChangeEvent<HTMLFormElement>) => {
     e.preventDefault()
+    comments.push({
+      id: Number(new Date()),
+      authorName: 'Your name',
+      message: textComment,
+      likesCount: 0,
+    })
+    setTextComment('')
   }
 
-  const COMMENTS_LIST = COMMENTS.map(comment => (
-    <Comment
-      key={comment.id}
-      id={comment.id}
-      authorName={comment.authorName}
-      message={comment.message}
-      likesCount={comment.likesCount}
-    />
-  ))
-
   useEffect(() => {
-    const findForum = FORUMS.find(item => item.slug === forumSlug)
+    const findForum = forums.find(item => item.slug === forumSlug)
 
     if (findForum) {
       setTitle(findForum.name)
@@ -67,7 +65,17 @@ const ForumTopic = () => {
     <div className={classes.container}>
       <h1 className={classes.title}>{title}</h1>
 
-      <ul className={classes.comments}>{COMMENTS_LIST}</ul>
+      <ul className={classes.comments}>
+        {comments.map(comment => (
+          <Comment
+            key={comment.id}
+            id={comment.id}
+            authorName={comment.authorName}
+            message={comment.message}
+            likesCount={comment.likesCount}
+          />
+        ))}
+      </ul>
 
       <form onSubmit={handleSubmitComment}>
         <textarea
