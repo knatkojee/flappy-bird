@@ -6,19 +6,12 @@
   padding: var(--spacing-md);
   padding-top: var(--spacing-lg);
   padding-bottom: var(--spacing-lg);
-}
-
-.formWrapper {
-  width: 100%;
-  max-width: 448px;
-
-  display: flex;
   flex-direction: column;
-  align-items: center;
 }
 
 .card {
   width: 100%;
+  max-width: 448px;
   background-color: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
   border-radius: 24px;
@@ -77,23 +70,6 @@
   color: var(--bird-orange);
 }
 
-.checkbox {
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  cursor: pointer;
-}
-
-.checkboxInput {
-  margin-top: 4px;
-  border-radius: var(--radius-sm);
-}
-
-.checkboxText {
-  font-size: var(--font-sm);
-  color: var(--foreground);
-}
-
 .link {
   color: var(--bird-orange);
   font-weight: 600;
@@ -108,16 +84,6 @@
   text-align: center;
   color: var(--muted-foreground);
   margin-top: var(--spacing-lg);
-}
-
-.additionalInfo {
-  margin-top: var(--spacing-lg);
-  text-align: center;
-}
-
-.additionalInfoText {
-  font-size: var(--font-sm);
-  color: rgba(0, 0, 0, 0.6);
 }
 
 @keyframes birdWing {
