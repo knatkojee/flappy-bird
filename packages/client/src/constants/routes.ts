@@ -6,7 +6,7 @@ export const ROUTES = {
   },
   PROTECTED: {
     FORUM: '/forum',
-    FORUM_TOPIC: '/forum/:topicSlug',
+    FORUM_TOPIC: '/forum-topic',
     PROFILE: '/profile',
     LEADERBOARD: '/leaderboard',
     GAME: '/game',
