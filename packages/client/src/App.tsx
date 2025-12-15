@@ -3,12 +3,15 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import AppRoutes from './routes/routes'
 import './App.css'
 import { ApplicationLayout, LoadingSpinner } from '@/components'
+import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary'
 
 const PageLayout: React.FC = () => {
   return (
     <ApplicationLayout>
       <Suspense fallback={<LoadingSpinner />}>
-        <AppRoutes />
+        <ErrorBoundary>
+          <AppRoutes />
+        </ErrorBoundary>
       </Suspense>
     </ApplicationLayout>
   )
