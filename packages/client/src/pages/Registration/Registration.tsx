@@ -3,23 +3,40 @@ import { FormField } from '@/components/common/FormField/FormField'
 import { User, Mail, Lock } from '@/components/common/Icon/Icon'
 import type { FormEvent } from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import styles from './Registration.module.css'
+import { signup } from '@/api/auth'
+import { SignUpData } from '@/types/auth'
+import { toast } from 'react-toastify'
 
 const Registration = () => {
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     const formData = new FormData(e.currentTarget as HTMLFormElement)
     const data = Object.fromEntries(formData.entries())
-    console.log(data)
+
+    if (data.password !== data.passwordConfirm) {
+      toast.error('Пароли не совпадают')
+      return
+    }
 
     setIsLoading(true)
-    // TODO: Implement registration logic
-    setTimeout(() => setIsLoading(false), 1000)
+    try {
+      await signup(data as unknown as SignUpData)
+      toast.success('Вы успешно зарегистрировались!')
+      navigate(ROUTES.PROTECTED.PROFILE)
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (

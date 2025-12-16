@@ -3,6 +3,8 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import AppRoutes from './routes/routes'
 import './App.css'
 import { ApplicationLayout, LoadingSpinner } from '@/components'
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
 
 const PageLayout = () => {
   return (
@@ -29,6 +31,7 @@ function App() {
   return (
     <Router>
       <PageLayout />
+      <ToastContainer />
     </Router>
   )
 }
