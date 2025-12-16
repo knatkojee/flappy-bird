@@ -1,12 +1,11 @@
 import styles from './Home.module.css'
-import { Button } from '@/components/common/Button/Button'
 import {
   InfoHeart,
   InfoTrophy,
   InfoUsers,
   InfoZap,
 } from '@/components/common/Icon/Icon'
-import { Link } from 'react-router-dom'
+import ActionsBlock from './subcomponents'
 
 const infoConfig = [
   {
@@ -52,19 +51,6 @@ const playConfig = [
     text: 'Испытайте себя, чтобы побить свой рекорд и занять место в глобальной таблице лидеров. Чем больше вы наберете очков, тем больше славы!',
   },
 ]
-
-const ActionsBlock = () => {
-  return (
-    <div className={styles.actionsBlock}>
-      <Link to="/login">
-        <Button variant="primary">Начинайте играть</Button>
-      </Link>
-      <Link to="/register">
-        <Button variant="outline">Создать аккаунт</Button>
-      </Link>
-    </div>
-  )
-}
 
 const Home = () => {
   return (

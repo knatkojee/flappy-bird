@@ -132,6 +132,10 @@
   background-color: rgba(255, 193, 7, 0.5);
 }
 
+.infoBlockIcon svg {
+  stroke: #cb5300fa;
+}
+
 .infoBlockTitle {
   font-size: var(--font-lg);
   font-weight: 700;
