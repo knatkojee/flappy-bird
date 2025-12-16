@@ -1,0 +1,40 @@
+.container {
+  min-height: calc(100vh - 20rem);
+  padding: var(--spacing-2xl) var(--spacing-md);
+}
+
+.content {
+  max-width: var(--max-width-md);
+  margin: 0 auto;
+}
+
+.card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur));
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow);
+  padding: var(--spacing-lg);
+}
+
+.title {
+  font-size: var(--font-2xl);
+  font-weight: bold;
+  margin-bottom: var(--spacing-lg);
+  color: var(--foreground);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.buttonGroup {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-lg);
+}
+
+.buttonGroup > * {
+  flex: 1;
+}

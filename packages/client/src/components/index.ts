@@ -6,6 +6,7 @@ export { Button } from './common/Button/Button'
 export { Input } from './common/Input/Input'
 export { Label } from './common/Label/Label'
 export { FormField } from './common/FormField/FormField'
+export { SimpleFormField } from './common/SimpleFormField/SimpleFormField'
 export { LoadingSpinner } from './common/LoadingSpinner/LoadingSpinner'
 
 export {

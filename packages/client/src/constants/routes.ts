@@ -8,6 +8,8 @@ export const ROUTES = {
     FORUM: '/forum',
     FORUM_TOPIC: '/forum-topic',
     PROFILE: '/profile',
+    PROFILE_EDIT: '/profile/edit',
+    PASSWORD_EDIT: '/password/edit',
     LEADERBOARD: '/leaderboard',
     GAME: '/game',
   },

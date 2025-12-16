@@ -13,6 +13,8 @@ const Leaderboard = lazy(() => import('@/pages/Leaderboard/Leaderboard'))
 const Login = lazy(() => import('@/pages/Login/Login'))
 const ErrorPage = lazy(() => import('@/pages/ErrorPage/ErrorPage'))
 const Profile = lazy(() => import('@/pages/Profile/Profile'))
+const ProfileEdit = lazy(() => import('@/pages/ProfileEdit/ProfileEdit'))
+const PasswordEdit = lazy(() => import('@/pages/PasswordEdit/PasswordEdit'))
 const Registration = lazy(() => import('@/pages/Registration/Registration'))
 
 export type RouteKeys = keyof typeof ROUTES
@@ -91,6 +93,24 @@ const AppRoutes = () => {
           path={ROUTES.PROTECTED.PROFILE}
           element={
             <PageWithTitle component={Profile} title={PAGE_TITLES.PROFILE} />
+          }
+        />
+        <Route
+          path={ROUTES.PROTECTED.PROFILE_EDIT}
+          element={
+            <PageWithTitle
+              component={ProfileEdit}
+              title={PAGE_TITLES.PROFILE_EDIT}
+            />
+          }
+        />
+        <Route
+          path={ROUTES.PROTECTED.PASSWORD_EDIT}
+          element={
+            <PageWithTitle
+              component={PasswordEdit}
+              title={PAGE_TITLES.PASSWORD_EDIT}
+            />
           }
         />
       </Route>
