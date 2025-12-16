@@ -1,7 +1,6 @@
 .container {
   min-height: calc(100vh - 20rem);
   max-width: var(--max-width-md);
-  max-width: 1152px;
   display: flex;
   flex-direction: column;
   margin: 0 auto;
@@ -111,20 +110,8 @@
 
 /* Блок Info */
 
-.infoWrap4 {
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(4, 1fr);
-    gap: var(--spacing-md);
-  }
-}
-
-.infoWrap3 {
+.infoWrap3Col {
   gap: var(--spacing-2xl);
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-xl);
-  }
 }
 
 .infoBlock {
@@ -181,4 +168,20 @@
   text-align: center;
   font-size: var(--font-lg);
   margin: 0;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    flex-direction: row;
+  }
+
+  .infoWrap4Col {
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--spacing-md);
+  }
+
+  .infoWrap3Col {
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+  }
 }

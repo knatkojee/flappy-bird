@@ -12,26 +12,26 @@ const infoConfig = [
   {
     id: 1,
     icon: <InfoZap />,
-    title: 'Быстро и увлекательно',
-    text: 'Каждая игра проходит в быстром темпе. Сможете ли вы побить свой предыдущий рекорд?',
+    title: 'Увлекательно',
+    text: 'Попробуйте побить свой предыдущий рекорд?',
   },
   {
     id: 2,
     icon: <InfoTrophy />,
-    title: 'Соревнуйтесь по всему миру',
+    title: 'Соревнуйтесь с другими игроками',
     text: 'Бросьте вызов игрокам по всему миру и займите свое место в таблице лидеров.',
   },
   {
     id: 3,
     icon: <InfoUsers />,
     title: 'Сообщество',
-    text: 'Присоединяйтесь к процветающему сообществу игроков и делитесь своими достижениями.',
+    text: 'Присоединяйтесь к сообществу игроков и делитесь своими достижениями.',
   },
   {
     id: 4,
     icon: <InfoHeart />,
     title: 'Бесконечное веселье',
-    text: 'Прост в освоении, но его невозможно освоить. Вас ждет бесконечный игровой процесс.',
+    text: 'Легко в учении - тяжело в бою. Впереди целая бесконечность',
   },
 ]
 
@@ -99,7 +99,7 @@ const Home = () => {
 
       <section className={`${styles.section} ${styles.bgWhite}`}>
         <h2 className={styles.sectionTitle}>Зачем играть в Flappy Bird?</h2>
-        <div className={`${styles.sectionWrap} ${styles.infoWrap4}`}>
+        <div className={`${styles.sectionWrap} ${styles.infoWrap4Col}`}>
           {infoConfig.map(item => (
             <div key={item.id} className={styles.infoBlock}>
               <div className={styles.infoBlockIcon}>{item.icon}</div>
@@ -112,7 +112,7 @@ const Home = () => {
 
       <section className={`${styles.section} ${styles.bgWhite}`}>
         <h2 className={styles.sectionTitle}>Как играть?</h2>
-        <div className={`${styles.sectionWrap} ${styles.infoWrap3}`}>
+        <div className={`${styles.sectionWrap} ${styles.infoWrap3Col}`}>
           {playConfig.map(item => (
             <div key={item.id} className={styles.playBlock}>
               <div className={styles.infoBlockNum}>{item.id}</div>
