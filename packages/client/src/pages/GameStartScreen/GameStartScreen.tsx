@@ -21,22 +21,22 @@ const GameStartScreen: React.FC<GameStartScreenProps> = ({
   const [isExiting, setIsExiting] = useState(false)
 
   useEffect(() => {
-    if (countdown !== null && countdown > 0) {
-      const timer = setTimeout(() => {
+    if (countdown === null) return
+
+    const timer = setTimeout(() => {
+      if (countdown > 0) {
         setCountdown(countdown - 1)
-      }, 1000)
-      return () => clearTimeout(timer)
-    } else if (countdown === 0) {
-      const timer = setTimeout(() => {
+      } else {
         setIsExiting(true)
         setTimeout(() => {
           onStartGame()
           setCountdown(null)
           setIsExiting(false)
         }, 500)
-      }, 1000) // Дайте анимации завершиться
-      return () => clearTimeout(timer)
-    }
+      }
+    }, 1000)
+
+    return () => clearTimeout(timer)
   }, [countdown, onStartGame])
 
   const handleStartClick = () => {
@@ -69,7 +69,6 @@ const GameStartScreen: React.FC<GameStartScreenProps> = ({
             Проведите птичку сквозь трубы и наберите как можно больше очков!
           </p>
 
-          {/* Счетчик обратного отсчета */}
           {countdown !== null && (
             <div className={styles.countdownContainer}>
               <div className={styles.countdownWrapper}>
@@ -88,7 +87,7 @@ const GameStartScreen: React.FC<GameStartScreenProps> = ({
                     cy="50"
                     r="45"
                     style={{
-                      animationDuration: `5s`, // Фиксированная длительность - 5 секунд
+                      animationDuration: `5s`,
                       animationPlayState: countdown > 0 ? 'running' : 'paused',
                     }}
                   />
