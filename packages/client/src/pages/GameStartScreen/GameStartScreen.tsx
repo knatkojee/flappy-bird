@@ -8,8 +8,8 @@ import birdStartImg from '@/assets/images/bird-start.png'
 
 interface GameStartScreenProps {
   isVisible: boolean
-  onStartGame: () => void
-  onBack: () => void
+  onStartGame: VoidFunction
+  onBack: VoidFunction
 }
 
 const GameStartScreen: React.FC<GameStartScreenProps> = ({
@@ -19,24 +19,27 @@ const GameStartScreen: React.FC<GameStartScreenProps> = ({
 }) => {
   const [countdown, setCountdown] = useState<number | null>(null)
   const [isExiting, setIsExiting] = useState(false)
-
   useEffect(() => {
-    if (countdown === null) return
+    if (countdown === null || countdown <= 0) return
 
     const timer = setTimeout(() => {
-      if (countdown > 0) {
-        setCountdown(countdown - 1)
-      } else {
-        setIsExiting(true)
-        setTimeout(() => {
-          onStartGame()
-          setCountdown(null)
-          setIsExiting(false)
-        }, 500)
-      }
+      setCountdown(countdown - 1)
     }, 1000)
 
     return () => clearTimeout(timer)
+  }, [countdown])
+
+  useEffect(() => {
+    if (countdown === 0) {
+      setIsExiting(true)
+      const timer = setTimeout(() => {
+        onStartGame()
+        setCountdown(null)
+        setIsExiting(false)
+      }, 500)
+
+      return () => clearTimeout(timer)
+    }
   }, [countdown, onStartGame])
 
   const handleStartClick = () => {
