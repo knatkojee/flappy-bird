@@ -5,7 +5,7 @@ import styles from './Header.module.css'
 
 export default function Header() {
   const location = useLocation()
-  const isAuthenticated = false // TODO: Replace with actual auth state
+  const isAuthenticated = true // TODO
 
   const isActive = (path: string) => location.pathname === path
 
@@ -48,7 +48,7 @@ export default function Header() {
                 <Button variant="outline">Профиль</Button>
               </Link>
               <Button
-                variant="secondary"
+                variant="outline"
                 onClick={() => {
                   // TODO: Handle logout
                 }}>
