@@ -54,7 +54,7 @@ const Forum = () => {
   }
 
   return (
-    <div className={classes.container}>
+    <section className={classes.container}>
       <h1 className={classes.title}>{PAGE_TITLES.FORUM}</h1>
 
       <Table className={classes.table}>
@@ -100,7 +100,7 @@ const Forum = () => {
           </Button>
         </form>
       )}
-    </div>
+    </section>
   )
 }
 
