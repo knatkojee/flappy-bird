@@ -1,11 +1,12 @@
-import { PAGE_TITLES } from '@/constants/pageTitles'
+import { useState } from 'react'
+
+import { GameOverScreen } from '../GameOverScreen/GameOverScreen'
+import styles from './Game.module.css'
 
 const Game = () => {
-  return (
-    <div>
-      <h1>{PAGE_TITLES.GAME}</h1>
-    </div>
-  )
+  const [endGame, setEndGame] = useState(false)
+
+  return <div className={styles.wrapper}>{endGame && <GameOverScreen />}</div>
 }
 
 export default Game
