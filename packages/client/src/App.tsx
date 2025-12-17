@@ -5,6 +5,7 @@ import './App.css'
 import { ApplicationLayout, LoadingSpinner } from '@/components'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
+import { AuthProvider } from './context/AuthContext'
 
 const PageLayout = () => {
   return (
@@ -30,8 +31,10 @@ function App() {
 
   return (
     <Router>
-      <PageLayout />
-      <ToastContainer />
+      <AuthProvider>
+        <PageLayout />
+        <ToastContainer />
+      </AuthProvider>
     </Router>
   )
 }

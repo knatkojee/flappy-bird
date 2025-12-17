@@ -25,7 +25,7 @@ const Login = () => {
     try {
       await signin(data as unknown as SignInData)
       toast.success('Вы успешно вошли!')
-      navigate(ROUTES.PROTECTED.PROFILE)
+      navigate(ROUTES.PUBLIC.HOME)
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message)

@@ -29,7 +29,7 @@ const Registration = () => {
     try {
       await signup(data as unknown as SignUpData)
       toast.success('Вы успешно зарегистрировались!')
-      navigate(ROUTES.PROTECTED.PROFILE)
+      navigate(ROUTES.PUBLIC.HOME)
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message)

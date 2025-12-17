@@ -4,6 +4,8 @@ import { ROUTES } from '@/constants/routes'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import { PAGE_TITLES } from '@/constants/pageTitles'
 import type { PageWithTitleProps } from './types'
+import { useAuth } from '@/context/AuthContext'
+import { LoadingSpinner } from '@/components'
 
 const Forum = lazy(() => import('@/pages/Forum/Forum'))
 const ForumTopic = lazy(() => import('@/pages/ForumTopic/ForumTopic'))
@@ -27,8 +29,11 @@ const PageWithTitle = <T extends object = object>({
 }
 
 const ProtectedRoute = () => {
-  //   const { isAuthenticated } = useAuth() // TODO: реализовать запрос
-  const isAuthenticated = true
+  const { isAuthenticated, isLoading } = useAuth()
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.PUBLIC.LOGIN} replace />

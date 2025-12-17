@@ -2,10 +2,11 @@ import { Link, useLocation } from 'react-router-dom'
 import { Button } from '@/components'
 import { ROUTES } from '@/constants/routes'
 import styles from './Header.module.css'
+import { useAuth } from '@/context/AuthContext'
 
 export default function Header() {
   const location = useLocation()
-  const isAuthenticated = false // TODO: Replace with actual auth state
+  const { isAuthenticated, logout } = useAuth()
 
   const isActive = (path: string) => location.pathname === path
 
@@ -47,11 +48,7 @@ export default function Header() {
               <Link to={ROUTES.PROTECTED.PROFILE}>
                 <Button variant="outline">Профиль</Button>
               </Link>
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  // TODO: Handle logout
-                }}>
+              <Button variant="secondary" onClick={logout}>
                 Выход
               </Button>
             </>
