@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Button, SimpleFormField } from '@/components'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
+import { changePassword } from '@/api/user'
 import styles from './PasswordEdit.module.css'
 
 export default function PasswordEdit() {
@@ -19,14 +20,35 @@ export default function PasswordEdit() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    if (
+      !formData.currentPassword ||
+      !formData.newPassword ||
+      !formData.confirmPassword
+    ) {
+      setNotification({ type: 'error', message: 'Заполните все поля' })
+      return
+    }
+
     if (formData.newPassword !== formData.confirmPassword) {
       setNotification({ type: 'error', message: 'Пароли не совпадают' })
       return
     }
+
+    if (formData.newPassword.length < 6) {
+      setNotification({
+        type: 'error',
+        message: 'Пароль должен содержать минимум 6 символов',
+      })
+      return
+    }
+
     setIsLoading(true)
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      console.log('Password updated')
+      await changePassword({
+        oldPassword: formData.currentPassword,
+        newPassword: formData.newPassword,
+      })
       setNotification({ type: 'success', message: 'Пароль успешно изменен!' })
       setTimeout(() => navigate(ROUTES.PROTECTED.PROFILE), 1500)
     } catch (error) {
