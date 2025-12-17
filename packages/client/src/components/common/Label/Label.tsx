@@ -1,15 +1,8 @@
 import React from 'react'
 import styles from './Label.module.css'
+import { LabelProps } from '@/types/components'
 
-interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {
-  children: React.ReactNode
-}
-
-export const Label: React.FC<LabelProps> = ({
-  className = '',
-  children,
-  ...props
-}) => {
+export const Label = ({ className = '', children, ...props }: LabelProps) => {
   return (
     <label className={`${styles.label} ${className}`} {...props}>
       {children}

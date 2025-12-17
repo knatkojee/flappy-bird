@@ -1,16 +1,12 @@
 import React from 'react'
 import styles from './TableHeader.module.css'
+import { TableHeaderProps } from '@/types/components'
 
-interface TableHeaderProps
-  extends React.HTMLAttributes<HTMLTableSectionElement> {
-  variant?: 'default' | 'gradient'
-}
-
-export const TableHeader: React.FC<TableHeaderProps> = ({
+export const TableHeader = ({
   className = '',
   variant = 'default',
   ...props
-}) => (
+}: TableHeaderProps) => (
   <thead
     className={`${styles.header} ${
       variant === 'gradient' ? styles.gradient : ''

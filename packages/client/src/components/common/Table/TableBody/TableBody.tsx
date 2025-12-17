@@ -1,11 +1,7 @@
 import React from 'react'
 import styles from './TableBody.module.css'
+import { TableBodyProps } from '@/types/components'
 
-interface TableBodyProps extends React.HTMLAttributes<HTMLTableSectionElement> {
-  className?: string
-}
-
-export const TableBody: React.FC<TableBodyProps> = ({
-  className = '',
-  ...props
-}) => <tbody className={`${styles.body} ${className}`} {...props} />
+export const TableBody = ({ className = '', ...props }: TableBodyProps) => (
+  <tbody className={`${styles.body} ${className}`} {...props} />
+)

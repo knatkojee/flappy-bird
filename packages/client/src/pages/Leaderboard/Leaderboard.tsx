@@ -13,18 +13,8 @@ import {
 import { useState, useMemo } from 'react'
 import styles from './Leaderboard.module.css'
 import { PAGE_TITLES } from '@/constants/pageTitles'
+import { Player, RankedPlayer } from '@/types/pages'
 
-interface Player {
-  username: string
-  score: number
-  gamesPlayed: number
-}
-
-interface RankedPlayer extends Player {
-  rank: number
-}
-
-// Создаём 100 моковых игроков
 const generateMockPlayers = (): Player[] => {
   const names = [
     'SkyFlyer',

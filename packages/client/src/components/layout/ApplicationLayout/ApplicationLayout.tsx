@@ -1,12 +1,11 @@
 import Header from '@/components/layout/Header/Header'
 import Footer from '@/components/layout/Footer/Footer'
 import styles from './ApplicationLayout.module.css'
+import { ApplicationLayoutProps } from '@/types/components'
 
 export default function ApplicationLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: ApplicationLayoutProps) {
   return (
     <div className={styles.appLayout}>
       <Header />

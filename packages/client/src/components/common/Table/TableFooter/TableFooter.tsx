@@ -1,12 +1,7 @@
 import React from 'react'
 import styles from './TableFooter.module.css'
+import { TableFooterProps } from '@/types/components'
 
-interface TableFooterProps
-  extends React.HTMLAttributes<HTMLTableSectionElement> {
-  className?: string
-}
-
-export const TableFooter: React.FC<TableFooterProps> = ({
-  className = '',
-  ...props
-}) => <tfoot className={`${styles.footer} ${className}`} {...props} />
+export const TableFooter = ({ className = '', ...props }: TableFooterProps) => (
+  <tfoot className={`${styles.footer} ${className}`} {...props} />
+)
