@@ -7,7 +7,10 @@ import {
 } from '@/components/common/Avatar/Avatar'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
+import { changeAvatar } from '@/api/user'
+import { BASE_URL } from '@/api/config'
 import styles from './ProfileEdit.module.css'
+import { NotificationType } from '@/types/pages'
 
 export default function ProfileEdit() {
   const navigate = useNavigate()
@@ -19,11 +22,11 @@ export default function ProfileEdit() {
   })
   const [avatar, setAvatar] = useState('/mock_avatar.svg')
   const [previewImage, setPreviewImage] = useState<string | null>(null)
+  const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(false)
-  const [notification, setNotification] = useState<{
-    type: 'success' | 'error'
-    message: string
-  } | null>(null)
+  const [notification, setNotification] = useState<NotificationType | null>(
+    null
+  )
 
   const userInitials = formData.username.slice(0, 2).toUpperCase()
   const currentAvatar = previewImage || avatar
@@ -62,6 +65,7 @@ export default function ProfileEdit() {
         })
         return
       }
+      setAvatarFile(file)
       const reader = new FileReader()
       reader.onload = event => {
         setPreviewImage(event.target?.result as string)
@@ -71,18 +75,27 @@ export default function ProfileEdit() {
   }
 
   const handleSaveAvatar = async () => {
-    if (!previewImage) return
+    if (!avatarFile) return
     setIsLoading(true)
-    await new Promise(resolve => setTimeout(resolve, 1000))
-    setAvatar(previewImage)
-    setPreviewImage(null)
-    setNotification({ type: 'success', message: 'Аватар обновлен!' })
-    if (fileInputRef.current) fileInputRef.current.value = ''
+    try {
+      const user = await changeAvatar(avatarFile)
+      setAvatar(`${BASE_URL}${user.avatar}`)
+      setPreviewImage(null)
+      setAvatarFile(null)
+      setNotification({ type: 'success', message: 'Аватар обновлен!' })
+      if (fileInputRef.current) fileInputRef.current.value = ''
+    } catch (error) {
+      setNotification({
+        type: 'error',
+        message: 'Ошибка при обновлении аватара',
+      })
+    }
     setIsLoading(false)
   }
 
   const handleDiscardChanges = () => {
     setPreviewImage(null)
+    setAvatarFile(null)
     if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
