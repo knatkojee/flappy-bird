@@ -1,13 +1,17 @@
 import { useState } from 'react'
 import classes from './Comment.module.css'
 
-import type { FC } from 'react'
-import type { CommentProps } from './Comment.props'
+type CommentProps = {
+  id: number
+  authorName: string
+  message: string
+  likesCount: number
+}
 
-const Comment: FC<CommentProps> = ({ id, authorName, message, likesCount }) => {
+const Comment = ({ id, authorName, message, likesCount }: CommentProps) => {
   const [liked, setLiked] = useState(false)
 
-  const handleLiked = () => {
+  const handleToggleLiked = () => {
     setLiked(prev => !prev)
   }
 
@@ -16,7 +20,7 @@ const Comment: FC<CommentProps> = ({ id, authorName, message, likesCount }) => {
       <p className={classes.name}>{authorName}</p>
       <p className={classes.message}>{message}</p>
       <button
-        onClick={handleLiked}
+        onClick={handleToggleLiked}
         className={`${classes.like} ${liked ? classes.liked : ''}`}>
         <span className={classes.heart}>♥</span> {likesCount}
       </button>

@@ -29,7 +29,7 @@ const Forum = () => {
   const [showEditor, setShowEditor] = useState(false)
   const [topicName, setTopicName] = useState('')
 
-  const handleShowEditor = () => {
+  const handleToggleEditor = () => {
     setShowEditor(prev => !prev)
   }
 
@@ -83,7 +83,7 @@ const Forum = () => {
         </TableBody>
       </Table>
 
-      <Button onClick={handleShowEditor} className={classes.addForum}>
+      <Button onClick={handleToggleEditor} className={classes.addForum}>
         {!showEditor ? 'Создать топик' : 'Отмена'}
       </Button>
 
