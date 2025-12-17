@@ -21,6 +21,7 @@
   font-weight: bold;
   margin-bottom: var(--spacing-lg);
   color: var(--foreground);
+  text-align: center;
 }
 
 .form {
@@ -37,4 +38,39 @@
 
 .buttonGroup > * {
   flex: 1;
+}
+
+.avatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border);
+}
+
+.avatarActions {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.notification {
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--spacing-lg);
+  text-align: center;
+  font-weight: 500;
+}
+
+.notification.success {
+  background-color: #dcfce7;
+  border: 1px solid #16a34a;
+  color: #15803d;
+}
+
+.notification.error {
+  background-color: #fef2f2;
+  border: 1px solid #dc2626;
+  color: #dc2626;
 }

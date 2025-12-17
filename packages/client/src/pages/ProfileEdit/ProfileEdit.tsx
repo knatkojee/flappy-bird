@@ -1,18 +1,48 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Button, SimpleFormField } from '@/components'
-import { Link } from 'react-router-dom'
+import {
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
+} from '@/components/common/Avatar/Avatar'
+import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import styles from './ProfileEdit.module.css'
 
 export default function ProfileEdit() {
+  const navigate = useNavigate()
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
   const [formData, setFormData] = useState({
     username: 'CloudChaser',
     email: 'cloudchaser@example.com',
   })
+  const [avatar, setAvatar] = useState('/mock_avatar.svg')
+  const [previewImage, setPreviewImage] = useState<string | null>(null)
+  const [isLoading, setIsLoading] = useState(false)
+  const [notification, setNotification] = useState<{
+    type: 'success' | 'error'
+    message: string
+  } | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const userInitials = formData.username.slice(0, 2).toUpperCase()
+  const currentAvatar = previewImage || avatar
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log('Profile updated:', formData)
+    setIsLoading(true)
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      console.log('Profile updated:', formData)
+      setNotification({ type: 'success', message: 'Профиль успешно обновлен!' })
+      setTimeout(() => navigate(ROUTES.PROTECTED.PROFILE), 1500)
+    } catch (error) {
+      setNotification({
+        type: 'error',
+        message: 'Ошибка при обновлении профиля',
+      })
+    }
+    setIsLoading(false)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,17 +52,108 @@ export default function ProfileEdit() {
     }))
   }
 
+  const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      if (!file.type.startsWith('image/')) {
+        setNotification({
+          type: 'error',
+          message: 'Выберите корректный файл изображения',
+        })
+        return
+      }
+      const reader = new FileReader()
+      reader.onload = event => {
+        setPreviewImage(event.target?.result as string)
+      }
+      reader.readAsDataURL(file)
+    }
+  }
+
+  const handleSaveAvatar = async () => {
+    if (!previewImage) return
+    setIsLoading(true)
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    setAvatar(previewImage)
+    setPreviewImage(null)
+    setNotification({ type: 'success', message: 'Аватар обновлен!' })
+    if (fileInputRef.current) fileInputRef.current.value = ''
+    setIsLoading(false)
+  }
+
+  const handleDiscardChanges = () => {
+    setPreviewImage(null)
+    if (fileInputRef.current) fileInputRef.current.value = ''
+  }
+
+  const handleCancel = () => {
+    navigate(ROUTES.PROTECTED.PROFILE)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.card}>
           <h1 className={styles.title}>Редактирование профиля</h1>
 
+          {notification && (
+            <div
+              className={`${styles.notification} ${styles[notification.type]}`}>
+              {notification.message}
+            </div>
+          )}
+
+          <div className={styles.avatarSection}>
+            <Avatar
+              size={160}
+              borderWidth={4}
+              borderColor="var(--bird-yellow)"
+              shadow={true}>
+              <AvatarImage src={currentAvatar} alt={formData.username} />
+              <AvatarFallback fontSize={32}>{userInitials}</AvatarFallback>
+            </Avatar>
+
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleAvatarChange}
+              style={{ display: 'none' }}
+            />
+
+            {previewImage ? (
+              <div className={styles.avatarActions}>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={handleDiscardChanges}
+                  disabled={isLoading}>
+                  Отменить
+                </Button>
+                <Button
+                  variant="primary"
+                  size="sm"
+                  onClick={handleSaveAvatar}
+                  disabled={isLoading}>
+                  {isLoading ? 'Сохранение...' : 'Применить'}
+                </Button>
+              </div>
+            ) : (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => fileInputRef.current?.click()}>
+                Изменить фото
+              </Button>
+            )}
+          </div>
+
           <form onSubmit={handleSubmit} className={styles.form}>
             <SimpleFormField
               label="Имя пользователя"
               type="text"
               name="username"
+              id="username"
               value={formData.username}
               onChange={handleChange}
             />
@@ -41,18 +162,21 @@ export default function ProfileEdit() {
               label="Email"
               type="email"
               name="email"
+              id="email"
               value={formData.email}
               onChange={handleChange}
             />
 
             <div className={styles.buttonGroup}>
-              <Link to={ROUTES.PROTECTED.PROFILE}>
-                <Button variant="outline" style={{ width: '100%' }}>
-                  Отмена
-                </Button>
-              </Link>
-              <Button type="submit" variant="primary">
-                Сохранить
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleCancel}
+                disabled={isLoading}>
+                Отмена
+              </Button>
+              <Button type="submit" variant="primary" disabled={isLoading}>
+                {isLoading ? 'Сохранение...' : 'Сохранить'}
               </Button>
             </div>
           </form>

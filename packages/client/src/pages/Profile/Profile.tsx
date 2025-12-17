@@ -30,7 +30,7 @@ export default function Profile() {
                 borderWidth={4}
                 borderColor="#f59e0b"
                 shadow={true}>
-                <AvatarImage src="mock_avatar.svg" alt={user.username} />
+                <AvatarImage src="/mock_avatar.svg" alt={user.username} />
                 <AvatarFallback fontSize={24}>{userInitials}</AvatarFallback>
               </Avatar>
               <Link to="/profile/edit">

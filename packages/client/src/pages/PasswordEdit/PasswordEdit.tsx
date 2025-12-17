@@ -1,23 +1,38 @@
 import React, { useState } from 'react'
 import { Button, SimpleFormField } from '@/components'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import styles from './PasswordEdit.module.css'
 
 export default function PasswordEdit() {
+  const navigate = useNavigate()
   const [formData, setFormData] = useState({
     currentPassword: '',
     newPassword: '',
     confirmPassword: '',
   })
+  const [isLoading, setIsLoading] = useState(false)
+  const [notification, setNotification] = useState<{
+    type: 'success' | 'error'
+    message: string
+  } | null>(null)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (formData.newPassword !== formData.confirmPassword) {
-      alert('Пароли не совпадают')
+      setNotification({ type: 'error', message: 'Пароли не совпадают' })
       return
     }
-    console.log('Password updated')
+    setIsLoading(true)
+    try {
+      await new Promise(resolve => setTimeout(resolve, 1000))
+      console.log('Password updated')
+      setNotification({ type: 'success', message: 'Пароль успешно изменен!' })
+      setTimeout(() => navigate(ROUTES.PROTECTED.PROFILE), 1500)
+    } catch (error) {
+      setNotification({ type: 'error', message: 'Ошибка при изменении пароля' })
+    }
+    setIsLoading(false)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,17 +42,29 @@ export default function PasswordEdit() {
     }))
   }
 
+  const handleCancel = () => {
+    navigate(ROUTES.PROTECTED.PROFILE)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.content}>
         <div className={styles.card}>
           <h1 className={styles.title}>Изменение пароля</h1>
 
+          {notification && (
+            <div
+              className={`${styles.notification} ${styles[notification.type]}`}>
+              {notification.message}
+            </div>
+          )}
+
           <form onSubmit={handleSubmit} className={styles.form}>
             <SimpleFormField
               label="Текущий пароль"
               type="password"
               name="currentPassword"
+              id="currentPassword"
               value={formData.currentPassword}
               onChange={handleChange}
             />
@@ -46,6 +73,7 @@ export default function PasswordEdit() {
               label="Новый пароль"
               type="password"
               name="newPassword"
+              id="newPassword"
               value={formData.newPassword}
               onChange={handleChange}
             />
@@ -54,18 +82,21 @@ export default function PasswordEdit() {
               label="Подтвердите пароль"
               type="password"
               name="confirmPassword"
+              id="confirmPassword"
               value={formData.confirmPassword}
               onChange={handleChange}
             />
 
             <div className={styles.buttonGroup}>
-              <Link to={ROUTES.PROTECTED.PROFILE}>
-                <Button variant="outline" style={{ width: '100%' }}>
-                  Отмена
-                </Button>
-              </Link>
-              <Button type="submit" variant="primary">
-                Сохранить
+              <Button
+                type="button"
+                variant="outline"
+                onClick={handleCancel}
+                disabled={isLoading}>
+                Отмена
+              </Button>
+              <Button type="submit" variant="primary" disabled={isLoading}>
+                {isLoading ? 'Сохранение...' : 'Сохранить'}
               </Button>
             </div>
           </form>
