@@ -48,7 +48,7 @@ export const Search = ({ className = '' }: { className?: string }) => (
     fill="none"
     stroke="currentColor"
     strokeWidth="2"
-    stroke-linecap="round">
+    strokeLinecap="round">
     <path d={iconPaths.search} />
   </svg>
 )

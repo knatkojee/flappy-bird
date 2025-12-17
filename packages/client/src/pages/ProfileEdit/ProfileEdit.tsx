@@ -7,18 +7,27 @@ import {
 } from '@/components/common/Avatar/Avatar'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
-import { changeAvatar } from '@/api/user'
+import { changeAvatar, updateProfile } from '@/api/user'
 import { BASE_URL } from '@/api/config'
+import { formatPhone, cleanPhone } from '@/utils/phone'
 import styles from './ProfileEdit.module.css'
-import { NotificationType } from '@/types/pages'
+
+export type NotificationType = {
+  type: 'success' | 'error'
+  message: string
+}
 
 export default function ProfileEdit() {
   const navigate = useNavigate()
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [formData, setFormData] = useState({
-    username: 'CloudChaser',
+    first_name: 'Андрей',
+    second_name: 'Крутой',
+    display_name: 'CloudChaser',
+    login: 'CloudChaser',
     email: 'cloudchaser@example.com',
+    phone: formatPhone('98765432109'),
   })
   const [avatar, setAvatar] = useState('/mock_avatar.svg')
   const [previewImage, setPreviewImage] = useState<string | null>(null)
@@ -28,15 +37,17 @@ export default function ProfileEdit() {
     null
   )
 
-  const userInitials = formData.username.slice(0, 2).toUpperCase()
+  const userInitials = formData.display_name.slice(0, 2).toUpperCase()
   const currentAvatar = previewImage || avatar
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     try {
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      console.log('Profile updated:', formData)
+      await updateProfile({
+        ...formData,
+        phone: cleanPhone(formData.phone),
+      })
       setNotification({ type: 'success', message: 'Профиль успешно обновлен!' })
       setTimeout(() => navigate(ROUTES.PROTECTED.PROFILE), 1500)
     } catch (error) {
@@ -49,10 +60,20 @@ export default function ProfileEdit() {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }))
+    const { name, value } = e.target
+
+    if (name === 'phone') {
+      const formatted = formatPhone(value)
+      setFormData(prev => ({
+        ...prev,
+        [name]: formatted,
+      }))
+    } else {
+      setFormData(prev => ({
+        ...prev,
+        [name]: value,
+      }))
+    }
   }
 
   const handleAvatarChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,7 +143,7 @@ export default function ProfileEdit() {
               borderWidth={4}
               borderColor="var(--bird-yellow)"
               shadow={true}>
-              <AvatarImage src={currentAvatar} alt={formData.username} />
+              <AvatarImage src={currentAvatar} alt={formData.display_name} />
               <AvatarFallback fontSize={32}>{userInitials}</AvatarFallback>
             </Avatar>
 
@@ -163,11 +184,38 @@ export default function ProfileEdit() {
 
           <form onSubmit={handleSubmit} className={styles.form}>
             <SimpleFormField
-              label="Имя пользователя"
+              label="Имя"
               type="text"
-              name="username"
-              id="username"
-              value={formData.username}
+              name="first_name"
+              id="first_name"
+              value={formData.first_name}
+              onChange={handleChange}
+            />
+
+            <SimpleFormField
+              label="Фамилия"
+              type="text"
+              name="second_name"
+              id="second_name"
+              value={formData.second_name}
+              onChange={handleChange}
+            />
+
+            <SimpleFormField
+              label="Отображаемое имя"
+              type="text"
+              name="display_name"
+              id="display_name"
+              value={formData.display_name}
+              onChange={handleChange}
+            />
+
+            <SimpleFormField
+              label="Логин"
+              type="text"
+              name="login"
+              id="login"
+              value={formData.login}
               onChange={handleChange}
             />
 
@@ -177,6 +225,15 @@ export default function ProfileEdit() {
               name="email"
               id="email"
               value={formData.email}
+              onChange={handleChange}
+            />
+
+            <SimpleFormField
+              label="Телефон"
+              type="tel"
+              name="phone"
+              id="phone"
+              value={formData.phone}
               onChange={handleChange}
             />
 

@@ -1,5 +1,9 @@
 import { BASE_URL } from './config'
-import { ChangePasswordData, UserResponse } from '@/types/user'
+import {
+  ChangePasswordData,
+  UserResponse,
+  UpdateProfileData,
+} from '@/types/user'
 
 export const changePassword = async (
   data: ChangePasswordData
@@ -30,6 +34,25 @@ export const changeAvatar = async (file: File): Promise<UserResponse> => {
 
   if (!response.ok) {
     throw new Error('Failed to change avatar')
+  }
+
+  return response.json()
+}
+
+export const updateProfile = async (
+  data: UpdateProfileData
+): Promise<UserResponse> => {
+  const response = await fetch(`${BASE_URL}/user/profile`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    credentials: 'include',
+    body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update profile')
   }
 
   return response.json()
