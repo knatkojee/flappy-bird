@@ -1,6 +1,10 @@
 import React from 'react'
 import styles from './Input.module.css'
-import { InputProps } from '@/types/components'
+
+type InputProps = Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> & {
+  size?: 'sm' | 'md' | 'lg'
+  withIcon?: boolean
+}
 
 export const Input = ({
   className = '',

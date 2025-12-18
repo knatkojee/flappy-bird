@@ -13,7 +13,15 @@ import {
 import { useState, useMemo } from 'react'
 import styles from './Leaderboard.module.css'
 import { PAGE_TITLES } from '@/constants/pageTitles'
-import { Player, RankedPlayer } from '@/types/pages'
+type Player = {
+  username: string
+  score: number
+  gamesPlayed: number
+}
+
+type RankedPlayer = Player & {
+  rank: number
+}
 
 const generateMockPlayers = (): Player[] => {
   const names = [

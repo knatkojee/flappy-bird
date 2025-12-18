@@ -1,10 +1,24 @@
 import React from 'react'
 import styles from './Avatar.module.css'
-import {
-  AvatarProps,
-  AvatarImageProps,
-  AvatarFallbackProps,
-} from '@/types/components'
+
+type AvatarProps = {
+  size?: number
+  borderWidth?: number
+  borderColor?: string
+  shadow?: boolean
+  children: React.ReactNode
+}
+
+type AvatarImageProps = {
+  src: string
+  alt: string
+  onError?: () => void
+}
+
+type AvatarFallbackProps = {
+  fontSize?: number
+  children: React.ReactNode
+}
 
 const Avatar = ({
   size = 40,

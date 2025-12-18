@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from './Table.module.css'
-import { TableProps } from '@/types/components'
+
+type TableProps = React.HTMLAttributes<HTMLTableElement> & {
+  className?: string
+}
 
 export const Table = ({ className = '', ...props }: TableProps) => (
   <div className={styles.wrapper}>

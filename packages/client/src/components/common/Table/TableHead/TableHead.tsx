@@ -1,6 +1,10 @@
 import React from 'react'
 import styles from './TableHead.module.css'
-import { TableHeadProps } from '@/types/components'
+
+type TableHeadProps = React.ThHTMLAttributes<HTMLTableCellElement> & {
+  align?: 'left' | 'center' | 'right'
+  responsive?: 'sm' | 'md' | 'lg'
+}
 
 export const TableHead = ({
   className = '',

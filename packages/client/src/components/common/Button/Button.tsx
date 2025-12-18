@@ -1,6 +1,11 @@
 import React from 'react'
 import styles from './Button.module.css'
-import { ButtonProps } from '@/types/components'
+
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
+  variant?: 'default' | 'outline' | 'ghost' | 'primary' | 'secondary'
+  size?: 'sm' | 'md' | 'lg'
+  children: React.ReactNode
+}
 
 export function Button({
   variant = 'default',

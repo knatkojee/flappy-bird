@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from './TableCaption.module.css'
-import { TableCaptionProps } from '@/types/components'
+
+type TableCaptionProps = React.HTMLAttributes<HTMLTableCaptionElement> & {
+  className?: string
+}
 
 export const TableCaption = ({
   className = '',

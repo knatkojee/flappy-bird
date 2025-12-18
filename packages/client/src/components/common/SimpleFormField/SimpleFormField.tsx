@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from './SimpleFormField.module.css'
-import { SimpleFormFieldProps } from '@/types/components'
+
+type SimpleFormFieldProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  label: string
+}
 
 export const SimpleFormField = ({
   label,

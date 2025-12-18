@@ -1,6 +1,10 @@
 import React from 'react'
 import styles from './TableCell.module.css'
-import { TableCellProps } from '@/types/components'
+
+type TableCellProps = React.TdHTMLAttributes<HTMLTableCellElement> & {
+  align?: 'left' | 'center' | 'right'
+  responsive?: 'sm' | 'md' | 'lg'
+}
 
 export const TableCell = ({
   className = '',

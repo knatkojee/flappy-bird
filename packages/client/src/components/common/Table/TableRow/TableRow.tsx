@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from './TableRow.module.css'
-import { TableRowProps } from '@/types/components'
+
+type TableRowProps = React.HTMLAttributes<HTMLTableRowElement> & {
+  variant?: 'default' | 'highlighted' | 'header'
+}
 
 export const TableRow = ({
   className = '',

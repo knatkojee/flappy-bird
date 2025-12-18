@@ -77,14 +77,6 @@
 
 ## Архитектура и соглашения
 
-### Типы
-
-Все типы вынесены в `packages/client/src/types/`:
-- `components.ts` - типы компонентов
-- `pages.ts` - типы страниц
-- `user.ts` - пользовательские типы
-- `index.ts` - реэкспорт всех типов
-
 ### Соглашения
 
 - Используем `type` вместо `interface`
@@ -92,12 +84,11 @@
   ```typescript
   const Button = ({ variant, children }: ButtonProps) => {}
   ```
-- Типы компонентов именуются с суффиксом `Props`
+- Типы компонентов именуются с суффиксом `Props` и находятся в том же файле
 - Файлы компонентов в PascalCase: `Button/Button.tsx`
 - Экспорт компонентов через `index.ts`
 - Импорты через алиас `@/` для `src/`:
   ```typescript
   import { Button } from '@/components'
-  import { UserResponse } from '@/types/user'
   import { ROUTES } from '@/constants/routes'
   ```

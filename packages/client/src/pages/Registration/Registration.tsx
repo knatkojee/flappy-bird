@@ -1,6 +1,7 @@
 import { Button } from '@/components'
 import { FormField } from '@/components/common/FormField/FormField'
 import { User, Mail, Lock } from '@/components/common/Icon/Icon'
+import type { FormEvent } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
@@ -9,7 +10,7 @@ import styles from './Registration.module.css'
 const Registration = () => {
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     const formData = new FormData(e.currentTarget as HTMLFormElement)

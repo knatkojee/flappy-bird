@@ -1,6 +1,9 @@
 import React from 'react'
 import styles from './TableHeader.module.css'
-import { TableHeaderProps } from '@/types/components'
+
+type TableHeaderProps = React.HTMLAttributes<HTMLTableSectionElement> & {
+  variant?: 'default' | 'gradient'
+}
 
 export const TableHeader = ({
   className = '',

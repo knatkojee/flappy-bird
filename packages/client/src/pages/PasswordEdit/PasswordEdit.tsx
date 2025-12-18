@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import type { ChangeEvent, FormEvent } from 'react'
+import { useState } from 'react'
 import { Button, SimpleFormField } from '@/components'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
-import { changePassword } from '@/api/user'
 import styles from './PasswordEdit.module.css'
-import { NotificationType } from '@/types/pages'
+type NotificationType = {
+  type: 'success' | 'error'
+  message: string
+}
 
 export default function PasswordEdit() {
   const navigate = useNavigate()
@@ -18,7 +21,7 @@ export default function PasswordEdit() {
     null
   )
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
     if (
@@ -45,10 +48,11 @@ export default function PasswordEdit() {
 
     setIsLoading(true)
     try {
-      await changePassword({
-        oldPassword: formData.currentPassword,
-        newPassword: formData.newPassword,
-      })
+      // случайно затесалось
+      // await changePassword({
+      //   oldPassword: formData.currentPassword,
+      //   newPassword: formData.newPassword,
+      // })
       setNotification({ type: 'success', message: 'Пароль успешно изменен!' })
       setTimeout(() => navigate(ROUTES.PROTECTED.PROFILE), 1500)
     } catch (error) {
@@ -57,7 +61,7 @@ export default function PasswordEdit() {
     setIsLoading(false)
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value,

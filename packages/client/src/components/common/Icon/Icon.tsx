@@ -1,5 +1,8 @@
 import styles from './Icon.module.css'
-import { IconProps } from '@/types/components'
+
+type IconProps = {
+  className?: string
+}
 
 const iconPaths = {
   user: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
