@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import styles from './Icon.module.css'
 
 type IconProps = {
@@ -13,7 +14,7 @@ const iconPaths = {
 
 export const User = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.icon} ${className}`}
+    className={classNames(styles.icon, className)}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -24,7 +25,7 @@ export const User = ({ className = '' }: IconProps) => (
 
 export const Mail = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.icon} ${className}`}
+    className={classNames(styles.icon, className)}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -35,7 +36,7 @@ export const Mail = ({ className = '' }: IconProps) => (
 
 export const Lock = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.icon} ${className}`}
+    className={classNames(styles.icon, className)}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -46,7 +47,7 @@ export const Lock = ({ className = '' }: IconProps) => (
 
 export const Search = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.iconLarge} ${className}`}
+    className={classNames(styles.iconLarge, className)}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="none"
@@ -59,7 +60,7 @@ export const Search = ({ className = '' }: IconProps) => (
 
 export const Trophy = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.icon} ${className}`}
+    className={classNames(styles.icon, className)}
     viewBox="0 0 128 128"
     fill="none"
     stroke="currentColor"

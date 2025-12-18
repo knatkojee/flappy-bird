@@ -87,6 +87,17 @@
 - Типы компонентов именуются с суффиксом `Props` и находятся в том же файле
 - Файлы компонентов в PascalCase: `Button/Button.tsx`
 - Экспорт компонентов через `index.ts`
+- Для конкатенации CSS-классов используем библиотеку `classnames`:
+  ```typescript
+  import classNames from 'classnames'
+  
+  const classes = classNames(
+    styles.button,
+    styles[variant],
+    { [styles.active]: isActive },
+    className
+  )
+  ```
 - Импорты через алиас `@/` для `src/`:
   ```typescript
   import { Button } from '@/components'

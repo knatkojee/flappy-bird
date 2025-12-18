@@ -7,6 +7,8 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   children: React.ReactNode
 }
 
+import classNames from 'classnames'
+
 export function Button({
   variant = 'default',
   size = 'md',
@@ -14,7 +16,12 @@ export function Button({
   children,
   ...props
 }: ButtonProps) {
-  const classes = `${styles.button} ${styles[variant]} ${styles[size]} ${className}`
+  const classes = classNames(
+    styles.button,
+    styles[variant],
+    styles[size],
+    className
+  )
 
   return (
     <button className={classes} {...props}>

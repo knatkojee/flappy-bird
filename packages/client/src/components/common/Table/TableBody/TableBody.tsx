@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './TableBody.module.css'
 
 type TableBodyProps = React.HTMLAttributes<HTMLTableSectionElement> & {
@@ -6,5 +7,5 @@ type TableBodyProps = React.HTMLAttributes<HTMLTableSectionElement> & {
 }
 
 export const TableBody = ({ className = '', ...props }: TableBodyProps) => (
-  <tbody className={`${styles.body} ${className}`} {...props} />
+  <tbody className={classNames(styles.body, className)} {...props} />
 )

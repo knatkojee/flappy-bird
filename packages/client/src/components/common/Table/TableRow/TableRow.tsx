@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './TableRow.module.css'
 
 type TableRowProps = React.HTMLAttributes<HTMLTableRowElement> & {
@@ -11,9 +12,12 @@ export const TableRow = ({
   ...props
 }: TableRowProps) => (
   <tr
-    className={`${styles.row} ${
-      variant === 'highlighted' ? styles.highlighted : ''
-    } ${variant === 'header' ? styles.headerRow : ''} ${className}`}
+    className={classNames(
+      styles.row,
+      { [styles.highlighted]: variant === 'highlighted' },
+      { [styles.headerRow]: variant === 'header' },
+      className
+    )}
     {...props}
   />
 )

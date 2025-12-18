@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './Table.module.css'
 
 type TableProps = React.HTMLAttributes<HTMLTableElement> & {
@@ -7,6 +8,6 @@ type TableProps = React.HTMLAttributes<HTMLTableElement> & {
 
 export const Table = ({ className = '', ...props }: TableProps) => (
   <div className={styles.wrapper}>
-    <table className={`${styles.table} ${className}`} {...props} />
+    <table className={classNames(styles.table, className)} {...props} />
   </div>
 )
