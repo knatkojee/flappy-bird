@@ -1,4 +1,3 @@
-import classNames from 'classnames'
 import styles from '../GameStartScreen.module.css'
 
 export const Tips = () => (
