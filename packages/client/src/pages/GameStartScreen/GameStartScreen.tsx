@@ -1,23 +1,25 @@
 import React, { useState, useEffect } from 'react'
+import classNames from 'classnames'
 import styles from './GameStartScreen.module.css'
 import { Button } from '@/components/common/Button/Button'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
-import { CountLoader, Tips } from './subcomponents'
+import { CountLoader } from './CountLoader/CountLoader'
+import { Tips } from './Tips/Tips'
 
 import birdStartImg from '@/assets/images/bird-start.png'
 
-interface GameStartScreenProps {
+type GameStartScreenProps = {
   isVisible: boolean
   onStartGame: VoidFunction
   onBack: VoidFunction
 }
 
-const GameStartScreen: React.FC<GameStartScreenProps> = ({
+const GameStartScreen = ({
   isVisible,
   onStartGame,
   onBack,
-}) => {
+}: GameStartScreenProps) => {
   const [countdown, setCountdown] = useState<number | null>(null)
   const [isExiting, setIsExiting] = useState(false)
   useEffect(() => {
@@ -57,10 +59,10 @@ const GameStartScreen: React.FC<GameStartScreenProps> = ({
 
   if (!isVisible && !isExiting) return null
 
-  const overlayStyles = `${styles.overlay} ${isExiting ? styles.exit : ''}`
-  const containerStyles = `${styles.container} ${
-    isExiting ? styles.containerExit : ''
-  }`
+  const overlayStyles = classNames(styles.overlay, { [styles.exit]: isExiting })
+  const containerStyles = classNames(styles.container, {
+    [styles.containerExit]: isExiting,
+  })
 
   return (
     <div className={overlayStyles}>

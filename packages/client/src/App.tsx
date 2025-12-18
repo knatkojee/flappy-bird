@@ -4,7 +4,7 @@ import AppRoutes from './routes/routes'
 import './App.css'
 import { ApplicationLayout, LoadingSpinner } from '@/components'
 
-const PageLayout: React.FC = () => {
+const PageLayout = () => {
   return (
     <ApplicationLayout>
       <Suspense fallback={<LoadingSpinner />}>

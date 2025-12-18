@@ -1,8 +1,10 @@
-import styles from './GameStartScreen.module.css'
+import styles from '../GameStartScreen.module.css'
 
-type TCountLoader = { countdown: number }
+type CountLoaderProps = {
+  countdown: number
+}
 
-export const CountLoader = ({ countdown }: TCountLoader) => (
+export const CountLoader = ({ countdown }: CountLoaderProps) => (
   <div className={styles.countdownContainer}>
     <div className={styles.countdownWrapper}>
       <div className={styles.countdownNumber}>{countdown}</div>
@@ -25,22 +27,6 @@ export const CountLoader = ({ countdown }: TCountLoader) => (
           }}
         />
       </svg>
-    </div>
-  </div>
-)
-
-export const Tips = () => (
-  <div className={styles.tips}>
-    <div className={styles.tip}>
-      <span className={styles.tipIcon}>💡</span>
-      <span>Нажимайте пробел или кликайте мышкой, чтобы подняться выше</span>
-    </div>
-    <div className={styles.tip}>
-      <span className={styles.tipIcon}>🏆</span>
-      <span>
-        Каждая пройденная труба ={' '}
-        <span className={styles.tipSelect}>+1 очко</span>
-      </span>
     </div>
   </div>
 )

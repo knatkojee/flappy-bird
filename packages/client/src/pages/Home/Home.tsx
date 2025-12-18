@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import styles from './Home.module.css'
 import {
   InfoHeart,
@@ -5,7 +6,7 @@ import {
   InfoUsers,
   InfoZap,
 } from '@/components/common/Icon/Icon'
-import ActionsBlock from './subcomponents'
+import ActionsBlock from './ActionsBlock/ActionsBlock'
 
 const infoConfig = [
   {
@@ -57,7 +58,11 @@ const Home = () => {
     <div className={styles.container}>
       <section className={styles.hero}>
         <div
-          className={`${styles.section} ${styles.heroLeft} ${styles.bgWhite}`}>
+          className={classNames(
+            styles.section,
+            styles.heroLeft,
+            styles.bgWhite
+          )}>
           <div className={styles.heroLeftIcon}>🐦</div>
           <div className={styles.heroLeftTitle}>Готовы к полету?</div>
           <p className={styles.heroLeftSubtitle}>
@@ -83,9 +88,9 @@ const Home = () => {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.bgWhite}`}>
+      <section className={classNames(styles.section, styles.bgWhite)}>
         <h2 className={styles.sectionTitle}>Зачем играть в Flappy Bird?</h2>
-        <div className={`${styles.sectionWrap} ${styles.infoWrap4Col}`}>
+        <div className={classNames(styles.sectionWrap, styles.infoWrap4Col)}>
           {infoConfig.map(item => (
             <div key={item.id} className={styles.infoBlock}>
               <div className={styles.infoBlockIcon}>{item.icon}</div>
@@ -96,9 +101,9 @@ const Home = () => {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.bgWhite}`}>
+      <section className={classNames(styles.section, styles.bgWhite)}>
         <h2 className={styles.sectionTitle}>Как играть?</h2>
-        <div className={`${styles.sectionWrap} ${styles.infoWrap3Col}`}>
+        <div className={classNames(styles.sectionWrap, styles.infoWrap3Col)}>
           {playConfig.map(item => (
             <div key={item.id} className={styles.playBlock}>
               <div className={styles.infoBlockNum}>{item.id}</div>
@@ -109,7 +114,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className={`${styles.section} ${styles.bgGradient}`}>
+      <section className={classNames(styles.section, styles.bgGradient)}>
         <h2 className={styles.sectionTitle}>Готовы к полету?</h2>
         <div className={styles.offerWrap}>
           <p className={styles.offerText}>

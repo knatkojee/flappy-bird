@@ -1,21 +1,25 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './TableCell.module.css'
 
-interface TableCellProps extends React.TdHTMLAttributes<HTMLTableCellElement> {
+type TableCellProps = React.TdHTMLAttributes<HTMLTableCellElement> & {
   align?: 'left' | 'center' | 'right'
   responsive?: 'sm' | 'md' | 'lg'
 }
 
-export const TableCell: React.FC<TableCellProps> = ({
+export const TableCell = ({
   className = '',
   align = 'left',
   responsive,
   ...props
-}) => (
+}: TableCellProps) => (
   <td
-    className={`${styles.cell} ${styles[align]} ${
-      responsive ? styles[`hidden-${responsive}`] : ''
-    } ${className}`}
+    className={classNames(
+      styles.cell,
+      styles[align],
+      { [styles[`hidden-${responsive}`]]: responsive },
+      className
+    )}
     {...props}
   />
 )
