@@ -14,20 +14,37 @@ const Registration = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const formData = new FormData(e.currentTarget as HTMLFormElement)
-    const data = Object.fromEntries(formData.entries())
+    const formData = new FormData(e.currentTarget)
+    const {
+      first_name,
+      second_name,
+      login,
+      email,
+      password,
+      passwordConfirm,
+      phone,
+    } = Object.fromEntries(formData.entries())
 
-    if (data.password !== data.passwordConfirm) {
+    if (password !== passwordConfirm) {
       toast.error('Пароли не совпадают')
       return
     }
 
+    const signUpData: SignUpData = {
+      first_name: String(first_name),
+      second_name: String(second_name),
+      login: String(login),
+      email: String(email),
+      password: String(password),
+      phone: String(phone),
+    }
+
     setIsLoading(true)
     try {
-      await signup(data as unknown as SignUpData)
+      await signup(signUpData)
       toast.success('Вы успешно зарегистрировались!')
       navigate(ROUTES.PUBLIC.HOME)
     } catch (error) {

@@ -2,7 +2,7 @@ import apiInstance from './index'
 import { AxiosError } from 'axios'
 import { SignUpData, SignInData, User } from '@/types/auth'
 
-interface ErrorResponse {
+type ErrorResponse = {
   reason: string
 }
 

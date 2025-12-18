@@ -4,7 +4,8 @@ import { ROUTES } from '@/constants/routes'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import { PAGE_TITLES } from '@/constants/pageTitles'
 import type { PageWithTitleProps } from './types'
-import { useAuth } from '@/context/AuthContext'
+import { useSelector } from 'react-redux'
+import type { RootState } from '@/store'
 import { LoadingSpinner } from '@/components'
 
 const Forum = lazy(() => import('@/pages/Forum/Forum'))
@@ -29,7 +30,9 @@ const PageWithTitle = <T extends object = object>({
 }
 
 const ProtectedRoute = () => {
-  const { isAuthenticated, isLoading } = useAuth()
+  const { isAuthenticated, isLoading } = useSelector(
+    (state: RootState) => state.auth
+  )
 
   if (isLoading) {
     return <LoadingSpinner />

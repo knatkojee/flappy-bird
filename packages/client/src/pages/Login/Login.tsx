@@ -10,20 +10,29 @@ import styles from './Login.module.css'
 import { signin } from '@/api/auth'
 import { SignInData } from '@/types/auth'
 import { toast } from 'react-toastify'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { fetchUser } from '@/store/authSlice'
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const formData = new FormData(e.currentTarget as HTMLFormElement)
-    const data = Object.fromEntries(formData.entries())
+    const formData = new FormData(e.currentTarget)
+    const { login, password } = Object.fromEntries(formData.entries())
+
+    const signInData: SignInData = {
+      login: String(login),
+      password: String(password),
+    }
 
     setIsLoading(true)
     try {
-      await signin(data as unknown as SignInData)
+      await signin(signInData)
+      await dispatch(fetchUser())
       toast.success('Вы успешно вошли!')
       navigate(ROUTES.PUBLIC.HOME)
     } catch (error) {
