@@ -3,7 +3,7 @@ import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import { PAGE_TITLES } from '@/constants/pageTitles'
-import { PageWithTitleProps } from './types'
+import type { PageWithTitleProps } from './types'
 
 const Forum = lazy(() => import('@/pages/Forum/Forum'))
 const ForumTopic = lazy(() => import('@/pages/ForumTopic/ForumTopic'))

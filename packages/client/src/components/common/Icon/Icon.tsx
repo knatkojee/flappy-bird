@@ -1,4 +1,9 @@
+import classNames from 'classnames'
 import styles from './Icon.module.css'
+
+type IconProps = {
+  className?: string
+}
 
 const iconPaths = {
   user: 'M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 3a4 4 0 1 0 0 8 4 4 0 0 0 0-8z',
@@ -7,9 +12,9 @@ const iconPaths = {
   search: 'm21 21l-4.486-4.494M19 10.5a8.5 8.5 0 1 1-17 0a8.5 8.5 0 0 1 17 0Z',
 }
 
-export const User = ({ className = '' }: { className?: string }) => (
+export const User = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.icon} ${className}`}
+    className={classNames(styles.icon, className)}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -18,9 +23,9 @@ export const User = ({ className = '' }: { className?: string }) => (
   </svg>
 )
 
-export const Mail = ({ className = '' }: { className?: string }) => (
+export const Mail = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.icon} ${className}`}
+    className={classNames(styles.icon, className)}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -29,9 +34,9 @@ export const Mail = ({ className = '' }: { className?: string }) => (
   </svg>
 )
 
-export const Lock = ({ className = '' }: { className?: string }) => (
+export const Lock = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.icon} ${className}`}
+    className={classNames(styles.icon, className)}
     viewBox="0 0 24 24"
     fill="none"
     stroke="currentColor"
@@ -40,9 +45,9 @@ export const Lock = ({ className = '' }: { className?: string }) => (
   </svg>
 )
 
-export const Search = ({ className = '' }: { className?: string }) => (
+export const Search = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.iconLarge} ${className}`}
+    className={classNames(styles.iconLarge, className)}
     xmlns="http://www.w3.org/2000/svg"
     viewBox="0 0 24 24"
     fill="none"
@@ -53,9 +58,9 @@ export const Search = ({ className = '' }: { className?: string }) => (
   </svg>
 )
 
-export const Trophy = ({ className = '' }: { className?: string }) => (
+export const Trophy = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.icon} ${className}`}
+    className={classNames(styles.icon, className)}
     viewBox="0 0 128 128"
     fill="none"
     stroke="currentColor"
@@ -96,5 +101,77 @@ export const Trophy = ({ className = '' }: { className?: string }) => (
       fill="#FCC219"
       d="M55.59 105.93c-1.13-.05-2.43.18-2.48 1.58s-.05 5.45-.05 6.22c0 .77.63 1.44 2.21 1.49c1.58.05 16.41 0 17.45 0c1.04 0 1.58-.9 1.62-1.8c.05-.9-.05-4.69-.05-5.72c0-1.71-1.53-1.71-2.57-1.71c-1.12-.02-16.13-.06-16.13-.06"
     />
+  </svg>
+)
+
+export const InfoTrophy = ({ className = '' }: IconProps) => (
+  <svg
+    className={classNames(styles.iconLarge, className)}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round">
+    <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+    <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+    <path d="M4 22h16" />
+    <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+    <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+    <path strokeLinecap="round" d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+  </svg>
+)
+
+export const InfoZap = ({ className = '' }: IconProps) => (
+  <svg
+    className={classNames(styles.iconLarge, className)}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round">
+    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+  </svg>
+)
+
+export const InfoUsers = ({ className = '' }: IconProps) => (
+  <svg
+    className={classNames(styles.iconLarge, className)}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round">
+    <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+    <circle cx="9" cy="7" r="4" />
+    <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+  </svg>
+)
+
+export const InfoHeart = ({ className = '' }: IconProps) => (
+  <svg
+    className={classNames(styles.iconLarge, className)}
+    xmlns="http://www.w3.org/2000/svg"
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round">
+    <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
   </svg>
 )

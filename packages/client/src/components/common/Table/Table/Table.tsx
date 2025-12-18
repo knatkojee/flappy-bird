@@ -1,12 +1,13 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './Table.module.css'
 
-interface TableProps extends React.HTMLAttributes<HTMLTableElement> {
+type TableProps = React.HTMLAttributes<HTMLTableElement> & {
   className?: string
 }
 
-export const Table: React.FC<TableProps> = ({ className = '', ...props }) => (
+export const Table = ({ className = '', ...props }: TableProps) => (
   <div className={styles.wrapper}>
-    <table className={`${styles.table} ${className}`} {...props} />
+    <table className={classNames(styles.table, className)} {...props} />
   </div>
 )

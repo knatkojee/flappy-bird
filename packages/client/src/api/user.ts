@@ -1,5 +1,5 @@
 import { BASE_URL } from './config'
-import {
+import type {
   ChangePasswordData,
   UserResponse,
   UpdateProfileData,

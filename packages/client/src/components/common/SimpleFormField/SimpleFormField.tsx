@@ -1,16 +1,15 @@
-import React from 'react'
+import type { InputHTMLAttributes } from 'react'
 import styles from './SimpleFormField.module.css'
 
-interface SimpleFormFieldProps
-  extends React.InputHTMLAttributes<HTMLInputElement> {
+type SimpleFormFieldProps = InputHTMLAttributes<HTMLInputElement> & {
   label: string
 }
 
-export const SimpleFormField: React.FC<SimpleFormFieldProps> = ({
+export const SimpleFormField = ({
   label,
   id,
   ...inputProps
-}) => {
+}: SimpleFormFieldProps) => {
   return (
     <div className={styles.fieldGroup}>
       <label htmlFor={id} className={styles.label}>

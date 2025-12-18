@@ -1,32 +1,32 @@
-import React from 'react'
+import type { ReactNode } from 'react'
 import styles from './Avatar.module.css'
 
-interface AvatarProps {
+type AvatarProps = {
   size?: number
   borderWidth?: number
   borderColor?: string
   shadow?: boolean
-  children: React.ReactNode
+  children: ReactNode
 }
 
-interface AvatarImageProps {
+type AvatarImageProps = {
   src: string
   alt: string
-  onError?: () => void
+  onError?: VoidFunction
 }
 
-interface AvatarFallbackProps {
+type AvatarFallbackProps = {
   fontSize?: number
-  children: React.ReactNode
+  children: ReactNode
 }
 
-const Avatar: React.FC<AvatarProps> = ({
+const Avatar = ({
   size = 40,
   borderWidth = 0,
   borderColor = 'transparent',
   shadow = false,
   children,
-}) => (
+}: AvatarProps) => (
   <div
     className={styles.avatar}
     style={{
@@ -41,14 +41,11 @@ const Avatar: React.FC<AvatarProps> = ({
   </div>
 )
 
-const AvatarImage: React.FC<AvatarImageProps> = ({ src, alt, onError }) => (
+const AvatarImage = ({ src, alt, onError }: AvatarImageProps) => (
   <img className={styles.avatarImage} src={src} alt={alt} onError={onError} />
 )
 
-const AvatarFallback: React.FC<AvatarFallbackProps> = ({
-  fontSize = 16,
-  children,
-}) => (
+const AvatarFallback = ({ fontSize = 16, children }: AvatarFallbackProps) => (
   <div className={styles.avatarFallback} style={{ fontSize }}>
     {children}
   </div>
