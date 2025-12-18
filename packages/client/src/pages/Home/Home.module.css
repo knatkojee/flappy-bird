@@ -1,6 +1,6 @@
 .container {
   min-height: calc(100vh - 20rem);
-  max-width: var(--max-width-md);
+  max-width: var(--max-width);
   display: flex;
   flex-direction: column;
   margin: 0 auto;
