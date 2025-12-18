@@ -3,6 +3,7 @@ import styles from './GameStartScreen.module.css'
 import { Button } from '@/components/common/Button/Button'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
+import { CountLoader, Tips } from './subcomponents'
 
 import birdStartImg from '@/assets/images/bird-start.png'
 
@@ -72,76 +73,38 @@ const GameStartScreen: React.FC<GameStartScreenProps> = ({
             Проведите птичку сквозь трубы и наберите как можно больше очков!
           </p>
 
-          {countdown !== null && (
-            <div className={styles.countdownContainer}>
-              <div className={styles.countdownWrapper}>
-                <div className={styles.countdownNumber}>{countdown}</div>
-                <div className={styles.countdownGlow}></div>
-                <div className={styles.countdownPulse}></div>
-                <div className={styles.countdownText}>
-                  {countdown === 0 ? 'Поехали!' : 'Начинаем через...'}
-                </div>
-              </div>
-              <div className={styles.countdownRing}>
-                <svg className={styles.countdownSvg} viewBox="0 0 100 100">
-                  <circle
-                    className={styles.countdownCircle}
-                    cx="50"
-                    cy="50"
-                    r="45"
-                    style={{
-                      animationDuration: `5s`,
-                      animationPlayState: countdown > 0 ? 'running' : 'paused',
-                    }}
-                  />
-                </svg>
-              </div>
-            </div>
-          )}
+          {countdown !== null && <CountLoader countdown={countdown} />}
 
           {countdown === null && (
-            <div className={styles.buttonsContainer}>
-              <Button
-                variant="primary"
-                onClick={handleStartClick}
-                className={styles.startButton}>
-                <span className={styles.buttonContent}>
-                  <span className={styles.buttonIcon}>🎮</span>
-                  <span>Начать игру</span>
-                </span>
-              </Button>
-
-              <Link to={ROUTES.PUBLIC.HOME} className={styles.backLink}>
+            <>
+              <div className={styles.buttonsContainer}>
                 <Button
-                  variant="outline"
-                  onClick={handleBackClick}
-                  className={styles.backButton}>
+                  variant="primary"
+                  onClick={handleStartClick}
+                  className={styles.startButton}>
                   <span className={styles.buttonContent}>
-                    <span className={styles.buttonIcon}>←</span>
-                    <span>Вернуться на главную</span>
+                    <span className={styles.buttonIcon}>🎮</span>
+                    <span>Начать игру</span>
                   </span>
                 </Button>
-              </Link>
-            </div>
+
+                <Link to={ROUTES.PUBLIC.HOME} className={styles.backLink}>
+                  <Button
+                    variant="outline"
+                    onClick={handleBackClick}
+                    className={styles.backButton}>
+                    <span className={styles.buttonContent}>
+                      <span className={styles.buttonIcon}>←</span>
+                      <span>Вернуться на главную</span>
+                    </span>
+                  </Button>
+                </Link>
+              </div>
+              <Tips />
+            </>
           )}
 
-          {countdown === null && (
-            <div className={styles.tips}>
-              <div className={styles.tip}>
-                <span className={styles.tipIcon}>💡</span>
-                <span>
-                  Нажимайте пробел или кликайте мышкой, чтобы подняться выше
-                </span>
-              </div>
-              <div className={styles.tip}>
-                <span className={styles.tipIcon}>🏆</span>
-                <span>
-                  Каждая пройденная труба ={' '}
-                  <span className={styles.tipSelect}>+1 очко</span>
-                </span>
-              </div>
-            </div>
-          )}
+          {/* {countdown === null && <Tips />} */}
         </div>
       </div>
     </div>
