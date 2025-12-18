@@ -5,7 +5,7 @@ import './App.css'
 import { ApplicationLayout, LoadingSpinner } from '@/components'
 import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary'
 
-const PageLayout: React.FC = () => {
+const PageLayout = () => {
   return (
     <ApplicationLayout>
       <Suspense fallback={<LoadingSpinner />}>

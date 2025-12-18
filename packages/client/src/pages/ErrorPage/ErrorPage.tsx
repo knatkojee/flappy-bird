@@ -2,7 +2,11 @@ import { PAGE_TITLES } from '@/constants/pageTitles'
 import styles from './ErrorPage.module.css'
 import birdImg from '@/assets/images/bird-dead.webp'
 
-const ErrorPage: React.FC<{ error: '404' | '500' }> = ({ error }) => {
+type ErrorPageProps = {
+  error: '404' | '500'
+}
+
+const ErrorPage = ({ error }: ErrorPageProps) => {
   const title =
     error === '404' ? PAGE_TITLES.NOT_FOUND : PAGE_TITLES.SERVER_ERROR
   const subTitle =

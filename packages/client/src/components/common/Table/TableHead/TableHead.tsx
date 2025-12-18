@@ -1,21 +1,25 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './TableHead.module.css'
 
-interface TableHeadProps extends React.ThHTMLAttributes<HTMLTableCellElement> {
+type TableHeadProps = React.ThHTMLAttributes<HTMLTableCellElement> & {
   align?: 'left' | 'center' | 'right'
   responsive?: 'sm' | 'md' | 'lg'
 }
 
-export const TableHead: React.FC<TableHeadProps> = ({
+export const TableHead = ({
   className = '',
   align = 'left',
   responsive,
   ...props
-}) => (
+}: TableHeadProps) => (
   <th
-    className={`${styles.head} ${styles[align]} ${
-      responsive ? styles[`hidden-${responsive}`] : ''
-    } ${className}`}
+    className={classNames(
+      styles.head,
+      styles[align],
+      { [styles[`hidden-${responsive}`]]: responsive },
+      className
+    )}
     {...props}
   />
 )

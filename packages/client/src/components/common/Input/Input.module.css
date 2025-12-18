@@ -52,7 +52,7 @@
 }
 
 .withIcon {
-  width: 100%;
+  width: calc(100% - 50px);
   padding-left: 40px;
 }
 
