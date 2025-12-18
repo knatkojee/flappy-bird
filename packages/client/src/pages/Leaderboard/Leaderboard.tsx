@@ -1,3 +1,4 @@
+import classNames from 'classnames'
 import {
   Input,
   Search,
@@ -123,14 +124,15 @@ export default function Leaderboard() {
             <div className={styles.statEmoji}>{stat.emoji}</div>
             <p className={styles.statLabel}>{stat.label}</p>
             <p
-              className={`${styles.statValue} ${
+              className={classNames(
+                styles.statValue,
                 styles[
                   `statValue${
                     stat.valueColor.charAt(0).toUpperCase() +
                     stat.valueColor.slice(1)
                   }`
                 ]
-              }`}>
+              )}>
               {stat.getValue()}
             </p>
             {stat.getAuthor && (

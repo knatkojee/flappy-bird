@@ -1,5 +1,6 @@
 import type { ChangeEvent, FormEvent } from 'react'
 import { useState } from 'react'
+import classNames from 'classnames'
 import { Button, SimpleFormField } from '@/components'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
@@ -80,7 +81,10 @@ export default function PasswordEdit() {
 
           {notification && (
             <div
-              className={`${styles.notification} ${styles[notification.type]}`}>
+              className={classNames(
+                styles.notification,
+                styles[notification.type]
+              )}>
               {notification.message}
             </div>
           )}

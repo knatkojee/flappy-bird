@@ -106,7 +106,7 @@ export const Trophy = ({ className = '' }: IconProps) => (
 
 export const InfoTrophy = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.iconLarge} ${className}`}
+    className={classNames(styles.iconLarge, className)}
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -127,7 +127,7 @@ export const InfoTrophy = ({ className = '' }: IconProps) => (
 
 export const InfoZap = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.iconLarge} ${className}`}
+    className={classNames(styles.iconLarge, className)}
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -143,7 +143,7 @@ export const InfoZap = ({ className = '' }: IconProps) => (
 
 export const InfoUsers = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.iconLarge} ${className}`}
+    className={classNames(styles.iconLarge, className)}
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"
@@ -162,7 +162,7 @@ export const InfoUsers = ({ className = '' }: IconProps) => (
 
 export const InfoHeart = ({ className = '' }: IconProps) => (
   <svg
-    className={`${styles.iconLarge} ${className}`}
+    className={classNames(styles.iconLarge, className)}
     xmlns="http://www.w3.org/2000/svg"
     width="24"
     height="24"

@@ -1,4 +1,5 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './TableFooter.module.css'
 
 type TableFooterProps = React.HTMLAttributes<HTMLTableSectionElement> & {
@@ -6,5 +7,5 @@ type TableFooterProps = React.HTMLAttributes<HTMLTableSectionElement> & {
 }
 
 export const TableFooter = ({ className = '', ...props }: TableFooterProps) => (
-  <tfoot className={`${styles.footer} ${className}`} {...props} />
+  <tfoot className={classNames(styles.footer, className)} {...props} />
 )
