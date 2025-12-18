@@ -12,7 +12,7 @@ type AvatarProps = {
 type AvatarImageProps = {
   src: string
   alt: string
-  onError?: () => void
+  onError?: VoidFunction
 }
 
 type AvatarFallbackProps = {
