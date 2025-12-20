@@ -3,7 +3,7 @@ import styles from './Footer.module.css'
 import { ROUTES } from '@/constants/routes'
 
 export default function Footer() {
-  const isAuthenticated = true // TODO
+  const isAuthenticated = true // TODO заменить на логику аутентификации
 
   return (
     <footer className={styles.footer}>

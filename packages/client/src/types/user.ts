@@ -1,4 +1,4 @@
-export interface UserResponse {
+export type UserResponse = {
   id: number
   first_name: string
   second_name: string
@@ -9,12 +9,12 @@ export interface UserResponse {
   email: string
 }
 
-export interface ChangePasswordData {
+export type ChangePasswordData = {
   oldPassword: string
   newPassword: string
 }
 
-export interface UpdateProfileData {
+export type UpdateProfileData = {
   first_name: string
   second_name: string
   display_name: string

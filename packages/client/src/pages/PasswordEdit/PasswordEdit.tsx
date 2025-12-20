@@ -53,8 +53,9 @@ export default function PasswordEdit() {
       setTimeout(() => navigate(ROUTES.PROTECTED.PROFILE), 1500)
     } catch (error) {
       setNotification({ type: 'error', message: 'Ошибка при изменении пароля' })
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

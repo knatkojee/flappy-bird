@@ -5,7 +5,7 @@ import styles from './Header.module.css'
 
 export default function Header() {
   const location = useLocation()
-  const isAuthenticated = true // TODO
+  const isAuthenticated = true // TODO заменить на логику аутентификации
 
   const isActive = (path: string) => location.pathname === path
 

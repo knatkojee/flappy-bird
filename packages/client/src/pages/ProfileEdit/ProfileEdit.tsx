@@ -55,8 +55,9 @@ export default function ProfileEdit() {
         type: 'error',
         message: 'Ошибка при обновлении профиля',
       })
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -110,8 +111,9 @@ export default function ProfileEdit() {
         type: 'error',
         message: 'Ошибка при обновлении аватара',
       })
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
   const handleDiscardChanges = () => {
