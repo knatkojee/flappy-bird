@@ -1,0 +1,27 @@
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.label {
+  font-weight: 500;
+  color: var(--foreground);
+  font-size: var(--font-md);
+}
+
+.input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font-size: var(--font-md);
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--ring-color);
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}

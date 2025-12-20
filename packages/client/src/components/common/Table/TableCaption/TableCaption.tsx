@@ -1,12 +1,14 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './TableCaption.module.css'
 
-interface TableCaptionProps
-  extends React.HTMLAttributes<HTMLTableCaptionElement> {
+type TableCaptionProps = React.HTMLAttributes<HTMLTableCaptionElement> & {
   className?: string
 }
 
-export const TableCaption: React.FC<TableCaptionProps> = ({
+export const TableCaption = ({
   className = '',
   ...props
-}) => <caption className={`${styles.caption} ${className}`} {...props} />
+}: TableCaptionProps) => (
+  <caption className={classNames(styles.caption, className)} {...props} />
+)

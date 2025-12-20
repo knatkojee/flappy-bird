@@ -1,19 +1,23 @@
 import React from 'react'
+import classNames from 'classnames'
 import styles from './TableRow.module.css'
 
-interface TableRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
+type TableRowProps = React.HTMLAttributes<HTMLTableRowElement> & {
   variant?: 'default' | 'highlighted' | 'header'
 }
 
-export const TableRow: React.FC<TableRowProps> = ({
+export const TableRow = ({
   className = '',
   variant = 'default',
   ...props
-}) => (
+}: TableRowProps) => (
   <tr
-    className={`${styles.row} ${
-      variant === 'highlighted' ? styles.highlighted : ''
-    } ${variant === 'header' ? styles.headerRow : ''} ${className}`}
+    className={classNames(
+      styles.row,
+      { [styles.highlighted]: variant === 'highlighted' },
+      { [styles.headerRow]: variant === 'header' },
+      className
+    )}
     {...props}
   />
 )
