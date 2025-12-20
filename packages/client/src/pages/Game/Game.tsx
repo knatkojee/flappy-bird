@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import GameStartScreen from '../GameStartScreen/GameStartScreen'
 import styles from './Game.module.css'
+import GameProcess from './GameProcess'
 
 const Game = () => {
   const [showStartScreen, setShowStartScreen] = useState(true)
@@ -9,7 +10,6 @@ const Game = () => {
   const handleStartGame = () => {
     setShowStartScreen(false)
     setGameStarted(true)
-    // Тут начинается игра
   }
 
   const handleBack = () => {
@@ -18,7 +18,7 @@ const Game = () => {
 
   return (
     <div className={styles.wrapper}>
-      {gameStarted && <div className={styles.content}>Игра идет...</div>}
+      {gameStarted && <GameProcess />}
 
       <GameStartScreen
         isVisible={showStartScreen}

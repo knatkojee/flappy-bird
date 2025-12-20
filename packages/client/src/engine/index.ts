@@ -1,12 +1,30 @@
 import type { Pipe, Bird, GameState, GameConfig, GameEngine } from './types'
 
+const VISUAL_CONSTANTS = {
+  birdEyeSize: 5,
+  birdEyeOffsetX: 10,
+  birdEyeOffsetY: 8,
+  beakLength: 15,
+  beakHeight: 8,
+  pipeCapHeight: 20,
+  pipeCapOverhang: 5,
+  groundBorderHeight: 5,
+} as const
+
+const SCORE_CONFIG = {
+  fontSizeMultiplier: 0.06,
+  xPositionMultiplier: 0.5,
+  yPositionMultiplier: 0.1,
+  strokeWidth: 3,
+} as const
+
 const OPTIMAL_CONFIG: GameConfig = {
-  gravity: 0.15,
-  jumpPower: -4.5,
-  pipeSpeed: 2.0,
+  gravity: 0.5,
+  jumpPower: -8,
+  pipeSpeed: 3.5,
   pipeGap: 180,
   pipeWidth: 80,
-  pipeFrequency: 150,
+  pipeFrequency: 100,
   birdColor: '#FFD700',
   pipeColor: '#228B22',
   backgroundColor: '#87CEEB',
@@ -113,13 +131,24 @@ const drawBird = (ctx: CanvasRenderingContext2D, bird: Bird) => {
   ctx.fillRect(bird.x, bird.y, bird.width, bird.height)
 
   ctx.fillStyle = '#000'
-  ctx.fillRect(bird.x + bird.width - 10, bird.y + 8, 5, 5)
+  ctx.fillRect(
+    bird.x + bird.width - VISUAL_CONSTANTS.birdEyeOffsetX,
+    bird.y + VISUAL_CONSTANTS.birdEyeOffsetY,
+    VISUAL_CONSTANTS.birdEyeSize,
+    VISUAL_CONSTANTS.birdEyeSize
+  )
 
   ctx.fillStyle = '#FF8C00'
   ctx.beginPath()
   ctx.moveTo(bird.x + bird.width, bird.y + bird.height / 2)
-  ctx.lineTo(bird.x + bird.width + 15, bird.y + bird.height / 2)
-  ctx.lineTo(bird.x + bird.width, bird.y + bird.height / 2 + 8)
+  ctx.lineTo(
+    bird.x + bird.width + VISUAL_CONSTANTS.beakLength,
+    bird.y + bird.height / 2
+  )
+  ctx.lineTo(
+    bird.x + bird.width,
+    bird.y + bird.height / 2 + VISUAL_CONSTANTS.beakHeight
+  )
   ctx.closePath()
   ctx.fill()
 }
@@ -133,12 +162,20 @@ const drawPipes = (
 
   pipes.forEach(pipe => {
     ctx.fillRect(pipe.x, 0, pipe.width, pipe.topHeight)
-
     ctx.fillRect(pipe.x, pipe.bottomY, pipe.width, ctx.canvas.height)
-
     ctx.fillStyle = '#1a5f23'
-    ctx.fillRect(pipe.x - 5, pipe.topHeight - 20, pipe.width + 10, 20)
-    ctx.fillRect(pipe.x - 5, pipe.bottomY, pipe.width + 10, 20)
+    ctx.fillRect(
+      pipe.x - VISUAL_CONSTANTS.pipeCapOverhang,
+      pipe.topHeight - VISUAL_CONSTANTS.pipeCapHeight,
+      pipe.width + VISUAL_CONSTANTS.pipeCapOverhang * 2,
+      VISUAL_CONSTANTS.pipeCapHeight
+    )
+    ctx.fillRect(
+      pipe.x - VISUAL_CONSTANTS.pipeCapOverhang,
+      pipe.bottomY,
+      pipe.width + VISUAL_CONSTANTS.pipeCapOverhang * 2,
+      VISUAL_CONSTANTS.pipeCapHeight
+    )
     ctx.fillStyle = pipeColor
   })
 }
@@ -152,26 +189,12 @@ const drawGround = (
   ctx.fillRect(0, groundY, ctx.canvas.width, config.groundHeight)
 
   ctx.fillStyle = '#556B2F'
-  ctx.fillRect(0, groundY, ctx.canvas.width, 5)
-}
-
-const drawScore = (
-  ctx: CanvasRenderingContext2D,
-  score: number,
-  canvas: HTMLCanvasElement
-) => {
-  ctx.fillStyle = '#FFF'
-  ctx.font = `bold ${canvas.width * 0.06}px Arial`
-  ctx.textAlign = 'center'
-  ctx.strokeStyle = '#000'
-  ctx.lineWidth = 3
-
-  const text = score.toString()
-  const x = canvas.width / 2
-  const y = canvas.height * 0.1
-
-  ctx.strokeText(text, x, y)
-  ctx.fillText(text, x, y)
+  ctx.fillRect(
+    0,
+    groundY,
+    ctx.canvas.width,
+    VISUAL_CONSTANTS.groundBorderHeight
+  )
 }
 
 export const createFlappyBirdEngine = (
@@ -186,44 +209,59 @@ export const createFlappyBirdEngine = (
   let state = createInitialGameState(canvas, config)
   let animationId: number | null = null
 
+  const createDrawScore = () => {
+    const fontSize = canvas.width * SCORE_CONFIG.fontSizeMultiplier
+    const x = canvas.width * SCORE_CONFIG.xPositionMultiplier
+    const y = canvas.height * SCORE_CONFIG.yPositionMultiplier
+    const font = `bold ${fontSize}px Arial`
+
+    return (score: number) => {
+      ctx.fillStyle = '#FFF'
+      ctx.font = font
+      ctx.textAlign = 'center'
+      ctx.strokeStyle = '#000'
+      ctx.lineWidth = SCORE_CONFIG.strokeWidth
+
+      const text = score.toString()
+      ctx.strokeText(text, x, y)
+      ctx.fillText(text, x, y)
+    }
+  }
+
+  const drawScore = createDrawScore()
+
   const gameLoop = () => {
     if (!state.isRunning || state.gameOver) return
 
-    state = {
-      ...state,
-      frameCount: state.frameCount + 1,
-    }
+    const frameCount = state.frameCount + 1
+    const bird = updateBird(state.bird)
 
-    state = {
-      ...state,
-      bird: updateBird(state.bird),
-    }
+    let pipes = state.pipes
+    let score = state.score
 
-    if (state.frameCount % config.pipeFrequency === 0) {
-      state = {
-        ...state,
-        pipes: [...state.pipes, generatePipe(canvas, config, groundY)],
-      }
+    if (frameCount % config.pipeFrequency === 0) {
+      pipes = [...pipes, generatePipe(canvas, config, groundY)]
     }
 
     const { pipes: updatedPipes, score: newScore } = updatePipes(
-      state.pipes,
-      state.bird.x,
+      pipes,
+      bird.x,
       config.pipeSpeed
     )
 
+    pipes = updatedPipes
+    score += newScore
+
+    const gameOver = checkCollisions(bird, pipes, groundY)
+
     state = {
       ...state,
-      pipes: updatedPipes,
-      score: state.score + newScore,
-    }
-
-    if (checkCollisions(state.bird, state.pipes, groundY)) {
-      state = {
-        ...state,
-        gameOver: true,
-        isRunning: false,
-      }
+      frameCount,
+      bird,
+      pipes,
+      score,
+      gameOver,
+      isRunning: !gameOver && state.isRunning,
     }
 
     ctx.fillStyle = config.backgroundColor
@@ -232,14 +270,14 @@ export const createFlappyBirdEngine = (
     drawPipes(ctx, state.pipes, config.pipeColor)
     drawGround(ctx, groundY, config)
     drawBird(ctx, state.bird)
-    drawScore(ctx, state.score, canvas)
+    drawScore(state.score)
 
     if (state.isRunning && !state.gameOver) {
       animationId = requestAnimationFrame(gameLoop)
     }
   }
 
-  const jump = () => {
+  const jump: VoidFunction = () => {
     if (state.gameOver) return
 
     if (!state.isRunning) {
@@ -256,7 +294,7 @@ export const createFlappyBirdEngine = (
     }
   }
 
-  const start = () => {
+  const start: VoidFunction = () => {
     if (state.isRunning) return
 
     state = {
@@ -268,7 +306,7 @@ export const createFlappyBirdEngine = (
     animationId = requestAnimationFrame(gameLoop)
   }
 
-  const reset = () => {
+  const reset: VoidFunction = () => {
     if (animationId) {
       cancelAnimationFrame(animationId)
       animationId = null
@@ -282,14 +320,13 @@ export const createFlappyBirdEngine = (
     drawPipes(ctx, state.pipes, config.pipeColor)
     drawGround(ctx, groundY, config)
     drawBird(ctx, state.bird)
-    drawScore(ctx, state.score, canvas)
 
     start()
   }
 
   const getState = (): GameState => ({ ...state })
 
-  const destroy = () => {
+  const destroy: VoidFunction = () => {
     if (animationId) {
       cancelAnimationFrame(animationId)
     }

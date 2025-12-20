@@ -1,0 +1,122 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 20px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.title {
+  font-size: 3rem;
+  margin: 0;
+  background: linear-gradient(90deg, #ffd700, #ffa500);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: 900;
+}
+
+.canvasContainer {
+  width: 100%;
+  max-width: 900px;
+  height: 70vh;
+  max-height: 600px;
+  position: relative;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+  border: 4px solid #2c3e50;
+  background: #1a1a2e;
+}
+
+.canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.gameOverOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.92);
+  color: white;
+  padding: 40px;
+  border-radius: 15px;
+  text-align: center;
+  min-width: 300px;
+  max-width: 90%;
+  border: 3px solid #ff4444;
+  backdrop-filter: blur(5px);
+}
+
+.gameOverTitle {
+  color: #ff4444;
+  margin-top: 0;
+  font-size: 2.5rem;
+  text-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.score {
+  font-size: 2rem;
+  margin: 25px 0;
+  font-weight: bold;
+  color: #ffd700;
+}
+
+.restartButton {
+  background: linear-gradient(90deg, #4caf50, #45a049);
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: all 0.3s;
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+.restartButton:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.6);
+}
+
+.controlsInfo {
+  margin-top: 20px;
+  text-align: center;
+  color: white;
+  font-size: 1rem;
+  background: rgba(0, 0, 0, 0.3);
+  padding: 15px 30px;
+  border-radius: 10px;
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.controlsContent {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.spaceKey {
+  background: #3498db;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: bold;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
