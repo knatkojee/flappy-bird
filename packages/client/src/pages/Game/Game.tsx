@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import GameStartScreen from '../GameStartScreen/GameStartScreen'
+import { GameOverScreen } from '../GameOverScreen/GameOverScreen'
 import styles from './Game.module.css'
 
 const Game = () => {
-  const [showStartScreen, setShowStartScreen] = useState(true)
+  const [showStartScreen, setShowStartScreen] = useState(false)
   const [gameStarted, setGameStarted] = useState(false)
+  const [showEndGameScreen, setShowEndGameScreen] = useState(true)
 
   const handleStartGame = () => {
     setShowStartScreen(false)
@@ -16,10 +18,9 @@ const Game = () => {
     setShowStartScreen(false)
   }
 
-  const [endGame, setEndGame] = useState(false)
-
   const handleRepeatGame = () => {
-    console.log('Repeat game')
+    setGameStarted(true)
+    setShowEndGameScreen(false)
   }
 
   return (
@@ -30,6 +31,11 @@ const Game = () => {
         isVisible={showStartScreen}
         onStartGame={handleStartGame}
         onBack={handleBack}
+      />
+
+      <GameOverScreen
+        isVisible={showEndGameScreen}
+        repeatGame={handleRepeatGame}
       />
     </div>
   )
