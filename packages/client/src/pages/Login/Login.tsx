@@ -2,6 +2,7 @@ import { Button } from '@/components'
 import { Input } from '@/components/common/Input/Input'
 import { Label } from '@/components/common/Label/Label'
 import { User, Lock } from '@/components/common/Icon/Icon'
+import type { FormEvent } from 'react'
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
@@ -12,7 +13,7 @@ const Login = () => {
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setIsLoading(true)
     // TODO: Implement registration logic

@@ -1,21 +1,20 @@
-import React from 'react'
+import type { ComponentType, InputHTMLAttributes } from 'react'
 import styles from './FormField.module.css'
 import { Input, Label } from '@/components'
 
-interface FormFieldProps
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'size'> {
+type FormFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
   label: string
-  icon: React.ComponentType<{ className?: string }>
+  icon: ComponentType<{ className?: string }>
   size?: 'sm' | 'md' | 'lg'
 }
 
-export const FormField: React.FC<FormFieldProps> = ({
+export const FormField = ({
   label,
   icon: Icon,
   size = 'sm',
   id,
   ...inputProps
-}) => {
+}: FormFieldProps) => {
   return (
     <div className={styles.fieldGroup}>
       <Label htmlFor={id} className={styles.fieldLabel}>
