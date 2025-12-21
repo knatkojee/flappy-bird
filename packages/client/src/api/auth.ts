@@ -1,6 +1,6 @@
 import apiInstance from './index'
-import { AxiosError } from 'axios'
-import { SignUpData, SignInData, User } from '@/types/auth'
+import type { AxiosError } from 'axios'
+import type { SignUpData, SignInData, User } from '@/types/auth'
 
 type ErrorResponse = {
   reason: string

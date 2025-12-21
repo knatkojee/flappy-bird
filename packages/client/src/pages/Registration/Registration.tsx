@@ -7,7 +7,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import styles from './Registration.module.css'
 import { signup } from '@/api/auth'
-import { SignUpData } from '@/types/auth'
+import type { SignUpData } from '@/types/auth'
 import { toast } from 'react-toastify'
 
 const Registration = () => {
