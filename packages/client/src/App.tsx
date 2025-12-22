@@ -3,6 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import AppRoutes from './routes/routes'
 import './App.css'
 import { ApplicationLayout, LoadingSpinner } from '@/components'
+import { ErrorBoundary } from './components/ErrorBoundary/ErrorBoundary'
 import { ToastContainer } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { useAppDispatch } from './hooks/useAppDispatch'
@@ -12,7 +13,9 @@ const PageLayout = () => {
   return (
     <ApplicationLayout>
       <Suspense fallback={<LoadingSpinner />}>
-        <AppRoutes />
+        <ErrorBoundary>
+          <AppRoutes />
+        </ErrorBoundary>
       </Suspense>
     </ApplicationLayout>
   )
