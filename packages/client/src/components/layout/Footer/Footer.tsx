@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 import { ROUTES } from '@/constants/routes'
+import type { RootState } from '@/store'
+import { useSelector } from 'react-redux'
 
 export default function Footer() {
-  const isAuthenticated = true // TODO заменить на логику аутентификации
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth)
 
   return (
     <footer className={styles.footer}>
