@@ -1,8 +1,12 @@
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 import { ROUTES } from '@/constants/routes'
+import type { RootState } from '@/store'
+import { useSelector } from 'react-redux'
 
 export default function Footer() {
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth)
+
   return (
     <footer className={styles.footer}>
       <div className={styles.footerContainer}>
@@ -36,18 +40,44 @@ export default function Footer() {
           <div>
             <h4 className={styles.footerSectionTitle}>Аккаунт</h4>
             <ul className={styles.footerLinks}>
-              <li>
-                <Link to={ROUTES.PUBLIC.LOGIN} className={styles.footerLink}>
-                  Вход
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to={ROUTES.PUBLIC.REGISTRATION}
-                  className={styles.footerLink}>
-                  Регистрация
-                </Link>
-              </li>
+              {!isAuthenticated ? (
+                <>
+                  <li>
+                    <Link
+                      to={ROUTES.PUBLIC.LOGIN}
+                      className={styles.footerLink}>
+                      Вход
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to={ROUTES.PUBLIC.REGISTRATION}
+                      className={styles.footerLink}>
+                      Регистрация
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li>
+                    <Link
+                      to={ROUTES.PROTECTED.PROFILE}
+                      className={styles.footerLink}>
+                      Профиль
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className={styles.footerLink}
+                      onClick={() => {
+                        // TODO
+                      }}>
+                      Выход
+                    </Link>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
         </div>

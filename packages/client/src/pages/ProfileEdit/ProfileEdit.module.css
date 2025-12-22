@@ -21,6 +21,7 @@
   font-weight: bold;
   margin-bottom: var(--spacing-lg);
   color: var(--foreground);
+  text-align: center;
 }
 
 .form {
@@ -37,6 +38,21 @@
 
 .buttonGroup > * {
   flex: 1;
+}
+
+.avatarSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-lg);
+  padding-bottom: var(--spacing-lg);
+  border-bottom: 1px solid var(--border);
+}
+
+.avatarActions {
+  display: flex;
+  gap: var(--spacing-sm);
 }
 
 .notification {
