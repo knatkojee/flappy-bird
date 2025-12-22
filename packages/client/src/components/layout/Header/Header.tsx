@@ -2,10 +2,18 @@ import { Link, useLocation } from 'react-router-dom'
 import { Button } from '@/components'
 import { ROUTES } from '@/constants/routes'
 import styles from './Header.module.css'
+import { useSelector } from 'react-redux'
+import type { RootState } from '@/store'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { logout } from '@/store/authSlice'
+import { toast } from 'react-toastify'
+import { useNavigate } from 'react-router-dom'
 
 export default function Header() {
   const location = useLocation()
-  const isAuthenticated = false // TODO: Replace with actual auth state
+  const { isAuthenticated } = useSelector((state: RootState) => state.auth)
+  const dispatch = useAppDispatch()
+  const navigate = useNavigate()
 
   const isActive = (path: string) => location.pathname === path
 
@@ -13,6 +21,18 @@ export default function Header() {
     { path: ROUTES.PUBLIC.HOME, label: 'Главная' },
     { path: ROUTES.PROTECTED.LEADERBOARD, label: 'Лидерборд' },
   ]
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logout()).unwrap()
+      toast.success('Вы успешно вышли!')
+      navigate(ROUTES.PUBLIC.LOGIN)
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    }
+  }
 
   return (
     <header className={styles.header}>
@@ -47,11 +67,7 @@ export default function Header() {
               <Link to={ROUTES.PROTECTED.PROFILE}>
                 <Button variant="outline">Профиль</Button>
               </Link>
-              <Button
-                variant="secondary"
-                onClick={() => {
-                  // TODO: Handle logout
-                }}>
+              <Button variant="secondary" onClick={handleLogout}>
                 Выход
               </Button>
             </>
