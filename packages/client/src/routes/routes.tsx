@@ -3,7 +3,10 @@ import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import { PAGE_TITLES } from '@/constants/pageTitles'
-import { PageWithTitleProps } from './types'
+import type { PageWithTitleProps } from './types'
+import { useSelector } from 'react-redux'
+import type { RootState } from '@/store'
+import { LoadingSpinner } from '@/components'
 
 const Forum = lazy(() => import('@/pages/Forum/Forum'))
 const ForumTopic = lazy(() => import('@/pages/ForumTopic/ForumTopic'))
@@ -27,8 +30,13 @@ const PageWithTitle = <T extends object = object>({
 }
 
 const ProtectedRoute = () => {
-  //   const { isAuthenticated } = useAuth() // TODO: реализовать запрос
-  const isAuthenticated = true
+  const { isAuthenticated, isLoading } = useSelector(
+    (state: RootState) => state.auth
+  )
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.PUBLIC.LOGIN} replace />

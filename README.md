@@ -74,3 +74,32 @@
 
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
+
+## Архитектура и соглашения
+
+### Соглашения
+
+- Используем `type` вместо `interface`
+- Компоненты без `React.FC`, типизируем параметры напрямую:
+  ```typescript
+  const Button = ({ variant, children }: ButtonProps) => {}
+  ```
+- Типы компонентов именуются с суффиксом `Props` и находятся в том же файле
+- Файлы компонентов в PascalCase: `Button/Button.tsx`
+- Экспорт компонентов через `index.ts`
+- Для конкатенации CSS-классов используем библиотеку `classnames`:
+  ```typescript
+  import classNames from 'classnames'
+  
+  const classes = classNames(
+    styles.button,
+    styles[variant],
+    { [styles.active]: isActive },
+    className
+  )
+  ```
+- Импорты через алиас `@/` для `src/`:
+  ```typescript
+  import { Button } from '@/components'
+  import { ROUTES } from '@/constants/routes'
+  ```

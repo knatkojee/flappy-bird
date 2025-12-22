@@ -1,5 +1,5 @@
+import classNames from 'classnames'
 import {
-  Button,
   Input,
   Search,
   Table,
@@ -13,18 +13,16 @@ import {
 import { useState, useMemo } from 'react'
 import styles from './Leaderboard.module.css'
 import { PAGE_TITLES } from '@/constants/pageTitles'
-
-interface Player {
+type Player = {
   username: string
   score: number
   gamesPlayed: number
 }
 
-interface RankedPlayer extends Player {
+type RankedPlayer = Player & {
   rank: number
 }
 
-// Создаём 100 моковых игроков
 const generateMockPlayers = (): Player[] => {
   const names = [
     'SkyFlyer',
@@ -126,14 +124,15 @@ export default function Leaderboard() {
             <div className={styles.statEmoji}>{stat.emoji}</div>
             <p className={styles.statLabel}>{stat.label}</p>
             <p
-              className={`${styles.statValue} ${
+              className={classNames(
+                styles.statValue,
                 styles[
                   `statValue${
                     stat.valueColor.charAt(0).toUpperCase() +
                     stat.valueColor.slice(1)
                   }`
                 ]
-              }`}>
+              )}>
               {stat.getValue()}
             </p>
             {stat.getAuthor && (
