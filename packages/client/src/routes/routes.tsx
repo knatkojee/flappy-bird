@@ -4,6 +4,9 @@ import { ROUTES } from '@/constants/routes'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import { PAGE_TITLES } from '@/constants/pageTitles'
 import type { PageWithTitleProps } from './types'
+import { useSelector } from 'react-redux'
+import type { RootState } from '@/store'
+import { LoadingSpinner } from '@/components'
 
 const Forum = lazy(() => import('@/pages/Forum/Forum'))
 const ForumTopic = lazy(() => import('@/pages/ForumTopic/ForumTopic'))
@@ -13,6 +16,8 @@ const Leaderboard = lazy(() => import('@/pages/Leaderboard/Leaderboard'))
 const Login = lazy(() => import('@/pages/Login/Login'))
 const ErrorPage = lazy(() => import('@/pages/ErrorPage/ErrorPage'))
 const Profile = lazy(() => import('@/pages/Profile/Profile'))
+const ProfileEdit = lazy(() => import('@/pages/ProfileEdit/ProfileEdit'))
+const PasswordEdit = lazy(() => import('@/pages/PasswordEdit/PasswordEdit'))
 const Registration = lazy(() => import('@/pages/Registration/Registration'))
 
 export type RouteKeys = keyof typeof ROUTES
@@ -27,8 +32,13 @@ const PageWithTitle = <T extends object = object>({
 }
 
 const ProtectedRoute = () => {
-  //   const { isAuthenticated } = useAuth() // TODO: реализовать запрос
-  const isAuthenticated = true
+  const { isAuthenticated, isLoading } = useSelector(
+    (state: RootState) => state.auth
+  )
+
+  if (isLoading) {
+    return <LoadingSpinner />
+  }
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.PUBLIC.LOGIN} replace />
@@ -91,6 +101,24 @@ const AppRoutes = () => {
           path={ROUTES.PROTECTED.PROFILE}
           element={
             <PageWithTitle component={Profile} title={PAGE_TITLES.PROFILE} />
+          }
+        />
+        <Route
+          path={ROUTES.PROTECTED.PROFILE_EDIT}
+          element={
+            <PageWithTitle
+              component={ProfileEdit}
+              title={PAGE_TITLES.PROFILE_EDIT}
+            />
+          }
+        />
+        <Route
+          path={ROUTES.PROTECTED.PASSWORD_EDIT}
+          element={
+            <PageWithTitle
+              component={PasswordEdit}
+              title={PAGE_TITLES.PASSWORD_EDIT}
+            />
           }
         />
       </Route>

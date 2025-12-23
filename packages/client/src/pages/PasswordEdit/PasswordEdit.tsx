@@ -1,14 +1,9 @@
-import type { ChangeEvent, FormEvent } from 'react'
-import { useState } from 'react'
-import classNames from 'classnames'
+import React, { useState } from 'react'
 import { Button, SimpleFormField } from '@/components'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
+import { changePassword } from '@/api/user'
 import styles from './PasswordEdit.module.css'
-type NotificationType = {
-  type: 'success' | 'error'
-  message: string
-}
 
 export default function PasswordEdit() {
   const navigate = useNavigate()
@@ -18,11 +13,12 @@ export default function PasswordEdit() {
     confirmPassword: '',
   })
   const [isLoading, setIsLoading] = useState(false)
-  const [notification, setNotification] = useState<NotificationType | null>(
-    null
-  )
+  const [notification, setNotification] = useState<{
+    type: 'success' | 'error'
+    message: string
+  } | null>(null)
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
 
     if (
@@ -49,20 +45,20 @@ export default function PasswordEdit() {
 
     setIsLoading(true)
     try {
-      // случайно затесалось
-      // await changePassword({
-      //   oldPassword: formData.currentPassword,
-      //   newPassword: formData.newPassword,
-      // })
+      await changePassword({
+        oldPassword: formData.currentPassword,
+        newPassword: formData.newPassword,
+      })
       setNotification({ type: 'success', message: 'Пароль успешно изменен!' })
       setTimeout(() => navigate(ROUTES.PROTECTED.PROFILE), 1500)
     } catch (error) {
       setNotification({ type: 'error', message: 'Ошибка при изменении пароля' })
+    } finally {
+      setIsLoading(false)
     }
-    setIsLoading(false)
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData(prev => ({
       ...prev,
       [e.target.name]: e.target.value,
@@ -81,10 +77,7 @@ export default function PasswordEdit() {
 
           {notification && (
             <div
-              className={classNames(
-                styles.notification,
-                styles[notification.type]
-              )}>
+              className={`${styles.notification} ${styles[notification.type]}`}>
               {notification.message}
             </div>
           )}

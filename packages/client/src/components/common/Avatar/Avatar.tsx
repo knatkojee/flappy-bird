@@ -1,4 +1,4 @@
-import React from 'react'
+import type { ReactNode } from 'react'
 import styles from './Avatar.module.css'
 
 type AvatarProps = {
@@ -6,7 +6,7 @@ type AvatarProps = {
   borderWidth?: number
   borderColor?: string
   shadow?: boolean
-  children: React.ReactNode
+  children: ReactNode
 }
 
 type AvatarImageProps = {
@@ -17,7 +17,7 @@ type AvatarImageProps = {
 
 type AvatarFallbackProps = {
   fontSize?: number
-  children: React.ReactNode
+  children: ReactNode
 }
 
 const Avatar = ({

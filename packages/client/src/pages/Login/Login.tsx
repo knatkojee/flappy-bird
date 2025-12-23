@@ -4,20 +4,44 @@ import { Label } from '@/components/common/Label/Label'
 import { User, Lock } from '@/components/common/Icon/Icon'
 import type { FormEvent } from 'react'
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import styles from './Login.module.css'
+import { signin } from '@/api/auth'
+import type { SignInData } from '@/types/auth'
+import { toast } from 'react-toastify'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { fetchUser } from '@/store/authSlice'
 
 const Login = () => {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
 
-  const handleSubmit = async (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+
+    const formData = new FormData(e.currentTarget)
+    const { login, password } = Object.fromEntries(formData.entries())
+
+    const signInData: SignInData = {
+      login: String(login),
+      password: String(password),
+    }
+
     setIsLoading(true)
-    // TODO: Implement registration logic
-    setTimeout(() => setIsLoading(false), 1000)
+    try {
+      await signin(signInData)
+      await dispatch(fetchUser())
+      toast.success('Вы успешно вошли!')
+      navigate(ROUTES.PUBLIC.HOME)
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -33,17 +57,16 @@ const Login = () => {
 
         <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.fieldGroup}>
-            <Label htmlFor="username" className={styles.fieldLabel}>
+            <Label htmlFor="login" className={styles.fieldLabel}>
               Логин
             </Label>
             <div className={styles.inputWrapper}>
               <User className={styles.inputIcon} />
               <Input
-                id="username"
+                id="login"
+                name="login"
                 type="text"
                 placeholder="flyingbird123"
-                value={username}
-                onChange={e => setUsername(e.target.value)}
                 size="sm"
                 withIcon
                 required
@@ -59,10 +82,9 @@ const Login = () => {
               <Lock className={styles.inputIcon} />
               <Input
                 id="password"
+                name="password"
                 type="password"
                 placeholder="••••••••"
-                value={password}
-                onChange={e => setPassword(e.target.value)}
                 size="sm"
                 withIcon
                 required
