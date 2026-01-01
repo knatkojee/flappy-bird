@@ -1,87 +1,79 @@
-import { useRef, useEffect, useState } from 'react'
-import { createFlappyBirdEngine } from '../../engine/index'
+import { useRef, useEffect, useCallback } from 'react'
+import { GameController } from '@/engine/controllers/GameController'
+import { DEFAULT_CONFIG } from '@/engine/configs/defaultConfig'
 import styles from './GameProcess.module.css'
 
 const GameProcess = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
-  const gameRef = useRef<ReturnType<typeof createFlappyBirdEngine> | null>(null)
-  const [score, setScore] = useState(0)
-  const [isGameOver, setIsGameOver] = useState(false)
+  const controllerRef = useRef<GameController | null>(null)
 
-  const resizeCanvas = () => {
+  const initGame = useCallback(() => {
+    if (!canvasRef.current) return
+    controllerRef.current?.destroy()
+    controllerRef.current = new GameController(
+      canvasRef.current,
+      DEFAULT_CONFIG
+    )
+    controllerRef.current.start()
+  }, [])
+
+  const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current
     const container = containerRef.current
+    if (!canvas || !container) return
+    const { width, height } = container.getBoundingClientRect()
+    const targetRatio = 4 / 3
+    const containerRatio = width / height
 
-    if (canvas && container) {
-      const { width, height } = container.getBoundingClientRect()
+    let newWidth, newHeight
 
-      const targetRatio = 4 / 3
-      const containerRatio = width / height
-
-      let newWidth, newHeight
-
-      if (containerRatio > targetRatio) {
-        newHeight = height
-        newWidth = height * targetRatio
-      } else {
-        newWidth = width
-        newHeight = width / targetRatio
-      }
-
-      canvas.width = newWidth
-      canvas.height = newHeight
-
-      if (gameRef.current) {
-        gameRef.current.destroy()
-      }
-
-      gameRef.current = createFlappyBirdEngine(canvas)
-
-      const updateInterval = setInterval(() => {
-        if (gameRef.current) {
-          const state = gameRef.current.getState()
-          setScore(state.score)
-          setIsGameOver(state.gameOver)
-        }
-      }, 16)
-
-      return () => clearInterval(updateInterval)
+    if (containerRatio > targetRatio) {
+      newHeight = height
+      newWidth = height * targetRatio
+    } else {
+      newWidth = width
+      newHeight = width / targetRatio
     }
-  }
+    canvas.width = newWidth
+    canvas.height = newHeight
+
+    if (controllerRef.current) {
+      controllerRef.current.resize({ width: newWidth, height: newHeight })
+    }
+  }, [])
+
+  const handleJump = useCallback(() => {
+    controllerRef.current?.jump()
+  }, [])
 
   useEffect(() => {
     resizeCanvas()
+    initGame()
 
     const handleResize = () => {
       resizeCanvas()
     }
 
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.code === 'Space') {
+        e.preventDefault()
+        handleJump()
+      }
+    }
+
     window.addEventListener('resize', handleResize)
     window.addEventListener('orientationchange', handleResize)
+    document.addEventListener('keydown', handleKeyDown)
 
     return () => {
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('orientationchange', handleResize)
-      if (gameRef.current) {
-        gameRef.current.destroy()
-      }
-    }
-  }, [])
+      document.removeEventListener('keydown', handleKeyDown)
 
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === 'Space') {
-        e.preventDefault()
-        if (gameRef.current) {
-          gameRef.current.jump()
-        }
-      }
+      controllerRef.current?.destroy()
     }
-
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [])
+  }, [resizeCanvas, initGame, handleJump])
 
   return (
     <div className={styles.container}>
@@ -91,28 +83,12 @@ const GameProcess = () => {
 
       <div ref={containerRef} className={styles.canvasContainer}>
         <canvas ref={canvasRef} className={styles.canvas} />
-
-        {isGameOver && (
-          <div className={styles.gameOverOverlay}>
-            <h2 className={styles.gameOverTitle}>GAME OVER</h2>
-            <div className={styles.score}>Score: {score}</div>
-            <button
-              onClick={() => {
-                if (gameRef.current) {
-                  gameRef.current.reset()
-                }
-              }}
-              className={styles.restartButton}>
-              PLAY AGAIN
-            </button>
-          </div>
-        )}
       </div>
 
       <div className={styles.controlsInfo}>
         <div className={styles.controlsContent}>
           <div className={styles.spaceKey}>SPACE</div>
-          <span>пробел чтобы прыгать</span>
+          <span>пробел для прыжка</span>
         </div>
       </div>
     </div>

@@ -1,0 +1,71 @@
+import type { GameState, GameConfig, GameViewInterface } from '../types'
+import { BirdView } from './BirdView'
+import { PipeView } from './PipeView'
+import { GroundView } from './GroundView'
+import { ScoreView } from './ScoreView'
+
+export class GameView implements GameViewInterface {
+  private ctx: CanvasRenderingContext2D
+  private config: GameConfig
+  private groundY: number
+
+  private birdView: BirdView
+  private pipeView: PipeView
+  private groundView: GroundView
+  private scoreView: ScoreView
+
+  constructor(canvas: HTMLCanvasElement, config: GameConfig) {
+    const ctx = canvas.getContext('2d')
+    if (!ctx) throw new Error('Canvas context not available')
+
+    this.ctx = ctx
+    this.config = config
+    this.groundY = canvas.height - config.render.groundHeight
+
+    this.birdView = new BirdView(ctx, config.bird)
+    this.pipeView = new PipeView(ctx, config.pipe.color, config.pipe.width)
+    this.groundView = new GroundView(ctx, config.render)
+    this.scoreView = new ScoreView(ctx, canvas.width, canvas.height)
+  }
+
+  render(state: GameState): void {
+    this.ctx.fillStyle = this.config.render.backgroundColor
+    this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
+
+    state.pipes.forEach(pipe => {
+      this.pipeView.render(pipe, this.ctx.canvas.height)
+    })
+
+    this.groundView.render(this.ctx.canvas.width, this.groundY)
+
+    if (state.bird.isAlive) {
+      this.birdView.render(state.bird)
+    }
+
+    this.scoreView.render(state.score)
+
+    if (state.isGameOver) {
+      this.renderGameOver()
+    }
+  }
+
+  private renderGameOver(): void {
+    const { width, height } = this.ctx.canvas
+
+    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
+    this.ctx.fillRect(0, 0, width, height)
+    this.ctx.fillStyle = '#FFF'
+    this.ctx.font = 'bold 48px Arial'
+    this.ctx.textAlign = 'center'
+    this.ctx.fillText('GAME OVER', width / 2, height / 2 - 30)
+    this.ctx.font = '24px Arial'
+    this.ctx.fillText('Press SPACE to restart', width / 2, height / 2 + 30)
+  }
+
+  resize(width: number, height: number): void {
+    this.ctx.canvas.width = width
+    this.ctx.canvas.height = height
+    this.groundY = height - this.config.render.groundHeight
+    this.scoreView.resize(width, height)
+  }
+}
