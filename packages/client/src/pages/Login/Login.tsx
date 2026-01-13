@@ -2,8 +2,6 @@ import { Button } from '@/components'
 import { Input } from '@/components/common/Input/Input'
 import { Label } from '@/components/common/Label/Label'
 import { User, Lock } from '@/components/common/Icon/Icon'
-import type { FormEvent } from 'react'
-import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import styles from './Login.module.css'
@@ -12,24 +10,30 @@ import type { SignInData } from '@/types/auth'
 import { toast } from 'react-toastify'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { fetchUser } from '@/store/authSlice'
+import { useForm } from '@/hooks/useForm'
+import { loginValidator, passwordValidator } from '@/lib/validators'
 
 const Login = () => {
-  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const { values, errors, isSubmitting, handleChange, handleSubmit } = useForm(
+    {
+      login: '',
+      password: '',
+    },
+    {
+      login: loginValidator,
+      password: passwordValidator,
+    }
+  )
 
-    const formData = new FormData(e.currentTarget)
-    const { login, password } = Object.fromEntries(formData.entries())
-
+  const onSubmit = async (data: typeof values) => {
     const signInData: SignInData = {
-      login: String(login),
-      password: String(password),
+      login: data.login,
+      password: data.password,
     }
 
-    setIsLoading(true)
     try {
       await signin(signInData)
       await dispatch(fetchUser())
@@ -39,8 +43,6 @@ const Login = () => {
       if (error instanceof Error) {
         toast.error(error.message)
       }
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -55,7 +57,7 @@ const Login = () => {
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <div className={styles.fieldGroup}>
             <Label htmlFor="login" className={styles.fieldLabel}>
               Логин
@@ -69,7 +71,9 @@ const Login = () => {
                 placeholder="flyingbird123"
                 size="sm"
                 withIcon
-                required
+                value={values.login}
+                onChange={handleChange}
+                error={errors.login}
               />
             </div>
           </div>
@@ -87,17 +91,19 @@ const Login = () => {
                 placeholder="••••••••"
                 size="sm"
                 withIcon
-                required
+                value={values.password}
+                onChange={handleChange}
+                error={errors.password}
               />
             </div>
           </div>
 
           <Button
             type="submit"
-            disabled={isLoading}
+            disabled={isSubmitting}
             variant="primary"
             size="lg">
-            {isLoading ? '...' : 'Войти'}
+            {isSubmitting ? '...' : 'Войти'}
           </Button>
         </form>
 

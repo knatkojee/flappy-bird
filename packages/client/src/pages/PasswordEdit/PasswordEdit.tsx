@@ -1,68 +1,53 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import classNames from 'classnames'
 import { Button, SimpleFormField } from '@/components'
 import { useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import { changePassword } from '@/api/user'
 import styles from './PasswordEdit.module.css'
+import { useForm } from '@/hooks/useForm'
+import { passwordValidator } from '@/lib/validators'
+
+type NotificationType = {
+  type: 'success' | 'error'
+  message: string
+}
 
 export default function PasswordEdit() {
   const navigate = useNavigate()
-  const [formData, setFormData] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: '',
-  })
-  const [isLoading, setIsLoading] = useState(false)
-  const [notification, setNotification] = useState<{
-    type: 'success' | 'error'
-    message: string
-  } | null>(null)
+  const [notification, setNotification] = useState<NotificationType | null>(
+    null
+  )
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-
-    if (
-      !formData.currentPassword ||
-      !formData.newPassword ||
-      !formData.confirmPassword
-    ) {
-      setNotification({ type: 'error', message: 'Заполните все поля' })
-      return
+  const { values, errors, isSubmitting, handleChange, handleSubmit } = useForm(
+    {
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: '',
+    },
+    {
+      currentPassword: passwordValidator,
+      newPassword: passwordValidator,
+      confirmPassword: passwordValidator,
     }
+  )
 
-    if (formData.newPassword !== formData.confirmPassword) {
+  const onSubmit = async (data: typeof values) => {
+    if (data.newPassword !== data.confirmPassword) {
       setNotification({ type: 'error', message: 'Пароли не совпадают' })
       return
     }
 
-    if (formData.newPassword.length < 6) {
-      setNotification({
-        type: 'error',
-        message: 'Пароль должен содержать минимум 6 символов',
-      })
-      return
-    }
-
-    setIsLoading(true)
     try {
       await changePassword({
-        oldPassword: formData.currentPassword,
-        newPassword: formData.newPassword,
+        oldPassword: data.currentPassword,
+        newPassword: data.newPassword,
       })
       setNotification({ type: 'success', message: 'Пароль успешно изменен!' })
       setTimeout(() => navigate(ROUTES.PROTECTED.PROFILE), 1500)
     } catch (error) {
       setNotification({ type: 'error', message: 'Ошибка при изменении пароля' })
-    } finally {
-      setIsLoading(false)
     }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }))
   }
 
   const handleCancel = () => {
@@ -82,14 +67,15 @@ export default function PasswordEdit() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className={styles.form}>
+          <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
             <SimpleFormField
               label="Текущий пароль"
               type="password"
               name="currentPassword"
               id="currentPassword"
-              value={formData.currentPassword}
+              value={values.currentPassword}
               onChange={handleChange}
+              error={errors.currentPassword}
             />
 
             <SimpleFormField
@@ -97,8 +83,9 @@ export default function PasswordEdit() {
               type="password"
               name="newPassword"
               id="newPassword"
-              value={formData.newPassword}
+              value={values.newPassword}
               onChange={handleChange}
+              error={errors.newPassword}
             />
 
             <SimpleFormField
@@ -106,8 +93,9 @@ export default function PasswordEdit() {
               type="password"
               name="confirmPassword"
               id="confirmPassword"
-              value={formData.confirmPassword}
+              value={values.confirmPassword}
               onChange={handleChange}
+              error={errors.confirmPassword}
             />
 
             <div className={styles.buttonGroup}>
@@ -115,11 +103,11 @@ export default function PasswordEdit() {
                 type="button"
                 variant="outline"
                 onClick={handleCancel}
-                disabled={isLoading}>
+                disabled={isSubmitting}>
                 Отмена
               </Button>
-              <Button type="submit" variant="primary" disabled={isLoading}>
-                {isLoading ? 'Сохранение...' : 'Сохранить'}
+              <Button type="submit" variant="primary" disabled={isSubmitting}>
+                {isSubmitting ? 'Сохранение...' : 'Сохранить'}
               </Button>
             </div>
           </form>

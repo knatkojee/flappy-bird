@@ -1,48 +1,60 @@
 import { Button } from '@/components'
 import { FormField } from '@/components/common/FormField/FormField'
 import { User, Mail, Lock } from '@/components/common/Icon/Icon'
-import type { FormEvent } from 'react'
-import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import styles from './Registration.module.css'
 import { signup } from '@/api/auth'
 import type { SignUpData } from '@/types/auth'
 import { toast } from 'react-toastify'
+import { useForm } from '@/hooks/useForm'
+import {
+  emailValidator,
+  loginValidator,
+  nameValidator,
+  passwordValidator,
+  phoneValidator,
+} from '@/lib/validators'
 
 const Registration = () => {
-  const [isLoading, setIsLoading] = useState(false)
   const navigate = useNavigate()
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const { values, errors, isSubmitting, handleChange, handleSubmit } = useForm(
+    {
+      first_name: '',
+      second_name: '',
+      login: '',
+      email: '',
+      password: '',
+      passwordConfirm: '',
+      phone: '',
+    },
+    {
+      first_name: nameValidator,
+      second_name: nameValidator,
+      login: loginValidator,
+      email: emailValidator,
+      password: passwordValidator,
+      phone: phoneValidator,
+      passwordConfirm: passwordValidator,
+    }
+  )
 
-    const formData = new FormData(e.currentTarget)
-    const {
-      first_name,
-      second_name,
-      login,
-      email,
-      password,
-      passwordConfirm,
-      phone,
-    } = Object.fromEntries(formData.entries())
-
-    if (password !== passwordConfirm) {
+  const onSubmit = async (data: typeof values) => {
+    if (data.password !== data.passwordConfirm) {
       toast.error('Пароли не совпадают')
       return
     }
 
     const signUpData: SignUpData = {
-      first_name: String(first_name),
-      second_name: String(second_name),
-      login: String(login),
-      email: String(email),
-      password: String(password),
-      phone: String(phone),
+      first_name: data.first_name,
+      second_name: data.second_name,
+      login: data.login,
+      email: data.email,
+      password: data.password,
+      phone: data.phone,
     }
 
-    setIsLoading(true)
     try {
       await signup(signUpData)
       toast.success('Вы успешно зарегистрировались!')
@@ -51,8 +63,6 @@ const Registration = () => {
       if (error instanceof Error) {
         toast.error(error.message)
       }
-    } finally {
-      setIsLoading(false)
     }
   }
 
@@ -68,7 +78,10 @@ const Registration = () => {
             </p>
           </div>
 
-          <form action="#" onSubmit={handleSubmit} className={styles.form}>
+          <form
+            action="#"
+            onSubmit={handleSubmit(onSubmit)}
+            className={styles.form}>
             <FormField
               id="first_name"
               name="first_name"
@@ -76,7 +89,9 @@ const Registration = () => {
               label="Имя"
               placeholder="Имя"
               icon={User}
-              required
+              value={values.first_name}
+              onChange={handleChange}
+              error={errors.first_name}
             />
 
             <FormField
@@ -86,7 +101,9 @@ const Registration = () => {
               label="Фамилия"
               placeholder="Фамилия"
               icon={User}
-              required
+              value={values.second_name}
+              onChange={handleChange}
+              error={errors.second_name}
             />
 
             <FormField
@@ -96,7 +113,9 @@ const Registration = () => {
               label="Имя пользователя"
               placeholder="username"
               icon={User}
-              required
+              value={values.login}
+              onChange={handleChange}
+              error={errors.login}
             />
 
             <FormField
@@ -106,7 +125,9 @@ const Registration = () => {
               label="Телефон"
               placeholder="Телефон"
               icon={User}
-              required
+              value={values.phone}
+              onChange={handleChange}
+              error={errors.phone}
             />
 
             <FormField
@@ -116,7 +137,9 @@ const Registration = () => {
               label="Электронная почта"
               placeholder="email@example.com"
               icon={Mail}
-              required
+              value={values.email}
+              onChange={handleChange}
+              error={errors.email}
             />
 
             <FormField
@@ -126,7 +149,9 @@ const Registration = () => {
               label="Пароль"
               placeholder="••••••••"
               icon={Lock}
-              required
+              value={values.password}
+              onChange={handleChange}
+              error={errors.password}
             />
 
             <FormField
@@ -136,7 +161,9 @@ const Registration = () => {
               label="Подтвердите пароль"
               placeholder="••••••••"
               icon={Lock}
-              required
+              value={values.passwordConfirm}
+              onChange={handleChange}
+              error={errors.passwordConfirm}
             />
 
             <label className={styles.checkbox}>
@@ -159,10 +186,10 @@ const Registration = () => {
 
             <Button
               type="submit"
-              disabled={isLoading}
+              disabled={isSubmitting}
               variant="primary"
               size="lg">
-              {isLoading ? 'Создание аккаунта...' : 'Создать аккаунт'}
+              {isSubmitting ? 'Создание аккаунта...' : 'Создать аккаунт'}
             </Button>
           </form>
 
