@@ -19,8 +19,10 @@ export class PipeView {
   render(pipe: PipeState, canvasHeight: number): void {
     this.ctx.fillStyle = this.color
 
+    // Верхняя труба
     this.ctx.fillRect(pipe.position.x, 0, pipe.width, pipe.topHeight)
 
+    // Нижняя труба
     this.ctx.fillRect(
       pipe.position.x,
       pipe.bottomY,
@@ -30,6 +32,7 @@ export class PipeView {
 
     this.ctx.fillStyle = '#1a5f23'
 
+    // Крышка верхней трубы
     this.ctx.fillRect(
       pipe.position.x - PIPE_CONSTANTS.capOverhang,
       pipe.topHeight - PIPE_CONSTANTS.capHeight,
@@ -37,6 +40,7 @@ export class PipeView {
       PIPE_CONSTANTS.capHeight
     )
 
+    // Крышка нижней трубы
     this.ctx.fillRect(
       pipe.position.x - PIPE_CONSTANTS.capOverhang,
       pipe.bottomY,

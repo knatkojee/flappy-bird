@@ -16,12 +16,14 @@ export class ScoreView {
   }
 
   render(score: number): void {
+    // Настройка стиля текста
     this.ctx.fillStyle = '#FFF'
     this.ctx.font = `bold ${this.fontSize}px Arial`
     this.ctx.textAlign = 'center'
     this.ctx.strokeStyle = '#000'
     this.ctx.lineWidth = 3
 
+    // Отрисовка счёта с обводкой
     const text = score.toString()
     this.ctx.strokeText(text, this.x, this.y)
     this.ctx.fillText(text, this.x, this.y)
