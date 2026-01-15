@@ -17,18 +17,16 @@ const Login = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
 
-  const { values, errors, isSubmitting, handleChange, handleSubmit } = useForm(
-    {
-      login: '',
-      password: '',
-    },
-    {
-      login: loginValidator,
-      password: passwordValidator,
-    }
-  )
+  const { values, errors, isSubmitting, handleChange, handleSubmit } =
+    useForm<SignInData>(
+      {},
+      {
+        login: loginValidator,
+        password: passwordValidator,
+      }
+    )
 
-  const onSubmit = async (data: typeof values) => {
+  const onSubmit = async (data: SignInData) => {
     const signInData: SignInData = {
       login: data.login,
       password: data.password,

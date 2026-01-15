@@ -13,26 +13,29 @@ type NotificationType = {
   message: string
 }
 
+type PasswordEditForm = {
+  currentPassword: string
+  newPassword: string
+  confirmPassword: string
+}
+
 export default function PasswordEdit() {
   const navigate = useNavigate()
   const [notification, setNotification] = useState<NotificationType | null>(
     null
   )
 
-  const { values, errors, isSubmitting, handleChange, handleSubmit } = useForm(
-    {
-      currentPassword: '',
-      newPassword: '',
-      confirmPassword: '',
-    },
-    {
-      currentPassword: passwordValidator,
-      newPassword: passwordValidator,
-      confirmPassword: passwordValidator,
-    }
-  )
+  const { values, errors, isSubmitting, handleChange, handleSubmit } =
+    useForm<PasswordEditForm>(
+      {},
+      {
+        currentPassword: passwordValidator,
+        newPassword: passwordValidator,
+        confirmPassword: passwordValidator,
+      }
+    )
 
-  const onSubmit = async (data: typeof values) => {
+  const onSubmit = async (data: PasswordEditForm) => {
     if (data.newPassword !== data.confirmPassword) {
       setNotification({ type: 'error', message: 'Пароли не совпадают' })
       return

@@ -16,31 +16,28 @@ import {
   phoneValidator,
 } from '@/lib/validators'
 
+type RegistrationForm = SignUpData & {
+  passwordConfirm: string
+}
+
 const Registration = () => {
   const navigate = useNavigate()
 
-  const { values, errors, isSubmitting, handleChange, handleSubmit } = useForm(
-    {
-      first_name: '',
-      second_name: '',
-      login: '',
-      email: '',
-      password: '',
-      passwordConfirm: '',
-      phone: '',
-    },
-    {
-      first_name: nameValidator,
-      second_name: nameValidator,
-      login: loginValidator,
-      email: emailValidator,
-      password: passwordValidator,
-      phone: phoneValidator,
-      passwordConfirm: passwordValidator,
-    }
-  )
+  const { values, errors, isSubmitting, handleChange, handleSubmit } =
+    useForm<RegistrationForm>(
+      {},
+      {
+        first_name: nameValidator,
+        second_name: nameValidator,
+        login: loginValidator,
+        email: emailValidator,
+        password: passwordValidator,
+        phone: phoneValidator,
+        passwordConfirm: passwordValidator,
+      }
+    )
 
-  const onSubmit = async (data: typeof values) => {
+  const onSubmit = async (data: RegistrationForm) => {
     if (data.password !== data.passwordConfirm) {
       toast.error('Пароли не совпадают')
       return

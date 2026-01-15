@@ -5,10 +5,21 @@ import type { Validator } from '@/lib/validators'
 type ValidationSchema<T> = Partial<Record<keyof T, Validator>>
 
 export function useForm<T extends Record<string, string>>(
-  initialValues: T,
+  initialValues: Partial<T> = {},
   validationSchema?: ValidationSchema<T>
 ) {
-  const [values, setValues] = useState<T>(initialValues)
+  const [values, setValues] = useState<T>(() => {
+    const initializedValues = { ...initialValues } as T
+    if (validationSchema) {
+      ;(Object.keys(validationSchema) as Array<keyof T>).forEach(key => {
+        if (initializedValues[key] === undefined) {
+          initializedValues[key] = '' as T[keyof T]
+        }
+      })
+    }
+    return initializedValues
+  })
+
   const [errors, setErrors] = useState<Partial<Record<keyof T, string>>>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -17,12 +28,15 @@ export function useForm<T extends Record<string, string>>(
       const { name, value } = e.target
       setValues(prev => ({ ...prev, [name]: value }))
 
-      if (validationSchema && validationSchema[name as keyof T]) {
-        const error = validationSchema[name as keyof T]!(value)
-        setErrors(prev => ({
-          ...prev,
-          [name]: error || undefined,
-        }))
+      if (validationSchema) {
+        const validator = validationSchema[name as keyof T]
+        if (validator) {
+          const error = validator(value)
+          setErrors(prev => ({
+            ...prev,
+            [name]: error || undefined,
+          }))
+        }
       }
     },
     [validationSchema]
