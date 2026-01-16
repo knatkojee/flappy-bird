@@ -43,23 +43,6 @@ export class GameView implements GameViewInterface {
     }
 
     this.scoreView.render(state.score)
-
-    if (state.isGameOver) {
-      this.renderGameOver()
-    }
-  }
-
-  private renderGameOver(): void {
-    const { width, height } = this.ctx.canvas
-
-    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
-    this.ctx.fillRect(0, 0, width, height)
-    this.ctx.fillStyle = '#FFF'
-    this.ctx.font = 'bold 48px Arial'
-    this.ctx.textAlign = 'center'
-    this.ctx.fillText('GAME OVER', width / 2, height / 2 - 30)
-    this.ctx.font = '24px Arial'
-    this.ctx.fillText('Press SPACE to restart', width / 2, height / 2 + 30)
   }
 
   resize(width: number, height: number): void {
