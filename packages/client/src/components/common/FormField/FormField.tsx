@@ -6,6 +6,7 @@ type FormFieldProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'size'> & {
   label: string
   icon: ComponentType<{ className?: string }>
   size?: 'sm' | 'md' | 'lg'
+  error?: string
 }
 
 export const FormField = ({
@@ -13,6 +14,7 @@ export const FormField = ({
   icon: Icon,
   size = 'sm',
   id,
+  error,
   ...inputProps
 }: FormFieldProps) => {
   return (
@@ -22,7 +24,7 @@ export const FormField = ({
       </Label>
       <div className={styles.inputWrapper}>
         <Icon className={styles.inputIcon} />
-        <Input id={id} size={size} withIcon {...inputProps} />
+        <Input id={id} size={size} withIcon error={error} {...inputProps} />
       </div>
     </div>
   )

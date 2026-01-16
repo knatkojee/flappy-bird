@@ -1,3 +1,8 @@
+.container {
+  width: 100%;
+  position: relative;
+}
+
 .input {
   display: flex;
   height: var(--button-height-md);
@@ -54,6 +59,22 @@
 .withIcon {
   width: 100%;
   padding-left: 40px;
+}
+
+.hasError {
+  border-color: var(--destructive);
+}
+
+.hasError:focus-visible {
+  box-shadow: 0 0 0 2px var(--destructive);
+  border-color: var(--destructive);
+}
+
+.errorMessage {
+  display: block;
+  margin-top: 4px;
+  font-size: 12px;
+  color: var(--destructive);
 }
 
 @media (min-width: 768px) {
