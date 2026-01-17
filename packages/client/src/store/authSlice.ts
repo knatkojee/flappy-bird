@@ -28,8 +28,6 @@ const saveUser = (user: User | null) => {
   }
 }
 
-const savedUser = getSavedUser()
-
 export const fetchUser = createAsyncThunk('auth/fetchUser', async () => {
   return await getUser()
 })
@@ -40,7 +38,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 
 const initialState: AuthState = {
   user: null,
-  isLoading: !savedUser,
+  isLoading: !getSavedUser(),
   isAuthenticated: false,
 }
 
