@@ -75,6 +75,28 @@ const GameProcess = () => {
     }
   }, [resizeCanvas, initGame, handleJump])
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'F' || event.key === 'f') {
+        if (document.fullscreenElement) {
+          document.exitFullscreen().catch(err => {
+            console.error(`Error exiting fullscreen: ${err.message}`)
+          })
+        } else {
+          canvasRef.current?.requestFullscreen().catch(err => {
+            console.error(`Error enabling fullscreen: ${err.message}`)
+          })
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [])
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
