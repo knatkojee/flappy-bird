@@ -12,8 +12,13 @@ export class GameController implements GameControllerInterface {
   private view: GameView
   private animationId: number | null = null
   private isInitialized = false
+  private onGameOver?: (score: number) => void
 
-  constructor(canvas: HTMLCanvasElement, config: GameConfig) {
+  constructor(
+    canvas: HTMLCanvasElement,
+    config: GameConfig,
+    onGameOver?: (score: number) => void
+  ) {
     const canvasSize: Size = {
       width: canvas.width,
       height: canvas.height,
@@ -21,6 +26,7 @@ export class GameController implements GameControllerInterface {
 
     this.model = new GameModel(canvasSize, config)
     this.view = new GameView(canvas, config)
+    this.onGameOver = onGameOver
     this.isInitialized = true
   }
 
@@ -46,24 +52,19 @@ export class GameController implements GameControllerInterface {
       this.model.update()
     }
 
+    if (state.isGameOver && this.onGameOver) {
+      this.onGameOver(state.score)
+      this.stop()
+      return
+    }
+
     this.view.render(state)
+
     this.animationId = requestAnimationFrame(this.gameLoop)
   }
 
   jump(): void {
     if (!this.isInitialized) return
-
-    const state = this.model.getState()
-
-    if (state.isGameOver) {
-      this.reset()
-      return
-    }
-
-    if (!state.isRunning) {
-      this.start()
-    }
-
     this.model.jump()
   }
 

@@ -1,41 +1,37 @@
-import { useState } from 'react'
-import GameStartScreen from '../GameStartScreen/GameStartScreen'
-import { GameOverScreen } from '../GameOverScreen/GameOverScreen'
+import { useState, useCallback } from 'react'
 import styles from './Game.module.css'
 import GameProcess from './GameProcess'
 
 const Game = () => {
-  const [showStartScreen, setShowStartScreen] = useState(false)
-  const [gameStarted, setGameStarted] = useState(false)
-  const [showEndGameScreen, setShowEndGameScreen] = useState(true)
+  const [showStartScreen, setShowStartScreen] = useState(true)
+  const [showGameOverScreen, setShowGameOverScreen] = useState(false)
+  const [score, setScore] = useState(0)
 
   const handleStartGame = () => {
     setShowStartScreen(false)
-    setGameStarted(true)
+    setShowGameOverScreen(false)
+    setScore(0)
   }
+
+  const handleGameOver = useCallback((finalScore: number) => {
+    setScore(finalScore)
+    setShowGameOverScreen(true)
+  }, [])
 
   const handleBack = () => {
     setShowStartScreen(false)
   }
 
-  const handleRepeatGame = () => {
-    setGameStarted(true)
-    setShowEndGameScreen(false)
-  }
-
   return (
     <div className={styles.wrapper}>
-      {gameStarted && <GameProcess />}
-
-      <GameStartScreen
-        isVisible={showStartScreen}
+      <GameProcess
+        showStartScreen={showStartScreen}
+        showGameOverScreen={showGameOverScreen}
+        score={score}
         onStartGame={handleStartGame}
+        onRestartGame={handleStartGame}
+        onGameOver={handleGameOver}
         onBack={handleBack}
-      />
-
-      <GameOverScreen
-        isVisible={showEndGameScreen}
-        repeatGame={handleRepeatGame}
       />
     </div>
   )

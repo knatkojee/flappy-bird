@@ -5,11 +5,13 @@ import classes from './GameOverScreen.module.css'
 import { ROUTES } from '@/constants/routes'
 
 type GameOverScreenProps = {
+  score: number
   repeatGame: VoidFunction
   isVisible: boolean
 }
 
 export const GameOverScreen = ({
+  score,
   repeatGame,
   isVisible,
 }: GameOverScreenProps) => {
@@ -18,7 +20,7 @@ export const GameOverScreen = ({
   return (
     <section className={classes.container}>
       <article className={classes.card}>
-        <h1 className={classes.title}>Конец игры</h1>
+        <h1 className={classes.title}>Конец игры. Ваш счет: {`${score}`}</h1>
         <Button onClick={repeatGame} className={classes.repeatBtn}>
           Повторить
         </Button>
