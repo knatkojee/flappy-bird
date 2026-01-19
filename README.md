@@ -48,11 +48,7 @@
 ## Хуки
 
 В проекте используется [lefthook](https://github.com/evilmartians/lefthook)
-Если очень-очень нужно пропустить проверки, используйте `--no-verify` (но не злоупотребляйте :)
-
-## Ой, ничего не работает :(
-
-Откройте issue, я приду :)
+Если очень-очень нужно пропустить проверки, используйте `--no-verify`
 
 ## Автодеплой статики на vercel
 
@@ -88,9 +84,10 @@
 - Файлы компонентов в PascalCase: `Button/Button.tsx`
 - Экспорт компонентов через `index.ts`
 - Для конкатенации CSS-классов используем библиотеку `classnames`:
+
   ```typescript
   import classNames from 'classnames'
-  
+
   const classes = classNames(
     styles.button,
     styles[variant],
@@ -98,8 +95,14 @@
     className
   )
   ```
+
 - Импорты через алиас `@/` для `src/`:
   ```typescript
   import { Button } from '@/components'
   import { ROUTES } from '@/constants/routes'
   ```
+
+## Видео с демонстрацией работоспособности приложения
+
+- 1 часть: https://www.loom.com/share/49b52300f9894c0f9a4165c5a20d31dd
+- 2 часть: https://www.loom.com/share/cc8bdf8297db4705bfaa2acc61492edd
