@@ -20,6 +20,7 @@ export class GameModel implements GameModelInterface {
         },
         velocity: 0,
         isAlive: true,
+        lastJumpTime: 0,
       },
       pipes: [],
       score: 0,
@@ -134,6 +135,7 @@ export class GameModel implements GameModelInterface {
 
   jump(): void {
     this.state.bird.velocity = this.config.bird.jumpPower
+    this.state.bird.lastJumpTime = Date.now()
   }
 
   start(): void {

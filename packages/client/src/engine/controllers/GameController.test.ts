@@ -38,6 +38,7 @@ describe('gameController', () => {
       position: { x: 100, y: 200 },
       velocity: 0,
       isAlive: true,
+      lastJumpTime: 0,
     },
     pipes: [],
     score: 0,
