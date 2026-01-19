@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Button, SimpleFormField } from '@/components'
 import {
   Avatar,
@@ -10,6 +10,9 @@ import { ROUTES } from '@/constants/routes'
 import { changeAvatar, updateProfile } from '@/api/user'
 import { BASE_URL } from '@/api/config'
 import { formatPhone, cleanPhone } from '@/utils/phone'
+import { useAppSelector } from '@/hooks/useAppSelector'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { updateUser } from '@/store/authSlice'
 import styles from './ProfileEdit.module.css'
 
 export type NotificationType = {
@@ -20,22 +23,35 @@ export type NotificationType = {
 export default function ProfileEdit() {
   const navigate = useNavigate()
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const dispatch = useAppDispatch()
+  const { user } = useAppSelector(state => state.auth)
 
   const [formData, setFormData] = useState({
-    first_name: 'Андрей',
-    second_name: 'Крутой',
-    display_name: 'CloudChaser',
-    login: 'CloudChaser',
-    email: 'cloudchaser@example.com',
-    phone: formatPhone('98765432109'),
+    first_name: user?.first_name || '',
+    second_name: user?.second_name || '',
+    display_name: user?.display_name || '',
+    login: user?.login || '',
+    email: user?.email || '',
+    phone: user?.phone ? formatPhone(user.phone) : '',
   })
-  const [avatar, setAvatar] = useState('/mock_avatar.svg')
+  const [avatar, setAvatar] = useState(
+    user?.avatar
+      ? `${BASE_URL}${user.avatar}?t=${Date.now()}`
+      : '/mock_avatar.svg'
+  )
   const [previewImage, setPreviewImage] = useState<string | null>(null)
   const [avatarFile, setAvatarFile] = useState<File | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [notification, setNotification] = useState<NotificationType | null>(
     null
   )
+
+  useEffect(() => {
+    if (user?.avatar) {
+      const newAvatarUrl = `${BASE_URL}${user.avatar}?t=${Date.now()}`
+      setAvatar(newAvatarUrl)
+    }
+  }, [user?.avatar])
 
   const userInitials = formData.display_name.slice(0, 2).toUpperCase()
   const currentAvatar = previewImage || avatar
@@ -44,10 +60,11 @@ export default function ProfileEdit() {
     e.preventDefault()
     setIsLoading(true)
     try {
-      await updateProfile({
+      const updatedUser = await updateProfile({
         ...formData,
         phone: cleanPhone(formData.phone),
       })
+      dispatch(updateUser(updatedUser))
       setNotification({ type: 'success', message: 'Профиль успешно обновлен!' })
       setTimeout(() => navigate(ROUTES.PROTECTED.PROFILE), 1500)
     } catch (error) {
@@ -100,8 +117,8 @@ export default function ProfileEdit() {
     if (!avatarFile) return
     setIsLoading(true)
     try {
-      const user = await changeAvatar(avatarFile)
-      setAvatar(`${BASE_URL}${user.avatar}`)
+      const updatedUser = await changeAvatar(avatarFile)
+      dispatch(updateUser(updatedUser))
       setPreviewImage(null)
       setAvatarFile(null)
       setNotification({ type: 'success', message: 'Аватар обновлен!' })
