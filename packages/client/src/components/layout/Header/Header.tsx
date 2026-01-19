@@ -20,6 +20,7 @@ export default function Header() {
   const navLinks = [
     { path: ROUTES.PUBLIC.HOME, label: 'Главная' },
     { path: ROUTES.PROTECTED.LEADERBOARD, label: 'Лидерборд' },
+    { path: ROUTES.PROTECTED.FORUM, label: 'Форум' },
   ]
 
   const handleLogout = async () => {
