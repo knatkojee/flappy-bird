@@ -2,8 +2,28 @@ import { useRef, useEffect, useCallback } from 'react'
 import { GameController } from '@/engine/controllers/GameController'
 import { DEFAULT_CONFIG } from '@/engine/configs/defaultConfig'
 import styles from './GameProcess.module.css'
+import GameStartScreen from '../GameStartScreen/GameStartScreen'
+import { GameOverScreen } from '../GameOverScreen/GameOverScreen'
 
-const GameProcess = () => {
+interface GameProcessProps {
+  showStartScreen?: boolean
+  showGameOverScreen?: boolean
+  score?: number
+  onStartGame: VoidFunction
+  onRestartGame: VoidFunction
+  onGameOver: (score: number) => void
+  onBack: VoidFunction
+}
+
+const GameProcess = ({
+  showStartScreen = false,
+  showGameOverScreen = false,
+  score = 0,
+  onStartGame,
+  onRestartGame,
+  onGameOver,
+  onBack,
+}: GameProcessProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
   const controllerRef = useRef<GameController | null>(null)
@@ -11,12 +31,21 @@ const GameProcess = () => {
   const initGame = useCallback(() => {
     if (!canvasRef.current) return
     controllerRef.current?.destroy()
+
     controllerRef.current = new GameController(
       canvasRef.current,
-      DEFAULT_CONFIG
+      DEFAULT_CONFIG,
+      (finalScore: number) => {
+        if (onGameOver) {
+          onGameOver(finalScore)
+        }
+      }
     )
-    controllerRef.current.start()
-  }, [])
+
+    if (!showStartScreen) {
+      controllerRef.current.start()
+    }
+  }, [showStartScreen, onGameOver])
 
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current
@@ -43,9 +72,9 @@ const GameProcess = () => {
     }
   }, [])
 
-  const handleJump = useCallback(() => {
+  const handleJump = () => {
     controllerRef.current?.jump()
-  }, [])
+  }
 
   useEffect(() => {
     resizeCanvas()
@@ -73,25 +102,50 @@ const GameProcess = () => {
 
       controllerRef.current?.destroy()
     }
-  }, [resizeCanvas, initGame, handleJump])
+  }, [resizeCanvas, initGame])
 
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Flappy Bird</h1>
-      </div>
-
-      <div ref={containerRef} className={styles.canvasContainer}>
-        <canvas ref={canvasRef} className={styles.canvas} />
-      </div>
-
-      <div className={styles.controlsInfo}>
-        <div className={styles.controlsContent}>
-          <div className={styles.spaceKey}>SPACE</div>
-          <span>пробел для прыжка</span>
+    <>
+      {!showStartScreen && (
+        <div className={styles.container}>
+          <div className={styles.header}>
+            <h1 className={styles.title}>Flappy Bird</h1>
+          </div>
+          <div ref={containerRef} className={styles.canvasContainer}>
+            <canvas ref={canvasRef} className={styles.canvas} />
+            {showGameOverScreen && (
+              <div className={styles.overlay}>
+                <GameOverScreen
+                  isVisible={showGameOverScreen}
+                  score={score}
+                  repeatGame={() => {
+                    onRestartGame()
+                    controllerRef.current?.reset()
+                  }}
+                />
+              </div>
+            )}
+          </div>
+          <div className={styles.controlsInfo}>
+            <div className={styles.controlsContent}>
+              <div className={styles.spaceKey}>SPACE</div>
+              <span>пробел для прыжка</span>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      )}
+
+      {showStartScreen && (
+        <GameStartScreen
+          isVisible={showStartScreen}
+          onStartGame={() => {
+            onStartGame()
+            controllerRef.current?.start()
+          }}
+          onBack={onBack}
+        />
+      )}
+    </>
   )
 }
 

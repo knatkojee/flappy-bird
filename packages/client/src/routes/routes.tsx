@@ -1,24 +1,21 @@
-import { lazy } from 'react'
-import { Navigate, Outlet, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import { usePageTitle } from '@/hooks/usePageTitle'
 import { PAGE_TITLES } from '@/constants/pageTitles'
 import type { PageWithTitleProps } from './types'
-import { useSelector } from 'react-redux'
-import type { RootState } from '@/store'
-import { LoadingSpinner } from '@/components'
+import { ProtectedRoute, PublicRoute } from '@/components'
 
-const Forum = lazy(() => import('@/pages/Forum/Forum'))
-const ForumTopic = lazy(() => import('@/pages/ForumTopic/ForumTopic'))
-const Game = lazy(() => import('@/pages/Game/Game'))
-const Home = lazy(() => import('@/pages/Home/Home'))
-const Leaderboard = lazy(() => import('@/pages/Leaderboard/Leaderboard'))
-const Login = lazy(() => import('@/pages/Login/Login'))
-const ErrorPage = lazy(() => import('@/pages/ErrorPage/ErrorPage'))
-const Profile = lazy(() => import('@/pages/Profile/Profile'))
-const ProfileEdit = lazy(() => import('@/pages/ProfileEdit/ProfileEdit'))
-const PasswordEdit = lazy(() => import('@/pages/PasswordEdit/PasswordEdit'))
-const Registration = lazy(() => import('@/pages/Registration/Registration'))
+import Forum from '@/pages/Forum/Forum'
+import ForumTopic from '@/pages/ForumTopic/ForumTopic'
+import Game from '@/pages/Game/Game'
+import Home from '@/pages/Home/Home'
+import Leaderboard from '@/pages/Leaderboard/Leaderboard'
+import Login from '@/pages/Login/Login'
+import ErrorPage from '@/pages/ErrorPage/ErrorPage'
+import Profile from '@/pages/Profile/Profile'
+import ProfileEdit from '@/pages/ProfileEdit/ProfileEdit'
+import PasswordEdit from '@/pages/PasswordEdit/PasswordEdit'
+import Registration from '@/pages/Registration/Registration'
 
 export type RouteKeys = keyof typeof ROUTES
 
@@ -31,22 +28,6 @@ const PageWithTitle = <T extends object = object>({
   return Component ? <Component {...(componentProps as T)} /> : null
 }
 
-const ProtectedRoute = () => {
-  const { isAuthenticated, isLoading } = useSelector(
-    (state: RootState) => state.auth
-  )
-
-  if (isLoading) {
-    return <LoadingSpinner />
-  }
-
-  if (!isAuthenticated) {
-    return <Navigate to={ROUTES.PUBLIC.LOGIN} replace />
-  }
-
-  return <Outlet />
-}
-
 const AppRoutes = () => {
   return (
     <Routes>
@@ -54,19 +35,24 @@ const AppRoutes = () => {
         path={ROUTES.PUBLIC.HOME}
         element={<PageWithTitle component={Home} title={PAGE_TITLES.HOME} />}
       />
-      <Route
-        path={ROUTES.PUBLIC.LOGIN}
-        element={<PageWithTitle component={Login} title={PAGE_TITLES.LOGIN} />}
-      />
-      <Route
-        path={ROUTES.PUBLIC.REGISTRATION}
-        element={
-          <PageWithTitle
-            component={Registration}
-            title={PAGE_TITLES.REGISTRATION}
-          />
-        }
-      />
+
+      <Route element={<PublicRoute />}>
+        <Route
+          path={ROUTES.PUBLIC.LOGIN}
+          element={
+            <PageWithTitle component={Login} title={PAGE_TITLES.LOGIN} />
+          }
+        />
+        <Route
+          path={ROUTES.PUBLIC.REGISTRATION}
+          element={
+            <PageWithTitle
+              component={Registration}
+              title={PAGE_TITLES.REGISTRATION}
+            />
+          }
+        />
+      </Route>
 
       <Route element={<ProtectedRoute />}>
         <Route

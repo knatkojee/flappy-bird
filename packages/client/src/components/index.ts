@@ -8,6 +8,8 @@ export { Label } from './common/Label/Label'
 export { FormField } from './common/FormField/FormField'
 export { SimpleFormField } from './common/SimpleFormField/SimpleFormField'
 export { LoadingSpinner } from './common/LoadingSpinner/LoadingSpinner'
+export { ProtectedRoute } from './common/ProtectedRoute/ProtectedRoute'
+export { PublicRoute } from './common/PublicRoute/PublicRoute'
 
 export {
   Table,
