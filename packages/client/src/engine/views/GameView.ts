@@ -3,6 +3,7 @@ import { BirdView } from './BirdView'
 import { PipeView } from './PipeView'
 import { GroundView } from './GroundView'
 import { ScoreView } from './ScoreView'
+import { CloudView } from './CloudView'
 
 export class GameView implements GameViewInterface {
   private ctx: CanvasRenderingContext2D
@@ -13,6 +14,7 @@ export class GameView implements GameViewInterface {
   private pipeView: PipeView
   private groundView: GroundView
   private scoreView: ScoreView
+  private cloudView: CloudView
 
   constructor(canvas: HTMLCanvasElement, config: GameConfig) {
     const ctx = canvas.getContext('2d')
@@ -24,42 +26,28 @@ export class GameView implements GameViewInterface {
 
     this.birdView = new BirdView(ctx, config.bird)
     this.pipeView = new PipeView(ctx, config.pipe.color, config.pipe.width)
-    this.groundView = new GroundView(ctx, config.render)
+    this.groundView = new GroundView(ctx, config.render, config.pipe.speed)
     this.scoreView = new ScoreView(ctx, canvas.width, canvas.height)
+    this.cloudView = new CloudView(ctx, canvas.width, canvas.height)
   }
 
   render(state: GameState): void {
     this.ctx.fillStyle = this.config.render.backgroundColor
     this.ctx.fillRect(0, 0, this.ctx.canvas.width, this.ctx.canvas.height)
 
+    this.cloudView.render(state.isRunning)
+
     state.pipes.forEach(pipe => {
       this.pipeView.render(pipe, this.ctx.canvas.height)
     })
 
-    this.groundView.render(this.ctx.canvas.width, this.groundY)
+    this.groundView.render(this.ctx.canvas.width, this.groundY, state.isRunning)
 
     if (state.bird.isAlive) {
       this.birdView.render(state.bird)
     }
 
     this.scoreView.render(state.score)
-
-    if (state.isGameOver) {
-      this.renderGameOver()
-    }
-  }
-
-  private renderGameOver(): void {
-    const { width, height } = this.ctx.canvas
-
-    this.ctx.fillStyle = 'rgba(0, 0, 0, 0.5)'
-    this.ctx.fillRect(0, 0, width, height)
-    this.ctx.fillStyle = '#FFF'
-    this.ctx.font = 'bold 48px Arial'
-    this.ctx.textAlign = 'center'
-    this.ctx.fillText('GAME OVER', width / 2, height / 2 - 30)
-    this.ctx.font = '24px Arial'
-    this.ctx.fillText('Press SPACE to restart', width / 2, height / 2 + 30)
   }
 
   resize(width: number, height: number): void {
@@ -67,5 +55,6 @@ export class GameView implements GameViewInterface {
     this.ctx.canvas.height = height
     this.groundY = height - this.config.render.groundHeight
     this.scoreView.resize(width, height)
+    this.cloudView.resize(width, height)
   }
 }

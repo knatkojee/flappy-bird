@@ -3,9 +3,16 @@ import styles from './Footer.module.css'
 import { ROUTES } from '@/constants/routes'
 import type { RootState } from '@/store'
 import { useSelector } from 'react-redux'
+import { useAppDispatch } from '@/hooks/useAppDispatch'
+import { logout } from '@/store/authSlice'
 
 export default function Footer() {
   const { isAuthenticated } = useSelector((state: RootState) => state.auth)
+  const dispatch = useAppDispatch()
+
+  const handleLogout = () => {
+    dispatch(logout())
+  }
 
   return (
     <footer className={styles.footer}>
@@ -70,9 +77,7 @@ export default function Footer() {
                     <Link
                       to="#"
                       className={styles.footerLink}
-                      onClick={() => {
-                        // TODO
-                      }}>
+                      onClick={handleLogout}>
                       Выход
                     </Link>
                   </li>

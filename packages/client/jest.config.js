@@ -12,5 +12,9 @@ export default {
   globals: {
     __SERVER_PORT__: process.env.SERVER_PORT,
   },
+  transform: {
+    '^.+\\.(ts|tsx)$': 'ts-jest',
+    '^.+\\.(png|jpg|jpeg|gif|webp|svg)$': 'jest-transform-stub',
+  },
   setupFilesAfterEnv: ['<rootDir>/src/setupTests.ts'],
 }

@@ -39,6 +39,7 @@ export type BirdState = {
   position: Position
   velocity: number
   isAlive: boolean
+  lastJumpTime: number
 }
 
 export type PipeState = {

@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react'
+import { useState, useEffect, type ReactNode } from 'react'
 import styles from './Avatar.module.css'
 
 type AvatarProps = {
@@ -41,9 +41,29 @@ const Avatar = ({
   </div>
 )
 
-const AvatarImage = ({ src, alt, onError }: AvatarImageProps) => (
-  <img className={styles.avatarImage} src={src} alt={alt} onError={onError} />
-)
+const AvatarImage = ({ src, alt, onError }: AvatarImageProps) => {
+  const [hasError, setHasError] = useState(false)
+
+  useEffect(() => {
+    setHasError(false)
+  }, [src])
+
+  const handleError = () => {
+    setHasError(true)
+    onError?.()
+  }
+
+  if (hasError) return null
+
+  return (
+    <img
+      className={styles.avatarImage}
+      src={src}
+      alt={alt}
+      onError={handleError}
+    />
+  )
+}
 
 const AvatarFallback = ({ fontSize = 16, children }: AvatarFallbackProps) => (
   <div className={styles.avatarFallback} style={{ fontSize }}>

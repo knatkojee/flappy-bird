@@ -20,6 +20,7 @@ export class GameModel implements GameModelInterface {
         },
         velocity: 0,
         isAlive: true,
+        lastJumpTime: 0,
       },
       pipes: [],
       score: 0,
@@ -125,24 +126,20 @@ export class GameModel implements GameModelInterface {
   }
 
   private gameOver(): void {
-    this.state.isGameOver = true
-    this.state.isRunning = false
-    this.state.bird.isAlive = false
+    if (!this.state.isGameOver) {
+      this.state.isGameOver = true
+      this.state.isRunning = false
+      this.state.bird.isAlive = false
+    }
   }
 
   jump(): void {
-    if (this.state.isGameOver) {
-      this.reset()
-      this.start()
-    } else if (!this.state.isRunning) {
-      this.start()
-    }
-
     this.state.bird.velocity = this.config.bird.jumpPower
+    this.state.bird.lastJumpTime = Date.now()
   }
 
   start(): void {
-    if (this.state.isRunning) return
+    if (this.state.isRunning || this.state.isGameOver) return
     this.state.isRunning = true
     this.state.isGameOver = false
     this.state.bird.isAlive = true

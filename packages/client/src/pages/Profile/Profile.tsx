@@ -5,19 +5,23 @@ import {
   AvatarFallback,
 } from '@/components/common/Avatar/Avatar'
 import { Link } from 'react-router-dom'
+import { useAppSelector } from '@/hooks/useAppSelector'
+import { BASE_URL } from '@/api/config'
 import styles from './Profile.module.css'
 
 export default function Profile() {
-  const user = {
-    username: 'CloudChaser',
-    email: 'cloudchaser@example.com',
-    joinDate: '15 декабря 2025',
-    highScore: 8524,
-    gamesPlayed: 42,
-    winRate: 78.5,
+  const { user } = useAppSelector(state => state.auth)
+
+  if (!user) {
+    return <div>Загрузка...</div>
   }
 
-  const userInitials = user.username.slice(0, 2).toUpperCase()
+  const userInitials = (user.display_name || user.login)
+    .slice(0, 2)
+    .toUpperCase()
+  const avatarSrc = user.avatar
+    ? `${BASE_URL}${user.avatar}`
+    : '/mock_avatar.svg'
 
   return (
     <div className={styles.container}>
@@ -30,7 +34,10 @@ export default function Profile() {
                 borderWidth={4}
                 borderColor="#f59e0b"
                 shadow={true}>
-                <AvatarImage src="/mock_avatar.svg" alt={user.username} />
+                <AvatarImage
+                  src={avatarSrc}
+                  alt={user.display_name || user.login}
+                />
                 <AvatarFallback fontSize={24}>{userInitials}</AvatarFallback>
               </Avatar>
               <Link to="/profile/edit">
@@ -39,23 +46,25 @@ export default function Profile() {
             </div>
 
             <div className={styles.userInfo}>
-              <h1 className={styles.username}>{user.username}</h1>
+              <h1 className={styles.username}>
+                {user.display_name || user.login}
+              </h1>
               <p className={styles.email}>{user.email}</p>
 
               <div className={styles.infoList}>
                 <div className={styles.infoItem}>
-                  <span className={styles.infoLabel}>Участник с</span>
-                  <span className={styles.infoValue}>{user.joinDate}</span>
+                  <span className={styles.infoLabel}>ID пользователя</span>
+                  <span className={styles.infoValue}>{user.id}</span>
                 </div>
                 <div className={styles.infoItem}>
-                  <span className={styles.infoLabel}>Лучший результат</span>
-                  <span className={styles.infoValueHighlight}>
-                    {user.highScore}
+                  <span className={styles.infoLabel}>Логин</span>
+                  <span className={styles.infoValue}>{user.login}</span>
+                </div>
+                <div className={styles.infoItem}>
+                  <span className={styles.infoLabel}>Телефон</span>
+                  <span className={styles.infoValue}>
+                    {user.phone || 'Не указан'}
                   </span>
-                </div>
-                <div className={styles.infoItem}>
-                  <span className={styles.infoLabel}>Игр сыграно</span>
-                  <span className={styles.infoValue}>{user.gamesPlayed}</span>
                 </div>
               </div>
 
@@ -78,15 +87,15 @@ export default function Profile() {
         <div className={styles.statsGrid}>
           <div className={styles.statCard}>
             <div className={`${styles.statValue} ${styles.statValueYellow}`}>
-              {user.highScore}
+              {user.id}
             </div>
-            <p className={styles.statLabel}>Лучший результат</p>
+            <p className={styles.statLabel}>ID пользователя</p>
           </div>
           <div className={styles.statCard}>
             <div className={`${styles.statValue} ${styles.statValueBlue}`}>
-              {user.gamesPlayed}
+              {user.first_name} {user.second_name}
             </div>
-            <p className={styles.statLabel}>Игр сыграно</p>
+            <p className={styles.statLabel}>Полное имя</p>
           </div>
         </div>
       </div>
