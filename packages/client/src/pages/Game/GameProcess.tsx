@@ -112,7 +112,7 @@ const GameProcess = ({
             console.error(`Error exiting fullscreen: ${err.message}`)
           })
         } else {
-          canvasRef.current?.requestFullscreen().catch(err => {
+          containerRef.current?.requestFullscreen().catch(err => {
             console.error(`Error enabling fullscreen: ${err.message}`)
           })
         }
@@ -124,7 +124,7 @@ const GameProcess = ({
     return () => {
       document.removeEventListener('keydown', handleKeyDown)
     }
-  }, [])
+  }, [showGameOverScreen])
 
   return (
     <>
