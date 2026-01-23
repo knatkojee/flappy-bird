@@ -104,6 +104,28 @@ const GameProcess = ({
     }
   }, [resizeCanvas, initGame])
 
+  useEffect(() => {
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'F' || event.key === 'f') {
+        if (document.fullscreenElement) {
+          document.exitFullscreen().catch(err => {
+            console.error(`Error exiting fullscreen: ${err.message}`)
+          })
+        } else {
+          containerRef.current?.requestFullscreen().catch(err => {
+            console.error(`Error enabling fullscreen: ${err.message}`)
+          })
+        }
+      }
+    }
+
+    document.addEventListener('keydown', handleKeyDown)
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+  }, [showGameOverScreen])
+
   return (
     <>
       {!showStartScreen && (
