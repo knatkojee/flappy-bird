@@ -3,7 +3,25 @@ import App from './App'
 import './index.css'
 import { StrictMode } from 'react'
 import { Provider } from 'react-redux'
-import { store } from './store'
+import { createAppStore } from './store'
+
+const initializeApp = () => {
+  const rootElement = document.getElementById('root') as HTMLElement
+
+  const preloadedState = (window as any).__INITIAL_STATE__
+
+  const appStore = createAppStore(preloadedState)
+
+  ReactDOM.createRoot(rootElement).render(
+    <StrictMode>
+      <Provider store={appStore}>
+        <App />
+      </Provider>
+    </StrictMode>
+  )
+}
+
+initializeApp()
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -17,11 +35,3 @@ if ('serviceWorker' in navigator) {
       })
   })
 }
-
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </StrictMode>
-)

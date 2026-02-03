@@ -1,0 +1,21 @@
+{
+  "name": "@shared",
+  "version": "1.0.0",
+  "description": "Shared code between client and server",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.7",
+    "redux": "^4.2.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.0"
+  },
+  "peerDependencies": {
+    "typescript": "^4.8.4"
+  }
+}
