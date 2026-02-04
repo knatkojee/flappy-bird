@@ -2,20 +2,24 @@ import { Button } from '@/components'
 import { Input } from '@/components/common/Input/Input'
 import { Label } from '@/components/common/Label/Label'
 import { User, Lock } from '@/components/common/Icon/Icon'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import styles from './Login.module.css'
-import { signin } from '@/api/auth'
+import { signin, getYandexServiceId, signinWithYandex } from '@/api/auth'
 import type { SignInData } from '@/types/auth'
 import { toast } from 'react-toastify'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { fetchUser } from '@/store/authSlice'
 import { useForm } from '@/hooks/useForm'
 import { loginValidator, passwordValidator } from '@/lib/validators'
+import { useEffect } from 'react'
+
+const REDIRECT_URI = 'http://localhost:3000'
 
 const Login = () => {
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
+  const [searchParams] = useSearchParams()
 
   const { values, errors, isSubmitting, handleChange, handleSubmit } =
     useForm<SignInData>(
@@ -25,6 +29,26 @@ const Login = () => {
         password: passwordValidator,
       }
     )
+
+  useEffect(() => {
+    const code = searchParams.get('code')
+    console.log(code)
+    if (code) {
+      const handleYandexAuth = async () => {
+        try {
+          await signinWithYandex(code, REDIRECT_URI)
+          await dispatch(fetchUser())
+          toast.success('Вы успешно вошли через Яндекс!')
+          navigate(ROUTES.PUBLIC.HOME)
+        } catch (error) {
+          if (error instanceof Error) {
+            toast.error(error.message)
+          }
+        }
+      }
+      handleYandexAuth()
+    }
+  }, [searchParams, dispatch, navigate])
 
   const onSubmit = async (data: SignInData) => {
     const signInData: SignInData = {
@@ -37,6 +61,18 @@ const Login = () => {
       await dispatch(fetchUser())
       toast.success('Вы успешно вошли!')
       navigate(ROUTES.PUBLIC.HOME)
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    }
+  }
+
+  const handleYandexLogin = async () => {
+    try {
+      const { service_id } = await getYandexServiceId(REDIRECT_URI)
+      const yandexAuthUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${REDIRECT_URI}`
+      window.open(yandexAuthUrl, '_blank')
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message)
@@ -102,6 +138,15 @@ const Login = () => {
             variant="primary"
             size="lg">
             {isSubmitting ? '...' : 'Войти'}
+          </Button>
+
+          <Button
+            type="button"
+            variant="secondary"
+            size="lg"
+            onClick={handleYandexLogin}
+            className={styles.yandexButton}>
+            Войти через Яндекс
           </Button>
         </form>
 

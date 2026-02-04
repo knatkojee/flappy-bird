@@ -47,3 +47,33 @@ export const logout = async () => {
     throw new Error(axiosError.response?.data?.reason || 'Произошла ошибка')
   }
 }
+
+export const getYandexServiceId = async (redirectUri: string) => {
+  try {
+    const response = await apiInstance.get<{ service_id: string }>(
+      '/oauth/yandex/service-id',
+      {
+        params: {
+          redirect_uri: redirectUri,
+        },
+      }
+    )
+    return response.data
+  } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>
+    throw new Error(axiosError.response?.data?.reason || 'Произошла ошибка')
+  }
+}
+
+export const signinWithYandex = async (code: string, redirectUri: string) => {
+  try {
+    const response = await apiInstance.post<void>('/oauth/yandex', {
+      code,
+      redirect_uri: redirectUri,
+    })
+    return response.data
+  } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>
+    throw new Error(axiosError.response?.data?.reason || 'Произошла ошибка')
+  }
+}
