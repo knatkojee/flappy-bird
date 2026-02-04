@@ -1,4 +1,6 @@
 import type { Request, Response } from 'express'
+// @ts-ignore
+import { serializeStateForClient } from '../../shared/server/renderer'
 
 // TODO: добавить реальные типы
 type AuthState = {
@@ -14,8 +16,6 @@ const initializeServerStore = async (
   store: { getState: () => { auth: AuthState } }
   initialState: { auth: AuthState }
 }> => {
-  console.log('Инициализация серверного Redux store...')
-
   const hasAuthCookie = req.headers.cookie?.includes('authCookie')
 
   const mockState: AuthState = hasAuthCookie
@@ -52,15 +52,10 @@ const initializeServerStore = async (
   }
 }
 
-// TODO: тестовая сериализация состояния
-const serializeStateForClient = (state: any): string => {
-  return JSON.stringify(state)
-}
-
 // TODO: тестовая генерация HTML
 const generateHTML = (
   content: string,
-  initialState: any,
+  serializedState: string,
   title: string = 'Flappy Bird Game'
 ): string => {
   return `<!DOCTYPE html>
@@ -76,7 +71,7 @@ const generateHTML = (
     
     <!-- Встроенное состояние Redux для гидратации на клиенте -->
     <script>
-      window.__INITIAL_STATE__ = ${serializeStateForClient(initialState)};
+      window.__INITIAL_STATE__ = ${serializedState};
     </script>
     
     <!-- Здесь будут подключены статические файлы -->
@@ -111,12 +106,37 @@ export const ssrHandler = async (req: Request, res: Response) => {
       </div>
     `
 
-    const html = generateHTML(reactContent, initialState, 'Flappy Bird - SSR')
+    const serializedState = serializeStateForClient(initialState)
+
+    if (!serializedState || serializedState === 'null') {
+      throw new Error('Не удалось сериализовать состояние')
+    }
+
+    const html = generateHTML(
+      reactContent,
+      serializedState,
+      'Flappy Bird - SSR'
+    )
 
     res.status(200).send(html)
   } catch (error) {
     console.error('Ошибка SSR:', error)
-    res.status(500).send('Internal Server Error')
+
+    const fallbackState = JSON.stringify({
+      auth: { user: null, isLoading: false, isAuthenticated: false },
+    })
+
+    const fallbackHTML = generateHTML(
+      `<div id="app">
+        <h1>Flappy Bird - Server Error</h1>
+        <p>Произошла ошибка при серверном рендеринге.</p>
+        <p>Попробуйте обновить страницу.</p>
+      </div>`,
+      fallbackState,
+      'Flappy Bird - Error'
+    )
+
+    res.status(500).send(fallbackHTML)
   }
 }
 

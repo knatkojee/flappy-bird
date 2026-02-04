@@ -20,9 +20,14 @@
     "lib": ["es2019", "esnext.asynciterable"],
     "types": ["node", "jest"],
     "baseUrl": ".",
-    "paths": {
-      "*": ["types/*"]
-    },
     "outDir": "dist"
-  }
+  },
+  "include": [
+    "./*.ts",
+    "../shared/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }

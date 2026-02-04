@@ -14,6 +14,11 @@ createClientAndConnect()
 
 app.get('/api/health', apiHandler)
 
+// TODO: Добавить реальное API
+// app.get('/api/auth/user', getUserHandler)
+// app.post('/api/auth/signup', signupHandler)
+// app.post('/api/auth/signin', signinHandler)
+
 app.get('*', ssrHandler)
 
 app.listen(port, () => {
