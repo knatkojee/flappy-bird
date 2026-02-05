@@ -8,9 +8,14 @@ import { createAppStore } from './store'
 const initializeApp = () => {
   const rootElement = document.getElementById('root') as HTMLElement
 
-  const preloadedState = (window as any).__INITIAL_STATE__
+  const preloadedState =
+    typeof window !== 'undefined'
+      ? (window as any).__INITIAL_STATE__
+      : undefined
 
   const appStore = createAppStore(preloadedState)
+
+  console.log('Store создан:', appStore.getState())
 
   ReactDOM.createRoot(rootElement).render(
     <StrictMode>

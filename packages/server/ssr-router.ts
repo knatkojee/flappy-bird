@@ -1,5 +1,4 @@
 import type { Request, Response } from 'express'
-// @ts-ignore
 import { serializeStateForClient } from '../../shared/server/renderer'
 
 // TODO: добавить реальные типы

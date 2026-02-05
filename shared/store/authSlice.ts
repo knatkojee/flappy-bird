@@ -1,7 +1,7 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { User } from '@/shared/types'
-import { getUser, logout as logoutUser } from '@/shared/api/auth'
+import type { User } from '../types'
+import { getUser, logout as logoutUser } from '../api/auth'
 
 type AuthState = {
   user: User | null
