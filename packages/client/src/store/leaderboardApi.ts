@@ -57,7 +57,7 @@ export const LeaderBoardApi = createApi({
 
     getAllUsers: builder.query<GetAllUsersResponse, GetAllUsersData>({
       query: body => ({
-        url: '/laseaderboard/all',
+        url: '/leaderboard/all',
         method: 'POST',
         body,
       }),
