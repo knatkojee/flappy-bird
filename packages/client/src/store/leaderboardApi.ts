@@ -45,14 +45,30 @@ export const LeaderBoardApi = createApi({
         method: 'POST',
         body,
       }),
+
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled
+        } catch (error) {
+          console.log('error: ', error)
+        }
+      },
     }),
 
     getAllUsers: builder.query<GetAllUsersResponse, GetAllUsersData>({
       query: body => ({
-        url: '/leaderboard/all',
+        url: '/laseaderboard/all',
         method: 'POST',
         body,
       }),
+
+      async onQueryStarted(_arg, { queryFulfilled }) {
+        try {
+          await queryFulfilled
+        } catch (error) {
+          console.log('error: ', error)
+        }
+      },
     }),
   }),
 })
