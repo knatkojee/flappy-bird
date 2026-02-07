@@ -1,13 +1,18 @@
 import type { Request, Response } from 'express'
-import { serializeStateForClient, renderApp, initializeServerStore } from '../../shared/server'
+import {
+  serializeStateForClient,
+  renderApp,
+  initializeServerStore,
+} from '../../shared/server'
 
-// @ts-ignore
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-ignore - AppWrapper import works at runtime
 import AppWrapper from '../client/src/AppWrapper'
 
 const generateHTML = (
   content: string,
   serializedState: string,
-  title: string = 'Flappy Bird Game'
+  title = 'Flappy Bird Game'
 ): string => {
   return `<!DOCTYPE html>
 <html lang="ru">
@@ -38,10 +43,13 @@ export const ssrHandler = async (req: Request, res: Response) => {
       throw new Error('Не удалось сериализовать состояние')
     }
 
-    const html = generateHTML(reactContent, serializedState, 'Flappy Bird - SSR')
+    const html = generateHTML(
+      reactContent,
+      serializedState,
+      'Flappy Bird - SSR'
+    )
 
     res.status(200).send(html)
-    
   } catch (error) {
     console.error('Ошибка SSR:', error)
 
