@@ -9,8 +9,8 @@
     "jsx": "react-jsx",
     "moduleResolution": "node",
     "declaration": true,
+    "declarationMap": true,
     "outDir": "./dist",
-    "rootDir": "./",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
@@ -37,10 +37,17 @@
     }
   },
   "include": [
-    "./**/*"
+    "types/**/*",
+    "store/**/*",
+    "api/**/*",
+    "server/**/*",
+    "index.ts"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "**/*.js",
+    "**/*.d.ts",
+    "**/*.js.map"
   ]
 }

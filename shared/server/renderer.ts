@@ -1,6 +1,11 @@
 import type { Request } from 'express'
 import type { Store } from 'redux'
+import type { AuthState } from '../store/authSlice'
 import { fetchUser } from '../store/authSlice'
+
+type RootState = {
+  auth: AuthState
+}
 
 /**
  * Проверяет, можно ли сериализовать значение
@@ -119,13 +124,13 @@ const validateSerializedState = (state: any): boolean => {
 export const initializeServerStore = async (
   req: Request
 ): Promise<{
-  store: Store
-  initialState: any
+  store: Store<RootState>
+  initialState: RootState
 }> => {
   // Создаем новый store для каждого запроса
   const { configureStore } = await import('@reduxjs/toolkit')
   const authReducer = (await import('../store/authSlice')).default
-  
+
   const serverStore = configureStore({
     reducer: {
       auth: authReducer,
@@ -160,6 +165,8 @@ export const initializeServerStore = async (
       isAuthenticated: initialState.auth.isAuthenticated,
       isLoading: initialState.auth.isLoading,
       hasUser: !!initialState.auth.user,
+      userId: initialState.auth.user?.id,
+      userLogin: initialState.auth.user?.login,
     })
   }
 
@@ -174,7 +181,7 @@ export const initializeServerStore = async (
  * @param state Состояние Redux store
  * @returns Строка с JSON для встраивания в HTML
  */
-export const serializeStateForClient = (state: any): string => {
+export const serializeStateForClient = (state: RootState): string => {
   try {
     if (!validateSerializedState(state)) {
       console.warn('Состояние невалидно')

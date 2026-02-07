@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import type { User } from '../types'
 import { getUser, logout as logoutUser } from '../api/auth'
 
-type AuthState = {
+export type AuthState = {
   user: User | null
   isLoading: boolean
   isAuthenticated: boolean
