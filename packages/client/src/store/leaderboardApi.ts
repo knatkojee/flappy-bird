@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { toast } from 'react-toastify'
 
 type AddUserData = {
   data: {
@@ -51,6 +52,7 @@ export const LeaderBoardApi = createApi({
           await queryFulfilled
         } catch (error) {
           console.log('error: ', error)
+          toast.error('Ошибка при отправки рейтинга')
         }
       },
     }),
@@ -67,6 +69,7 @@ export const LeaderBoardApi = createApi({
           await queryFulfilled
         } catch (error) {
           console.log('error: ', error)
+          toast.error('Ошибка при получении рейтинга игроков')
         }
       },
     }),

@@ -1,0 +1,51 @@
+.statsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-xl);
+}
+
+.statCard {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur));
+  border-radius: var(--radius-2xl);
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow);
+}
+
+.statEmoji {
+  font-size: var(--font-2xl);
+  margin-bottom: var(--spacing-sm);
+}
+
+.statLabel {
+  font-size: var(--font-sm);
+  color: var(--muted-foreground);
+  margin-bottom: var(--spacing-xs);
+}
+
+.statValue {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.statValueOrange {
+  color: var(--bird-orange);
+}
+
+.statValueYellow {
+  color: var(--bird-yellow);
+}
+
+.statAuthor {
+  font-size: var(--font-sm);
+  color: var(--muted-foreground);
+  margin-top: var(--spacing-sm);
+}
+
+@media (min-width: 768px) {
+  .statsGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

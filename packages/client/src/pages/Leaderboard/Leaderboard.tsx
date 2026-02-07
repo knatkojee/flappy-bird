@@ -1,11 +1,9 @@
-import classNames from 'classnames'
 import {
   Input,
   LoadingSpinner,
   Search,
   Table,
   TableBody,
-  TableCell,
   TableHead,
   TableHeader,
   TableRow,
@@ -15,6 +13,8 @@ import { useState, useMemo, useRef } from 'react'
 import styles from './Leaderboard.module.css'
 import { PAGE_TITLES } from '@/constants/pageTitles'
 import { useGetAllUsersQuery } from '@/store/leaderboardApi'
+import { Stats } from './Components/Stats/Stats'
+import { Players } from './Components/Players/Players'
 
 export default function Leaderboard() {
   const { data: playersData, isFetching } = useGetAllUsersQuery({
@@ -54,34 +54,6 @@ export default function Leaderboard() {
     return playersWithId
   }, [searchTerm, playersWithId])
 
-  const statsConfig = playersData
-    ? [
-        {
-          emoji: '🔥',
-          label: 'Лучший результат',
-          getValue: () => playersData[0].data.score,
-          valueColor: 'orange',
-          getAuthor: () => `игрок ${playersData[0].data.userName}`,
-        },
-        {
-          emoji: '📊',
-          label: 'Средний результат',
-          getValue: () =>
-            Math.floor(
-              playersData.reduce((sum, p) => sum + p.data.score, 0) /
-                playersData.length
-            ).toLocaleString(),
-          valueColor: 'yellow',
-        },
-        {
-          emoji: '👥',
-          label: 'Активных игроков',
-          getValue: () => playersData.length.toLocaleString(),
-          valueColor: 'orange',
-        },
-      ]
-    : []
-
   return (
     <>
       <div className={styles.container}>
@@ -99,29 +71,7 @@ export default function Leaderboard() {
               </p>
             </div>
 
-            <div className={styles.statsGrid}>
-              {statsConfig.map((stat, index) => (
-                <div key={index} className={styles.statCard}>
-                  <div className={styles.statEmoji}>{stat.emoji}</div>
-                  <p className={styles.statLabel}>{stat.label}</p>
-                  <p
-                    className={classNames(
-                      styles.statValue,
-                      styles[
-                        `statValue${
-                          stat.valueColor.charAt(0).toUpperCase() +
-                          stat.valueColor.slice(1)
-                        }`
-                      ]
-                    )}>
-                    {stat.getValue()}
-                  </p>
-                  {stat.getAuthor && (
-                    <p className={styles.statAuthor}>{stat.getAuthor()}</p>
-                  )}
-                </div>
-              ))}
-            </div>
+            <Stats />
 
             <div className={styles.filterSection}>
               <div className={styles.searchContainer}>
@@ -149,48 +99,7 @@ export default function Leaderboard() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {filteredPlayers?.map((player, index) => {
-                    const user = player.data
-                    return (
-                      <TableRow
-                        key={player.__clientId}
-                        variant={user.score <= 3 ? 'highlighted' : 'default'}>
-                        <TableCell>
-                          <span className={styles.rankNumber}>
-                            #{index + 1}
-                          </span>
-                        </TableCell>
-                        <TableCell>
-                          <span className={styles.playerCell}>
-                            <span className={styles.playerAvatar}>
-                              {user.avatar ? (
-                                <img
-                                  src={`https://ya-praktikum.tech/api/v2/resources${user.avatar}`}
-                                  alt="Аватар игрока"
-                                />
-                              ) : (
-                                '🐦'
-                              )}
-                            </span>
-                            {user.userName ||
-                              user.name ||
-                              user.username ||
-                              user.user ||
-                              user.login ||
-                              user.nickname}
-                          </span>
-                        </TableCell>
-                        <TableCell align="right">
-                          <span className={styles.scoreValue}>
-                            {user.score.toLocaleString()}
-                          </span>
-                        </TableCell>
-                        <TableCell align="right" responsive="md">
-                          {user.score}
-                        </TableCell>
-                      </TableRow>
-                    )
-                  })}
+                  <Players filteredPlayers={filteredPlayers} />
                 </TableBody>
               </Table>
 
