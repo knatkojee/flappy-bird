@@ -1,39 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit'
+import authReducer from '../../../../shared/store/authSlice'
 
-// TODO: Временный локальный reducer для теста
-const authReducer = (
-  state: any = {
-    user: null,
-    isLoading: false,
-    isAuthenticated: false,
-  },
-  action: any
-) => {
-  switch (action.type) {
-    case 'auth/fetchUser/fulfilled':
-      return {
-        ...state,
-        user: action.payload,
-        isLoading: false,
-        isAuthenticated: true,
-      }
-    default:
-      return state
-  }
-}
-
-/**
- * Десериализует состояние, полученное с сервера
- * @param preloadedState Состояние с сервера
- * @returns Очищенное состояние для Redux
- */
 const deserializeState = (preloadedState: any): any => {
   if (!preloadedState || typeof preloadedState !== 'object') {
-    console.log('Некорректное предзагруженное состояние:', preloadedState)
     return undefined
   }
-
-  console.log('Исходное состояние:', preloadedState)
 
   if (preloadedState.auth) {
     const { auth } = preloadedState
@@ -47,11 +18,6 @@ const deserializeState = (preloadedState: any): any => {
   return preloadedState
 }
 
-/**
- * Создает Redux store для клиента с предзагруженным состоянием
- * @param preloadedState Состояние, полученное с сервера
- * @returns Настроенный Redux store
- */
 export const createAppStore = (preloadedState?: any) => {
   const deserializedState = deserializeState(preloadedState)
 

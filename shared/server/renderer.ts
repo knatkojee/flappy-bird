@@ -1,6 +1,5 @@
 import type { Request } from 'express'
 import type { Store } from 'redux'
-import { store } from '../store/store'
 import { fetchUser } from '../store/authSlice'
 
 /**
@@ -123,15 +122,21 @@ export const initializeServerStore = async (
   store: Store
   initialState: any
 }> => {
-  // TODO: создать настоящий store
-  const serverStore = store
+  // Создаем новый store для каждого запроса
+  const { configureStore } = await import('@reduxjs/toolkit')
+  const authReducer = (await import('../store/authSlice')).default
+  
+  const serverStore = configureStore({
+    reducer: {
+      auth: authReducer,
+    },
+  })
 
   try {
     const hasAuthCookie = req.headers.cookie?.includes('authCookie')
 
     if (hasAuthCookie) {
       await serverStore.dispatch(fetchUser() as any)
-
       console.log('Данные пользователя загружены')
     } else {
       console.log('Пользователь не авторизован')
