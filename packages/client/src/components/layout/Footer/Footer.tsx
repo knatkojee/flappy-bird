@@ -1,13 +1,12 @@
 import { Link } from 'react-router-dom'
 import styles from './Footer.module.css'
 import { ROUTES } from '@/constants/routes'
-import type { RootState } from '@/store'
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '@/hooks/useAppSelector'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { logout } from '@/store/authSlice'
 
 export default function Footer() {
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth)
+  const { isAuthenticated } = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
 
   const handleLogout = () => {

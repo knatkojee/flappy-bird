@@ -2,8 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Button } from '@/components'
 import { ROUTES } from '@/constants/routes'
 import styles from './Header.module.css'
-import { useSelector } from 'react-redux'
-import type { RootState } from '@/store'
+import { useAppSelector } from '@/hooks/useAppSelector'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { logout } from '@/store/authSlice'
 import { toast } from 'react-toastify'
@@ -11,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 
 export default function Header() {
   const location = useLocation()
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth)
+  const { isAuthenticated } = useAppSelector(state => state.auth)
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 

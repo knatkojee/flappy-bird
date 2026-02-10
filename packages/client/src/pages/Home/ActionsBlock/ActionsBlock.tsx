@@ -1,11 +1,10 @@
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/common/Button/Button'
 import styles from '../Home.module.css'
-import { useSelector } from 'react-redux'
-import type { RootState } from '@/store'
+import { useAppSelector } from '@/hooks/useAppSelector'
 
 const ActionsBlock = () => {
-  const { isAuthenticated } = useSelector((state: RootState) => state.auth)
+  const { isAuthenticated } = useAppSelector(state => state.auth)
 
   const href = isAuthenticated ? '/game' : '/login'
   return (

@@ -6,15 +6,6 @@ const deserializeState = (preloadedState: any): any => {
     return undefined
   }
 
-  if (preloadedState.auth) {
-    const { auth } = preloadedState
-    console.log('Auth state после десериализации:', {
-      isAuthenticated: auth.isAuthenticated,
-      isLoading: auth.isLoading,
-      hasUser: !!auth.user,
-    })
-  }
-
   return preloadedState
 }
 
@@ -27,9 +18,6 @@ export const createAppStore = (preloadedState?: any) => {
     },
     preloadedState: deserializedState,
   })
-
-  console.log('Redux store создан')
-  console.log('Начальное состояние store:', store.getState())
 
   return store
 }

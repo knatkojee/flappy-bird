@@ -77,7 +77,6 @@ const cleanStateForSerialization = (state: any): any => {
       if (isSerializable(value)) {
         cleaned[key] = cleanStateForSerialization(value)
       } else {
-        console.warn(`Фильтруем несериализуемое свойство "${key}":`, value)
         cleaned[key] = null
       }
     }
@@ -85,7 +84,6 @@ const cleanStateForSerialization = (state: any): any => {
     return cleaned
   }
 
-  console.warn(`Фильтруем несериализуемое значение:`, state)
   return null
 }
 
@@ -96,19 +94,16 @@ const cleanStateForSerialization = (state: any): any => {
  */
 const validateSerializedState = (state: any): boolean => {
   if (state === null || state === undefined) {
-    console.warn('Состояние пустое')
     return false
   }
 
   if (typeof state !== 'object') {
-    console.warn('Состояние не является объектом:', typeof state)
     return false
   }
 
   if (state.auth) {
     const { auth } = state
     if (typeof auth !== 'object') {
-      console.warn('auth не является объектом:', typeof auth)
       return false
     }
   }
@@ -142,12 +137,9 @@ export const initializeServerStore = async (
 
     if (hasAuthCookie) {
       await serverStore.dispatch(fetchUser() as any)
-      console.log('Данные пользователя загружены')
-    } else {
-      console.log('Пользователь не авторизован')
     }
   } catch (error) {
-    console.warn('Ошибка при предзагрузке данных:', error)
+    console.error('Ошибка при предзагрузке данных:', error)
   }
 
   const initialState = serverStore.getState()
@@ -155,19 +147,6 @@ export const initializeServerStore = async (
   if (!initialState || typeof initialState !== 'object') {
     console.error('Некорректное состояние store:', initialState)
     throw new Error('Некорректное состояние Redux store')
-  }
-
-  console.log('Серверный store инициализирован')
-  console.log('Структура состояния:', Object.keys(initialState))
-
-  if (initialState.auth) {
-    console.log('👤 Auth state:', {
-      isAuthenticated: initialState.auth.isAuthenticated,
-      isLoading: initialState.auth.isLoading,
-      hasUser: !!initialState.auth.user,
-      userId: initialState.auth.user?.id,
-      userLogin: initialState.auth.user?.login,
-    })
   }
 
   return {
@@ -184,7 +163,6 @@ export const initializeServerStore = async (
 export const serializeStateForClient = (state: RootState): string => {
   try {
     if (!validateSerializedState(state)) {
-      console.warn('Состояние невалидно')
       return JSON.stringify({
         auth: { user: null, isLoading: false, isAuthenticated: false },
       })
@@ -193,22 +171,12 @@ export const serializeStateForClient = (state: RootState): string => {
     const cleanState = cleanStateForSerialization(state)
 
     if (!validateSerializedState(cleanState)) {
-      console.warn('Очищенное состояние невалидно')
       return JSON.stringify({
         auth: { user: null, isLoading: false, isAuthenticated: false },
       })
     }
 
-    const serializedState = JSON.stringify(cleanState)
-
-    console.log('Состояние успешно сериализовано')
-    console.log(
-      'Размер сериализованного состояния:',
-      serializedState.length,
-      'символов'
-    )
-
-    return serializedState
+    return JSON.stringify(cleanState)
   } catch (error) {
     console.error('Ошибка при сериализации состояния:', error)
 

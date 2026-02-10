@@ -3,7 +3,7 @@ import type { TypedUseSelectorHook } from 'react-redux'
 
 type RootState = {
   auth: {
-    user: any
+    user: any // TODO добавить тип
     isLoading: boolean
     isAuthenticated: boolean
   }

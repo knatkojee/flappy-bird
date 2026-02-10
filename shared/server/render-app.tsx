@@ -9,10 +9,12 @@ import { Provider } from 'react-redux'
  * @param AppComponent React компонент приложения
  * @returns HTML строка с отрендеренным приложением
  */
-export const renderApp = (url: string, store: any, AppComponent: any): string => {
+export const renderApp = (
+  url: string,
+  store: any,
+  AppComponent: any
+): string => {
   try {
-    console.log(`Рендеринг приложения на: ${url}`)
-
     const html = renderToString(
       <Provider store={store}>
         <StaticRouter location={url}>
@@ -22,7 +24,6 @@ export const renderApp = (url: string, store: any, AppComponent: any): string =>
     )
 
     return html
-
   } catch (error) {
     console.error('Ошибка рендера:', error)
     throw error

@@ -15,8 +15,6 @@ const initializeApp = () => {
 
   const appStore = createAppStore(preloadedState)
 
-  console.log('Store создан:', appStore.getState())
-
   ReactDOM.createRoot(rootElement).render(
     <StrictMode>
       <Provider store={appStore}>
