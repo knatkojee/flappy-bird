@@ -17,7 +17,8 @@ export default defineConfig({
     outDir: path.join(__dirname, 'dist/client'),
   },
   ssr: {
-    format: 'cjs',
+    target: 'node',
+    noExternal: true,
   },
   plugins: [react()],
   resolve: {

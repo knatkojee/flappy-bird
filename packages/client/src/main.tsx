@@ -4,6 +4,7 @@ import './index.css'
 import { StrictMode } from 'react'
 import { Provider } from 'react-redux'
 import { store } from './store'
+import { BrowserRouter } from 'react-router-dom'
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -18,10 +19,13 @@ if ('serviceWorker' in navigator) {
   })
 }
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.hydrateRoot(
+  document.getElementById('root') as HTMLElement,
   <StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
   </StrictMode>
 )
