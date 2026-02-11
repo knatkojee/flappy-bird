@@ -1,0 +1,4 @@
+dist
+server/index.js
+dist/server
+*.d.ts
