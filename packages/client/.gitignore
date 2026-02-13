@@ -26,3 +26,8 @@ dist-ssr
 # SSR builds
 dist/client
 dist/server
+src/entry-server.d.ts
+src/App.d.ts
+tsconfig.server.tsbuildinfo
+server/index.js
+server/index.d.ts
