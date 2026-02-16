@@ -24,12 +24,20 @@
       "@/*": [
         "./src/*"
       ],
+      "@shared": [
+        "../../shared"
+      ],
       "@shared/*": [
-        "../shared/*"
+        "../../shared/*"
+      ],
+      "@/api/*": [
+        "./src/api/*",
+        "../../shared/api/*"
       ]
     }
   },
   "include": [
-    "src"
+    "src",
+    "../shared"
   ]
 }

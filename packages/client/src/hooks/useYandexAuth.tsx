@@ -1,8 +1,7 @@
 import { useEffect, useRef } from 'react'
 import { useSearchParams, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
-import { fetchUser } from '@/store/authSlice'
-import { signinWithYandex } from '@/api/auth'
+import { fetchUser, signinWithYandex } from '@shared'
 import { ROUTES } from '@/constants/routes'
 import { toast } from 'react-toastify'
 

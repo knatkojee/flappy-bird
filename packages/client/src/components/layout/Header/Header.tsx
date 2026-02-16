@@ -4,7 +4,7 @@ import { ROUTES } from '@/constants/routes'
 import styles from './Header.module.css'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
-import { logout } from '@/store/authSlice'
+import { logout } from '@shared'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
 

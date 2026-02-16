@@ -3,7 +3,7 @@ import styles from './Footer.module.css'
 import { ROUTES } from '@/constants/routes'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
-import { logout } from '@/store/authSlice'
+import { logout } from '@shared'
 
 export default function Footer() {
   const { isAuthenticated } = useAppSelector(state => state.auth)

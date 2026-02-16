@@ -41,7 +41,7 @@ HAS_ERRORS=0
 # Проверка shared
 echo ""
 echo "📦 Проверка shared..."
-if ! run_check "shared" "shared (TypeScript)" "tsc"; then
+if ! run_check "shared" "shared (TypeScript и сборка)" "tsc"; then
     HAS_ERRORS=1
 fi
 
@@ -51,7 +51,7 @@ echo "📦 Проверка client..."
 if ! run_check "packages/client" "client (TypeScript)" "tsc --noEmit"; then
     HAS_ERRORS=1
 fi
-if ! run_check "packages/client" "client (build)" "npm run build"; then
+if ! run_check "packages/client" "client (сборка)" "yarn build"; then
     HAS_ERRORS=1
 fi
 
@@ -61,7 +61,7 @@ echo "📦 Проверка server..."
 if ! run_check "packages/server" "server (TypeScript)" "tsc --noEmit"; then
     HAS_ERRORS=1
 fi
-if ! run_check "packages/server" "server (build)" "npm run build"; then
+if ! run_check "packages/server" "server (сборка)" "yarn build"; then
     HAS_ERRORS=1
 fi
 
