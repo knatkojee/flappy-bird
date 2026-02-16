@@ -5,3 +5,5 @@ coverage
 *.config.js
 **/*.js
 **/*.d.ts
+server/index.js
+dist/server

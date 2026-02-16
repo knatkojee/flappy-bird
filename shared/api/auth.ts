@@ -1,3 +1,4 @@
+import axios from 'axios'
 import type { AxiosError } from 'axios'
 import type { SignUpData, SignInData, User } from '../types/auth'
 
@@ -5,26 +6,14 @@ type ErrorResponse = {
   reason: string
 }
 
-// TODO: убрать моки
-const createMockApiInstance = () => {
-  return {
-    post: async <T>(url: string, data?: any): Promise<{ data: T }> => {
-      if (url === '/auth/signup') {
-        return { data: { id: 1 } as T }
-      }
-      if (url === '/auth/signin') {
-        return { data: {} as T }
-      }
-      return { data: {} as T }
-    },
-  }
-}
-
-const mockApiInstance = createMockApiInstance()
+const apiInstance = axios.create({
+  baseURL: 'https://ya-praktikum.tech/api/v2',
+  withCredentials: true,
+})
 
 export const signup = async (data: SignUpData): Promise<{ id: number }> => {
   try {
-    const response = await mockApiInstance.post<{ id: number }>(
+    const response = await apiInstance.post<{ id: number }>(
       '/auth/signup',
       data
     )
@@ -37,7 +26,7 @@ export const signup = async (data: SignUpData): Promise<{ id: number }> => {
 
 export const signin = async (data: SignInData): Promise<void> => {
   try {
-    await mockApiInstance.post<void>('/auth/signin', data)
+    await apiInstance.post<void>('/auth/signin', data)
     return
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>
@@ -47,18 +36,8 @@ export const signin = async (data: SignInData): Promise<void> => {
 
 export const getUser = async (): Promise<User> => {
   try {
-    // TODO: запрос к API
-    const mockUser: User = {
-      id: 1,
-      first_name: 'Иван',
-      second_name: 'Иванов',
-      display_name: null,
-      login: 'ivanov',
-      email: 'ivan@example.com',
-      phone: '+79001234567',
-      avatar: null,
-    }
-    return mockUser
+    const response = await apiInstance.get<User>('/auth/user')
+    return response.data
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>
     throw new Error(axiosError.response?.data?.reason || 'Произошла ошибка')
@@ -67,8 +46,38 @@ export const getUser = async (): Promise<User> => {
 
 export const logout = async (): Promise<void> => {
   try {
-    await mockApiInstance.post('/auth/logout')
+    await apiInstance.post('/auth/logout')
     return
+  } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>
+    throw new Error(axiosError.response?.data?.reason || 'Произошла ошибка')
+  }
+}
+
+export const getYandexServiceId = async (redirectUri: string) => {
+  try {
+    const response = await apiInstance.get<{ service_id: string }>(
+      '/oauth/yandex/service-id',
+      {
+        params: {
+          redirect_uri: redirectUri,
+        },
+      }
+    )
+    return response.data
+  } catch (error) {
+    const axiosError = error as AxiosError<ErrorResponse>
+    throw new Error(axiosError.response?.data?.reason || 'Произошла ошибка')
+  }
+}
+
+export const signinWithYandex = async (code: string, redirectUri: string) => {
+  try {
+    const response = await apiInstance.post<void>('/oauth/yandex', {
+      code,
+      redirect_uri: redirectUri,
+    })
+    return response.data
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>
     throw new Error(axiosError.response?.data?.reason || 'Произошла ошибка')

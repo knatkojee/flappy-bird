@@ -4,6 +4,12 @@ export * from './types'
 
 export * from './store'
 
-export { signup, signin, getUser } from './api'
+export {
+  signup,
+  signin,
+  getUser,
+  getYandexServiceId,
+  signinWithYandex,
+} from './api'
 
 export * from './server'

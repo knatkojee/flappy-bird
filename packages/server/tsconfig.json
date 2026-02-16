@@ -30,16 +30,24 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
+      "@/*": [
+        "../client/src/*"
+      ],
       "@shared/*": [
-        "../shared/*"
+        "../../shared/*"
       ],
       "@server/*": [
         "./*"
-      ],
-      "@/*": [
-        "../client/src/*"
       ]
     }
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    },
+    "require": ["tsconfig-paths/register"],
+    "transpileOnly": true,
+    "files": true
   },
   "include": [
     "./*.ts",
@@ -48,7 +56,10 @@
   "exclude": [
     "node_modules",
     "dist",
-    "../client"
+    "../client",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "client-import.ts"
   ],
   "references": [
     {

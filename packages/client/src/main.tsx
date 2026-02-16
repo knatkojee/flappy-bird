@@ -15,6 +15,8 @@ const initializeApp = () => {
 
   const appStore = createAppStore(preloadedState)
 
+  // Используем createRoot для dev режима (без SSR)
+  // Для production с SSR нужно использовать hydrateRoot
   ReactDOM.createRoot(rootElement).render(
     <StrictMode>
       <Provider store={appStore}>

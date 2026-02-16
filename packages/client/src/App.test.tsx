@@ -1,6 +1,7 @@
-import App from './App'
+import AppWrapper from './AppWrapper'
 import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
+import { MemoryRouter } from 'react-router-dom'
 import { store } from './store'
 
 // @ts-ignore
@@ -11,7 +12,9 @@ global.fetch = jest.fn(() =>
 test('Example test', async () => {
   render(
     <Provider store={store}>
-      <App />
+      <MemoryRouter>
+        <AppWrapper />
+      </MemoryRouter>
     </Provider>
   )
 })

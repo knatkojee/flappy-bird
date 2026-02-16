@@ -16,3 +16,6 @@ tmp
 !vite.config.ts
 !jest.config.js
 !init.js
+!packages/server/register-paths.js
+!packages/server/css-modules-mock.js
+!packages/server/client-import.js
