@@ -22,3 +22,10 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# SSR builds
+dist/client
+dist/server
+tsconfig.server.tsbuildinfo
+server/index.js
+server/index.d.ts

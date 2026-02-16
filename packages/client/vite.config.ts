@@ -8,6 +8,11 @@ dotenv.config()
 export default defineConfig({
   server: {
     port: Number(process.env.CLIENT_PORT) || 3000,
+    host: true,
+    strictPort: true,
+    watch: {
+      usePolling: false,
+    },
   },
   define: {
     __EXTERNAL_SERVER_URL__: JSON.stringify(process.env.EXTERNAL_SERVER_URL),
@@ -15,9 +20,6 @@ export default defineConfig({
   },
   build: {
     outDir: path.join(__dirname, 'dist/client'),
-  },
-  ssr: {
-    format: 'cjs',
   },
   plugins: [react()],
   resolve: {
