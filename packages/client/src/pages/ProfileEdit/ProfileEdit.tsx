@@ -12,7 +12,7 @@ import { BASE_URL } from '@/api/config'
 import { formatPhone, cleanPhone } from '@/utils/phone'
 import { useAppSelector } from '@/hooks/useAppSelector'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
-import { updateUser } from '@/store/authSlice'
+import { updateUser } from '@shared'
 import styles from './ProfileEdit.module.css'
 
 export type NotificationType = {

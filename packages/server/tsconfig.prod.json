@@ -1,4 +1,23 @@
 {
-  "extends": "./tsconfig",
-  "exclude": ["**/*.test.ts", "**/*.mock.ts", "**/__test__"]
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "skipLibCheck": true,
+    "rootDir": "../../"
+  },
+  "include": [
+    "./**/*.ts",
+    "../../shared/server/**/*.ts",
+    "../../shared/server/**/*.tsx",
+    "../../shared/store/**/*.ts",
+    "../../shared/types/**/*.ts",
+    "../../shared/api/**/*.ts"
+  ],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.mock.ts",
+    "**/__test__",
+    "node_modules",
+    "dist"
+  ]
 }

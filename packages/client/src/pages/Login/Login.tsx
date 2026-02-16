@@ -5,13 +5,14 @@ import { User, Lock } from '@/components/common/Icon/Icon'
 import { Link, useNavigate } from 'react-router-dom'
 import { ROUTES } from '@/constants/routes'
 import styles from './Login.module.css'
-import { signin } from '@/api/auth'
+import { signin, getYandexServiceId, fetchUser } from '@shared'
 import type { SignInData } from '@/types/auth'
 import { toast } from 'react-toastify'
 import { useAppDispatch } from '@/hooks/useAppDispatch'
-import { fetchUser } from '@/store/authSlice'
 import { useForm } from '@/hooks/useForm'
 import { loginValidator, passwordValidator } from '@/lib/validators'
+
+const REDIRECT_URI = 'http://localhost:3000'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -37,6 +38,18 @@ const Login = () => {
       await dispatch(fetchUser())
       toast.success('Вы успешно вошли!')
       navigate(ROUTES.PUBLIC.HOME)
+    } catch (error) {
+      if (error instanceof Error) {
+        toast.error(error.message)
+      }
+    }
+  }
+
+  const handleYandexLogin = async () => {
+    try {
+      const { service_id } = await getYandexServiceId(REDIRECT_URI)
+      const yandexAuthUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${REDIRECT_URI}`
+      window.open(yandexAuthUrl, '_blank')
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message)
@@ -102,6 +115,15 @@ const Login = () => {
             variant="primary"
             size="lg">
             {isSubmitting ? '...' : 'Войти'}
+          </Button>
+
+          <Button
+            type="button"
+            variant="secondary"
+            size="lg"
+            onClick={handleYandexLogin}
+            className={styles.yandexButton}>
+            Войти через Яндекс
           </Button>
         </form>
 

@@ -4,6 +4,7 @@ import { DEFAULT_CONFIG } from '@/engine/configs/defaultConfig'
 import styles from './GameProcess.module.css'
 import GameStartScreen from '../GameStartScreen/GameStartScreen'
 import { GameOverScreen } from '../GameOverScreen/GameOverScreen'
+import { useGamepadPlay } from '@/hooks/useGamepad'
 
 interface GameProcessProps {
   showStartScreen?: boolean
@@ -72,9 +73,13 @@ const GameProcess = ({
     }
   }, [])
 
-  const handleJump = () => {
-    controllerRef.current?.jump()
-  }
+  const handleJump = useCallback(() => {
+    if (controllerRef.current && !showStartScreen && !showGameOverScreen) {
+      controllerRef.current.jump()
+    }
+  }, [showStartScreen, showGameOverScreen])
+
+  useGamepadPlay(handleJump, !showStartScreen && !showGameOverScreen)
 
   useEffect(() => {
     resizeCanvas()
@@ -102,7 +107,7 @@ const GameProcess = ({
 
       controllerRef.current?.destroy()
     }
-  }, [resizeCanvas, initGame])
+  }, [resizeCanvas, initGame, handleJump])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

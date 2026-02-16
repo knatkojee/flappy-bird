@@ -3,8 +3,30 @@ import App from './App'
 import './index.css'
 import { StrictMode } from 'react'
 import { Provider } from 'react-redux'
-import { store } from './store'
-import { BrowserRouter } from 'react-router-dom'
+import { createAppStore } from './store'
+
+const initializeApp = () => {
+  const rootElement = document.getElementById('root') as HTMLElement
+
+  const preloadedState =
+    typeof window !== 'undefined'
+      ? (window as any).__INITIAL_STATE__
+      : undefined
+
+  const appStore = createAppStore(preloadedState)
+
+  // Используем createRoot для dev режима (без SSR)
+  // Для production с SSR нужно использовать hydrateRoot
+  ReactDOM.createRoot(rootElement).render(
+    <StrictMode>
+      <Provider store={appStore}>
+        <App />
+      </Provider>
+    </StrictMode>
+  )
+}
+
+initializeApp()
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
@@ -18,14 +40,3 @@ if ('serviceWorker' in navigator) {
       })
   })
 }
-
-ReactDOM.hydrateRoot(
-  document.getElementById('root') as HTMLElement,
-  <StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
-  </StrictMode>
-)

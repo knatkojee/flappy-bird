@@ -1,9 +1,9 @@
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import type { User } from '@/types/auth'
-import { getUser, logout as logoutUser } from '@/api/auth'
+import type { User } from '../types'
+import { getUser, logout as logoutUser } from '../api/auth'
 
-type AuthState = {
+export type AuthState = {
   user: User | null
   isLoading: boolean
   isAuthenticated: boolean
@@ -12,6 +12,11 @@ type AuthState = {
 const USER_STORAGE_KEY = 'flappy_bird_user'
 
 const getSavedUser = (): User | null => {
+  if (typeof window === 'undefined') {
+    // Серверное окружение
+    return null
+  }
+
   try {
     const saved = localStorage.getItem(USER_STORAGE_KEY)
     return saved ? JSON.parse(saved) : null
@@ -20,7 +25,13 @@ const getSavedUser = (): User | null => {
   }
 }
 
+// На сервере ничего не делает
 const saveUser = (user: User | null) => {
+  if (typeof window === 'undefined') {
+    // Серверное окружение
+    return
+  }
+
   if (user) {
     localStorage.setItem(USER_STORAGE_KEY, JSON.stringify(user))
   } else {
@@ -37,7 +48,7 @@ export const logout = createAsyncThunk('auth/logout', async () => {
 })
 
 const initialState: AuthState = {
-  user: null,
+  user: getSavedUser(),
   isLoading: !getSavedUser(),
   isAuthenticated: false,
 }

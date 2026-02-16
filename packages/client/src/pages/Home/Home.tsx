@@ -7,6 +7,7 @@ import {
   InfoZap,
 } from '@/components/common/Icon/Icon'
 import ActionsBlock from './ActionsBlock/ActionsBlock'
+import { useYandexAuth } from '@/hooks/useYandexAuth'
 
 const infoConfig = [
   {
@@ -54,6 +55,8 @@ const playConfig = [
 ]
 
 const Home = () => {
+  useYandexAuth()
+
   return (
     <div className={styles.container}>
       <section className={styles.hero}>

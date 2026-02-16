@@ -1,4 +1,4 @@
-import App from './App'
+import AppWrapper from './AppWrapper'
 import { render } from '@testing-library/react'
 import { Provider } from 'react-redux'
 import { MemoryRouter } from 'react-router-dom'
@@ -13,7 +13,7 @@ test('Example test', async () => {
   render(
     <Provider store={store}>
       <MemoryRouter>
-        <App />
+        <AppWrapper />
       </MemoryRouter>
     </Provider>
   )

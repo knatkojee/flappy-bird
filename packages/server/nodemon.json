@@ -1,0 +1,9 @@
+{
+  "watch": ["*.ts", "../../shared/**/*"],
+  "ext": "ts,json",
+  "ignore": ["dist", "node_modules", "../client"],
+  "exec": "node -r ignore-styles -r ./register-paths.js -r ts-node/register/transpile-only index.ts",
+  "env": {
+    "TS_NODE_PROJECT": "./tsconfig.json"
+  }
+}

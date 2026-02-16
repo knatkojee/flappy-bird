@@ -86,6 +86,10 @@
   margin-top: var(--spacing-lg);
 }
 
+.yandexButton {
+  margin-top: var(--spacing-sm);
+}
+
 @keyframes birdWing {
   0%,
   100% {

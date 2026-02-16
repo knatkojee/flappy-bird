@@ -5,10 +5,10 @@ import path from 'path'
 export default defineConfig({
   server: {
     port: Number(process.env.CLIENT_PORT) || 3000,
-    hmr: {
-      port: 3000,
-      protocol: 'ws',
-      host: 'localhost',
+    host: true,
+    strictPort: true,
+    watch: {
+      usePolling: false,
     },
   },
   define: {
@@ -18,17 +18,13 @@ export default defineConfig({
   build: {
     outDir: path.join(__dirname, 'dist/client'),
   },
-  ssr: {
-    target: 'node',
-    format: 'cjs',
-    noExternal: [],
-    external: ['react', 'react-dom', 'express', 'dotenv'],
-  },
   plugins: [react()],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@shared': path.resolve(__dirname, './shared'),
+      '@shared': path.resolve(__dirname, '../../shared'),
+      '@/api': path.resolve(__dirname, '../../shared/api'),
     },
+    extensions: ['.ts', '.tsx', '.js', '.jsx', '.json'],
   },
 })
