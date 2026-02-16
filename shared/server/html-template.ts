@@ -8,7 +8,7 @@
 export const generateHTML = (
   content: string,
   initialState: any,
-  title: string = 'Flappy Bird Game'
+  title = 'Flappy Bird Game'
 ): string => {
   const serializedState = JSON.stringify(initialState)
 
