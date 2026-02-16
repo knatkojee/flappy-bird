@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "ESNext",
+    "lib": [
+      "ES2020",
+      "DOM"
+    ],
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "declaration": true,
+    "declarationMap": true,
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "composite": true,
+    "baseUrl": ".",
+    "paths": {
+      "@shared/*": [
+        "./*"
+      ],
+      "@types/*": [
+        "./types/*"
+      ],
+      "@store/*": [
+        "./store/*"
+      ],
+      "@api/*": [
+        "./api/*"
+      ],
+      "@server-utils/*": [
+        "./server/*"
+      ]
+    }
+  },
+  "include": [
+    "types/**/*",
+    "store/**/*",
+    "api/**/*",
+    "server/**/*",
+    "index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "**/*.js",
+    "**/*.d.ts",
+    "**/*.js.map"
+  ]
+}

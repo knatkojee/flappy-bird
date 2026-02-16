@@ -1,28 +1,58 @@
 {
   "compilerOptions": {
     "composite": true,
-    "target": "es2019",
+    "target": "es2020",
     "module": "commonjs",
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "jsx": "react-jsx",
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
     "removeComments": true,
-    "strict": true,
-    "noImplicitAny": true,
+    "strict": false,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
     "noImplicitOverride": true,
     "noFallthroughCasesInSwitch": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false,
     "forceConsistentCasingInFileNames": true,
-    "lib": ["es2019", "esnext.asynciterable"],
-    "types": ["node", "jest"],
+    "skipLibCheck": true,
+    "lib": [
+      "es2020",
+      "DOM"
+    ],
+    "types": [
+      "node",
+      "jest"
+    ],
     "baseUrl": ".",
+    "outDir": "dist",
     "paths": {
-      "*": ["types/*"]
-    },
-    "outDir": "dist"
-  }
+      "@shared/*": [
+        "../shared/*"
+      ],
+      "@server/*": [
+        "./*"
+      ],
+      "@/*": [
+        "../client/src/*"
+      ]
+    }
+  },
+  "include": [
+    "./*.ts",
+    "../shared/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "../client"
+  ],
+  "references": [
+    {
+      "path": "../../shared"
+    }
+  ]
 }

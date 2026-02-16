@@ -4,3 +4,15 @@ node_modules/
 .vscode
 dist
 tmp
+
+# TypeScript build artifacts
+*.js
+*.d.ts
+*.js.map
+*.d.ts.map
+*.tsbuildinfo
+
+!*.config.js
+!vite.config.ts
+!jest.config.js
+!init.js

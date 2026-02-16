@@ -1,15 +1,32 @@
 import { configureStore } from '@reduxjs/toolkit'
-import authReducer from './authSlice'
+import authReducer from '../../../../shared/store/authSlice'
 import { LeaderBoardApi } from './leaderboardApi'
 
-export const store = configureStore({
-  reducer: {
-    auth: authReducer,
-    [LeaderBoardApi.reducerPath]: LeaderBoardApi.reducer,
-  },
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(LeaderBoardApi.middleware),
-})
+const deserializeState = (preloadedState: any): any => {
+  if (!preloadedState || typeof preloadedState !== 'object') {
+    return undefined
+  }
+
+  return preloadedState
+}
+
+export const createAppStore = (preloadedState?: any) => {
+  const deserializedState = deserializeState(preloadedState)
+
+  const store = configureStore({
+    reducer: {
+      auth: authReducer,
+      [LeaderBoardApi.reducerPath]: LeaderBoardApi.reducer,
+    },
+    preloadedState: deserializedState,
+    middleware: getDefaultMiddleware =>
+      getDefaultMiddleware().concat(LeaderBoardApi.middleware),
+  })
+
+  return store
+}
+
+export const store = createAppStore()
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch
