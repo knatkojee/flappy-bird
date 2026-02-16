@@ -12,6 +12,10 @@ jest.mock('@/components/common/Icon/Icon', () => ({
   InfoZap: () => <div data-testid="icon-zap" />,
 }))
 
+jest.mock('@/hooks/useYandexAuth', () => ({
+  useYandexAuth: jest.fn(),
+}))
+
 describe('Home page', () => {
   beforeEach(() => {
     render(<Home />)
