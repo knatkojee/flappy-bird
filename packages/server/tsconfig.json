@@ -30,13 +30,24 @@
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
+      "@/*": [
+        "../client/src/*"
+      ],
       "@shared/*": [
-        "../shared/*"
+        "../../shared/*"
       ],
       "@server/*": [
         "./*"
       ]
     }
+  },
+  "ts-node": {
+    "compilerOptions": {
+      "module": "commonjs"
+    },
+    "require": ["tsconfig-paths/register"],
+    "transpileOnly": true,
+    "files": true
   },
   "include": [
     "./*.ts",
