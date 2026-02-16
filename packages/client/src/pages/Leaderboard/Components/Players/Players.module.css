@@ -1,0 +1,19 @@
+.rankNumber {
+  color: var(--bird-orange);
+  font-weight: bold;
+}
+
+.playerCell {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.playerAvatar {
+  font-size: var(--font-xl);
+}
+
+.scoreValue {
+  font-weight: bold;
+  color: var(--bird-orange);
+}
