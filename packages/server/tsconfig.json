@@ -35,9 +35,6 @@
       ],
       "@server/*": [
         "./*"
-      ],
-      "@/*": [
-        "../client/src/*"
       ]
     }
   },
@@ -48,7 +45,10 @@
   "exclude": [
     "node_modules",
     "dist",
-    "../client"
+    "../client",
+    "**/*.spec.ts",
+    "**/*.test.ts",
+    "client-import.ts"
   ],
   "references": [
     {

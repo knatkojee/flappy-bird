@@ -7,7 +7,7 @@ import {
 
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore - AppWrapper import works at runtime
-import AppWrapper from '../client/src/AppWrapper'
+import AppWrapper from './client-import.js'
 
 const generateHTML = (
   content: string,
