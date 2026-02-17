@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "build": "tsc --p ./tsconfig.prod.json --skipLibCheck || true",
-    "preview": "node ./dist/index.js",
+    "preview": "cross-env NODE_ENV=production node -r ignore-styles -r ./register-paths.js -r ts-node/register/transpile-only index.ts",
     "dev": "cross-env NODE_ENV=development nodemon",
     "lint": "eslint .",
     "format": "prettier --write .",
