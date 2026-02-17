@@ -122,7 +122,7 @@ yarn check:types
 
 **Или напрямую:**
 ```bash
-./check-types.sh
+./scripts/check-types.sh
 ```
 
 **Что проверяется:**
@@ -143,7 +143,7 @@ yarn check:all
 
 **Или напрямую:**
 ```bash
-./check-build-all.sh
+./scripts/check-build-all.sh
 ```
 
 **Что проверяется:**
@@ -166,16 +166,6 @@ yarn check:all
 - `check:types` - для быстрой проверки типов во время разработки
 - `check:all` - перед коммитом или деплоем, чтобы убедиться, что всё собирается корректно
 - `check:production` - полная проверка включая тесты и запуск production сборки
-
-### Структура проверок
-
-```
-check:types       → TypeScript проверка (~10 сек)
-                    ↓
-check:all         → + Сборка (~15 сек)
-                    ↓
-check:production  → + Тесты + Production запуск (~50 сек)
-```
 
 ### CI/CD
 
