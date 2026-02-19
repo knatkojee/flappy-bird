@@ -238,3 +238,53 @@ yarn check:all
 
 - 1 часть: https://www.loom.com/share/49b52300f9894c0f9a4165c5a20d31dd
 - 2 часть: https://www.loom.com/share/cc8bdf8297db4705bfaa2acc61492edd
+
+# Миграции базы данных
+
+## Описание
+
+Миграции для управления схемой базы данных PostgreSQL.
+
+## Доступные миграции
+
+### 20260219-create-users-table.ts
+
+Создает таблицу `users` с полями:
+- `id` - Primary Key, Auto Increment
+- `login` - Уникальный логин пользователя (с индексом)
+- `theme` - Цветовая тема ('light' | 'dark'), по умолчанию 'light'
+- `createdAt` - Дата создания
+- `updatedAt` - Дата обновления
+
+**Индексы:**
+- `users_login_idx` - уникальный индекс на поле `login`
+
+**Foreign Keys:**
+- Пока отсутствуют (будут добавлены при создании связанных таблиц)
+
+## Запуск миграций
+
+После подключения Docker и настройки БД:
+
+```bash
+# Установить sequelize-cli
+yarn add -D sequelize-cli
+
+# Создать конфиг для sequelize-cli
+# .sequelizerc в корне packages/server
+
+# Запустить миграции
+npx sequelize-cli db:migrate
+
+# Откатить последнюю миграцию
+npx sequelize-cli db:migrate:undo
+
+# Откатить все миграции
+npx sequelize-cli db:migrate:undo:all
+```
+
+## Создание новой миграции
+
+```bash
+npx sequelize-cli migration:generate --name migration-name
+```
