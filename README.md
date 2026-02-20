@@ -23,6 +23,8 @@ flappy-bird/
 1. Убедитесь что у вас установлен `node` и `docker`
 2. Выполните команду `yarn bootstrap` - это обязательный шаг, без него ничего работать не будет :)
 3. После изменений в `shared` модуле выполните `cd shared && yarn build`
+4. Запустите PostgreSQL: `docker-compose up -d postgres`
+5. Создайте таблицы: `docker-compose exec -T postgres psql -U postgres -d postgres < packages/server/migrations/seed-users.sql`
 
 ### Режимы запуска
 
@@ -239,52 +241,32 @@ yarn check:all
 - 1 часть: https://www.loom.com/share/49b52300f9894c0f9a4165c5a20d31dd
 - 2 часть: https://www.loom.com/share/cc8bdf8297db4705bfaa2acc61492edd
 
-# Миграции базы данных
+---
 
-## Описание
+# Theme API
 
-Миграции для управления схемой базы данных PostgreSQL.
+API для управления цветовыми темами пользователей (`light` / `dark`).
 
-## Доступные миграции
-
-### 20260219-create-users-table.ts
-
-Создает таблицу `users` с полями:
-- `id` - Primary Key, Auto Increment
-- `login` - Уникальный логин пользователя (с индексом)
-- `theme` - Цветовая тема ('light' | 'dark'), по умолчанию 'light'
-- `createdAt` - Дата создания
-- `updatedAt` - Дата обновления
-
-**Индексы:**
-- `users_login_idx` - уникальный индекс на поле `login`
-
-**Foreign Keys:**
-- Пока отсутствуют (будут добавлены при создании связанных таблиц)
-
-## Запуск миграций
-
-После подключения Docker и настройки БД:
+## Быстрый старт
 
 ```bash
-# Установить sequelize-cli
-yarn add -D sequelize-cli
-
-# Создать конфиг для sequelize-cli
-# .sequelizerc в корне packages/server
-
-# Запустить миграции
-npx sequelize-cli db:migrate
-
-# Откатить последнюю миграцию
-npx sequelize-cli db:migrate:undo
-
-# Откатить все миграции
-npx sequelize-cli db:migrate:undo:all
+# Тестирование API
+curl -X GET "http://localhost:3001/api/user/theme" \
+  -H "X-User-Id: 1"
 ```
 
-## Создание новой миграции
+## Endpoints
 
-```bash
-npx sequelize-cli migration:generate --name migration-name
+- `GET /api/user/theme` - получить тему пользователя
+- `PUT /api/user/theme` - установить тему (body: `{"theme": "dark"}`)
+
+## Интеграция с фронтендом
+
+```typescript
+import { getTheme, updateTheme } from '@shared/api'
+
+const theme = await getTheme(userId)
+await updateTheme(userId, 'dark')
 ```
+
+**Документация:** `packages/server/THEME_API.md`
