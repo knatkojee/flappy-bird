@@ -205,6 +205,24 @@ yarn check:all
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
 
+---
+
+## Theme API
+
+API для управления цветовыми темами пользователей (`light` / `dark`).
+
+### Быстрая проверка
+```bash
+curl -X GET "http://localhost:3001/api/user/theme" \
+  -H "X-User-Id: 1"
+```
+
+### Endpoints
+
+- `GET /api/user/theme` - получить тему пользователя
+- `PUT /api/user/theme` - установить тему (body: `{"theme": "dark"}`)
+
+
 ## Архитектура и соглашения
 
 ### Соглашения
@@ -237,36 +255,3 @@ yarn check:all
   ```
 
 ## Видео с демонстрацией работоспособности приложения
-
-- 1 часть: https://www.loom.com/share/49b52300f9894c0f9a4165c5a20d31dd
-- 2 часть: https://www.loom.com/share/cc8bdf8297db4705bfaa2acc61492edd
-
----
-
-# Theme API
-
-API для управления цветовыми темами пользователей (`light` / `dark`).
-
-## Быстрый старт
-
-```bash
-# Тестирование API
-curl -X GET "http://localhost:3001/api/user/theme" \
-  -H "X-User-Id: 1"
-```
-
-## Endpoints
-
-- `GET /api/user/theme` - получить тему пользователя
-- `PUT /api/user/theme` - установить тему (body: `{"theme": "dark"}`)
-
-## Интеграция с фронтендом
-
-```typescript
-import { getTheme, updateTheme } from '@shared/api'
-
-const theme = await getTheme(userId)
-await updateTheme(userId, 'dark')
-```
-
-**Документация:** `packages/server/THEME_API.md`
