@@ -35,8 +35,10 @@ type GetAllUsersResponse = {
 export const LeaderBoardApi = createApi({
   reducerPath: 'leaderApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ya-praktikum.tech/api/v2',
+    baseUrl:
+      import.meta.env.VITE_API_BASE_URL || 'https://ya-praktikum.tech/api/v2',
     credentials: 'include',
+    responseHandler: response => response.text(),
   }),
 
   endpoints: builder => ({
