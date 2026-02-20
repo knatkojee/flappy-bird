@@ -23,6 +23,8 @@ flappy-bird/
 1. Убедитесь что у вас установлен `node` и `docker`
 2. Выполните команду `yarn bootstrap` - это обязательный шаг, без него ничего работать не будет :)
 3. После изменений в `shared` модуле выполните `cd shared && yarn build`
+4. Запустите PostgreSQL: `docker-compose up -d postgres`
+5. Создайте таблицы: `docker-compose exec -T postgres psql -U postgres -d postgres < packages/server/migrations/seed-users.sql`
 
 ### Режимы запуска
 
@@ -203,6 +205,24 @@ yarn check:all
 Если вам понадобится только один сервис, просто уточните какой в команде
 `docker compose up {sevice_name}`, например `docker compose up server`
 
+---
+
+## Theme API
+
+API для управления цветовыми темами пользователей (`light` / `dark`).
+
+### Быстрая проверка
+```bash
+curl -X GET "http://localhost:3001/api/user/theme" \
+  -H "X-User-Id: 1"
+```
+
+### Endpoints
+
+- `GET /api/user/theme` - получить тему пользователя
+- `PUT /api/user/theme` - установить тему (body: `{"theme": "dark"}`)
+
+
 ## Архитектура и соглашения
 
 ### Соглашения
@@ -235,6 +255,3 @@ yarn check:all
   ```
 
 ## Видео с демонстрацией работоспособности приложения
-
-- 1 часть: https://www.loom.com/share/49b52300f9894c0f9a4165c5a20d31dd
-- 2 часть: https://www.loom.com/share/cc8bdf8297db4705bfaa2acc61492edd

@@ -19,6 +19,8 @@
     "noUnusedLocals": false,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "lib": [
       "es2020",
       "DOM"
@@ -51,6 +53,7 @@
   },
   "include": [
     "./*.ts",
+    "./**/*.ts",
     "../shared/**/*"
   ],
   "exclude": [

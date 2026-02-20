@@ -22,3 +22,9 @@ export type User = {
   phone: string
   avatar: string | null
 }
+
+export type Theme = 'light' | 'dark'
+
+export type ThemeResponse = {
+  theme: Theme
+}
