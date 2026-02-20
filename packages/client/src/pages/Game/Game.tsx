@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react'
 import styles from './Game.module.css'
 import GameProcess from './GameProcess'
-import { useAddUserMutation } from '@/store/leaderboardApi'
+import { useAddUserMutation } from '@shared/store/leaderboardApi'
 import { useAppSelector } from '@/hooks/useAppSelector'
 
 const Game = () => {

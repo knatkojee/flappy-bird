@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useGetAllUsersQuery } from '@/store/leaderboardApi'
+import { useGetAllUsersQuery } from '@shared/store/leaderboardApi'
 import styles from './Stats.module.css'
 
 export const Stats = () => {
