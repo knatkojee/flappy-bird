@@ -1,5 +1,5 @@
 .caption {
   margin-top: var(--spacing-md);
   font-size: var(--font-sm);
-  color: var(--muted-foreground);
+  color: var(--text-muted);
 }

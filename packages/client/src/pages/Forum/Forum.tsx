@@ -83,7 +83,10 @@ const Forum = () => {
         </TableBody>
       </Table>
 
-      <Button onClick={handleToggleEditor} className={classes.addForum}>
+      <Button
+        onClick={handleToggleEditor}
+        className={classes.addForum}
+        variant="primary">
         {!showEditor ? 'Создать топик' : 'Отмена'}
       </Button>
 

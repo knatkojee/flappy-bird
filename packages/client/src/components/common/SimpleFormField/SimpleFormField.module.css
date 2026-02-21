@@ -6,7 +6,7 @@
 
 .label {
   font-weight: 500;
-  color: var(--foreground);
+  color: var(--text-primary);
   font-size: var(--font-md);
 }
 
@@ -16,8 +16,8 @@
   border: 1px solid var(--border);
   border-radius: var(--radius-md);
   font-size: var(--font-md);
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 .input:focus {

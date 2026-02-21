@@ -3,6 +3,7 @@ import type {
   ChangePasswordData,
   UserResponse,
   UpdateProfileData,
+  UpdateProfileTheme,
 } from '@/types/user'
 
 export const changePassword = async (
@@ -49,6 +50,45 @@ export const updateProfile = async (
     },
     credentials: 'include',
     body: JSON.stringify(data),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update profile')
+  }
+
+  return response.json()
+}
+
+export const getThemeProfile = async (
+  userId: number
+): Promise<{ theme: 'light' | 'dark' }> => {
+  const response = await fetch(`${BASE_URL}/user/theme`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Id': userId.toString(),
+    },
+    credentials: 'include',
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to get theme')
+  }
+
+  return response.json()
+}
+
+export const updateThemeProfile = async (
+  data: UpdateProfileTheme
+): Promise<UserResponse> => {
+  const response = await fetch(`${BASE_URL}/user/theme`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-User-Id': data.userId.toString(),
+    },
+    credentials: 'include',
+    body: JSON.stringify({ theme: data.theme }),
   })
 
   if (!response.ok) {

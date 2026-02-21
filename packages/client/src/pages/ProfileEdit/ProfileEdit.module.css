@@ -20,7 +20,7 @@
   font-size: var(--font-2xl);
   font-weight: bold;
   margin-bottom: var(--spacing-lg);
-  color: var(--foreground);
+  color: var(--text-primary);
   text-align: center;
 }
 
