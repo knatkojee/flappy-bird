@@ -21,7 +21,8 @@
   "devDependencies": {
     "@types/node": "^20.8.0",
     "@types/react": "^18.0.17",
-    "@types/react-dom": "^18.0.6"
+    "@types/react-dom": "^18.0.6",
+    "@reduxjs/toolkit": "^1.9.7"
   },
   "peerDependencies": {
     "typescript": "^4.8.4"
