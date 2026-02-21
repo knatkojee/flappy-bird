@@ -37,7 +37,7 @@
 }
 
 .subtitle {
-  color: var(--muted-foreground);
+  color: var(--text-muted);
 }
 
 .form {
@@ -82,7 +82,7 @@
 
 .signInText {
   text-align: center;
-  color: var(--muted-foreground);
+  color: var(--text-muted);
   margin-top: var(--spacing-lg);
 }
 

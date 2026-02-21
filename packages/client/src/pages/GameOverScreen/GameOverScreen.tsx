@@ -56,7 +56,8 @@ export const GameOverScreen = ({
           className={`${classes.repeatBtn} ${
             selectedButton === 'repeat' ? classes.selected : ''
           }`}
-          size="sm">
+          size="sm"
+          variant="primary">
           Повторить
         </Button>
         <Link

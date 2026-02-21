@@ -44,7 +44,7 @@
 }
 
 .subtitle {
-  color: var(--muted-foreground);
+  color: var(--text-muted);
 }
 
 .form {
@@ -67,7 +67,7 @@
 
 .checkboxText {
   font-size: var(--font-sm);
-  color: var(--foreground);
+  color: var(--text-primary);
 }
 
 .link {
@@ -82,7 +82,7 @@
 
 .signInText {
   text-align: center;
-  color: var(--muted-foreground);
+  color: var(--text-muted);
   margin-top: var(--spacing-lg);
 }
 

@@ -34,7 +34,7 @@
 .headerSubtitle {
   text-align: center;
   font-size: var(--font-lg);
-  color: var(--muted-foreground);
+  color: var(--text-muted);
 }
 
 .filterSection {
@@ -85,7 +85,7 @@
 }
 
 .noResultsText {
-  color: var(--muted-foreground);
+  color: var(--text-muted);
   font-size: var(--font-lg);
 }
 
@@ -95,7 +95,7 @@
 }
 
 .footerStats {
-  color: var(--muted-foreground);
+  color: var(--text-muted);
   margin-bottom: var(--spacing-md);
 }
 
@@ -115,7 +115,7 @@
 
 .footerInfoText {
   font-size: var(--font-sm);
-  color: var(--muted-foreground);
+  color: var(--text-muted);
   max-width: var(--max-width-sm);
 }
 

@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from '../../../../shared/store/authSlice'
+import themeReducer from './themeSlice'
 import { LeaderBoardApi } from './leaderboardApi'
 
 const deserializeState = (preloadedState: any): any => {
@@ -16,6 +17,7 @@ export const createAppStore = (preloadedState?: any) => {
   const store = configureStore({
     reducer: {
       auth: authReducer,
+      theme: themeReducer,
       [LeaderBoardApi.reducerPath]: LeaderBoardApi.reducer,
     },
     preloadedState: deserializedState,

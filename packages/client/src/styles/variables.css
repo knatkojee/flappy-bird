@@ -1,7 +1,7 @@
 :root {
-  --foreground: #000;
-  --background: #fff;
-  --muted-foreground: #6b7280;
+  --text-primary: #000;
+  --bg-primary: #fff;
+  --text-muted: #6b7280;
 
   --accent: #f3f4f6;
   --accent-foreground: #000;
@@ -17,7 +17,7 @@
   --bird-yellow: #fbbf24;
   --bird-orange: #f97316;
 
-  --destructive: #DC2626;
+  --destructive: #dc2626;
 
   --spacing-xs: 4px;
   --spacing-sm: 8px;
