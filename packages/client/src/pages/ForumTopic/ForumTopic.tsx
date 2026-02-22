@@ -15,19 +15,19 @@ export const comments = [
     id: 0,
     authorName: 'Pumpkin Pandas',
     message: 'super game!',
-    likesCount: 5,
+    reactions: { '🔥': 3, '👍': 7 } as Record<string, number>,
   },
   {
     id: 1,
     authorName: 'Andrey',
     message: 'Great!',
-    likesCount: 15,
+    reactions: { '❤️': 2 } as Record<string, number>,
   },
   {
     id: 2,
     authorName: 'Vasiliy',
     message: 'Yack!',
-    likesCount: 99,
+    reactions: {} as Record<string, number>,
   },
 ]
 
@@ -48,7 +48,7 @@ const ForumTopic = () => {
       id: Number(new Date()),
       authorName: 'Your name',
       message: textComment,
-      likesCount: 0,
+      reactions: {},
     })
     setTextComment('')
   }
@@ -72,7 +72,7 @@ const ForumTopic = () => {
             id={comment.id}
             authorName={comment.authorName}
             message={comment.message}
-            likesCount={comment.likesCount}
+            reactions={comment.reactions}
           />
         ))}
       </ul>

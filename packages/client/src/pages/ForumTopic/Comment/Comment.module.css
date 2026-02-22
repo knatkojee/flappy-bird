@@ -15,20 +15,79 @@
   margin: 0 0 15px;
 }
 
-.like {
+.footer {
   display: flex;
   align-items: center;
-  gap: 3px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.reactionsRow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.reactionBubble {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1.5px solid var(--border);
+  background: var(--accent);
   cursor: pointer;
-  color: var(--bird-yellow);
-  border: none;
-  background-color: transparent;
+  font-size: var(--font-md);
+  font-weight: 700;
+  transition: border-color 0.15s ease, background-color 0.15s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    border-color: var(--bird-yellow);
+    transform: scale(1.07);
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
 }
 
-.liked {
-  color: var(--bird-orange);
+.reactionActive {
+  border-color: var(--bird-orange);
+  background: rgba(249, 115, 22, 0.08);
 }
 
-.heart {
-  font-size: var(--font-xl);
+.reactionCount {
+  font-size: var(--font-sm);
+  color: var(--muted-foreground);
+}
+
+.pickerWrapper {
+  position: relative;
+}
+
+.addReactionBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1.5px dashed var(--border);
+  border-radius: 999px;
+  background: transparent;
+  cursor: pointer;
+  font-size: 14px;
+  transition: border-color 0.15s ease, background-color 0.15s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    border-color: var(--bird-yellow);
+    background: var(--accent);
+    transform: scale(1.1);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
 }
