@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from '../../../../shared/store/authSlice'
-import { LeaderBoardApi } from './leaderboardApi'
+import { LeaderBoardApi } from '../../../../shared/store/leaderboardApi'
 
 const deserializeState = (preloadedState: any): any => {
   if (!preloadedState || typeof preloadedState !== 'object') {
