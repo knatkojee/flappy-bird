@@ -6,7 +6,12 @@ type ErrorResponse = {
   reason: string
 }
 
-const apiInstance = axios.create({
+export const apiInstance = axios.create({
+  baseURL: 'http://localhost:3001/api',
+  withCredentials: true,
+})
+
+export const yandexApi = axios.create({
   baseURL: 'https://ya-praktikum.tech/api/v2',
   withCredentials: true,
 })

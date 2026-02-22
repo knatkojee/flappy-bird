@@ -35,9 +35,8 @@ type GetAllUsersResponse = {
 export const LeaderBoardApi = createApi({
   reducerPath: 'leaderApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://ya-praktikum.tech/api/v2',
+    baseUrl: 'http://localhost:3001/api',
     credentials: 'include',
-    responseHandler: response => response.text(),
   }),
 
   endpoints: builder => ({
