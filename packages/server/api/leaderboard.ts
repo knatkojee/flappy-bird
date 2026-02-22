@@ -17,10 +17,7 @@ export const addUserToLeaderboardHandler = async (
       },
     })
 
-    console.log('Yandex API response status:', response.status)
-    console.log('Yandex API response data:', response.data)
-
-    res.status(response.status).json({
+    return res.status(response.status).json({
       success: true,
       message: response.data,
     })
@@ -29,7 +26,7 @@ export const addUserToLeaderboardHandler = async (
       'Add to leaderboard error:',
       error.response?.data || error.message
     )
-    res
+    return res
       .status(error.response?.status || 500)
       .json(error.response?.data || { reason: 'Failed to add to leaderboard' })
   }
@@ -58,13 +55,13 @@ export const getAllLeaderboardHandler = async (req: Request, res: Response) => {
       }
     )
 
-    res.json(response.data)
+    return res.json(response.data)
   } catch (error) {
     console.error(
       'Get leaderboard error:',
       error.response?.data || error.message
     )
-    res
+    return res
       .status(error.response?.status || 500)
       .json(error.response?.data || { reason: 'Failed to get leaderboard' })
   }

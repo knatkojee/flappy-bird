@@ -14,13 +14,13 @@ export const changePasswordHandler = async (req: Request, res: Response) => {
       },
     })
 
-    res.status(response.status).json(response.data)
+    return res.status(response.status).json(response.data)
   } catch (error) {
     console.error(
       'Change password error:',
       error.response?.data || error.message
     )
-    res
+    return res
       .status(error.response?.status || 500)
       .json(error.response?.data || { reason: 'Failed to change password' })
   }
@@ -46,10 +46,10 @@ export const changeAvatarHandler = async (req: Request, res: Response) => {
     Object.entries(response.headers).forEach(([key, value]) => {
       res.setHeader(key, value as string)
     })
-    response.data.pipe(res)
+    return response.data.pipe(res)
   } catch (error) {
     console.error('Proxy error:', error.message)
-    res.status(500).json({ reason: 'Proxy failed' })
+    return res.status(500).json({ reason: 'Proxy failed' })
   }
 }
 
@@ -77,13 +77,13 @@ export const updateProfileHandler = async (req: Request, res: Response) => {
       })
     }
 
-    res.json(response.data)
+    return res.json(response.data)
   } catch (error) {
     console.error(
       'Update profile error:',
       error.response?.data || error.message
     )
-    res
+    return res
       .status(error.response?.status || 500)
       .json(error.response?.data || { reason: 'Failed to update profile' })
   }
