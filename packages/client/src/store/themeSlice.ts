@@ -61,11 +61,9 @@ const themeSlice = createSlice({
   reducers: {
     setTheme: (state, action) => {
       state.theme = action.payload
-      localStorage.setItem('theme', action.payload)
     },
     toggleTheme: state => {
       state.theme = state.theme === 'light' ? 'dark' : 'light'
-      localStorage.setItem('theme', state.theme)
     },
   },
   extraReducers: builder => {
@@ -77,7 +75,6 @@ const themeSlice = createSlice({
       .addCase(fetchUserTheme.fulfilled, (state, action) => {
         state.isLoading = false
         state.theme = action.payload.theme
-        localStorage.setItem('theme', action.payload.theme)
       })
       .addCase(fetchUserTheme.rejected, (state, action) => {
         state.isLoading = false
@@ -85,10 +82,13 @@ const themeSlice = createSlice({
       })
       .addCase(updateUserTheme.fulfilled, (state, action) => {
         state.theme = action.payload.theme
-        localStorage.setItem('theme', action.payload.theme)
       })
   },
 })
 
 export const { setTheme, toggleTheme } = themeSlice.actions
+
+export const selectTheme = (state: RootState) => state.theme.theme
+export const selectThemeLoading = (state: RootState) => state.theme.isLoading
+
 export default themeSlice.reducer
