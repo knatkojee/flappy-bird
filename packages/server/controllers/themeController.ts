@@ -3,7 +3,7 @@ import { User } from '../models'
 
 export const getTheme = async (req: Request, res: Response): Promise<void> => {
   try {
-    const userId = req.userId
+    const userId = req.user?.id
 
     if (!userId) {
       res.status(401).json({ error: 'Unauthorized' })
@@ -28,7 +28,7 @@ export const updateTheme = async (
   res: Response
 ): Promise<void> => {
   try {
-    const userId = req.userId
+    const userId = req.user?.id
     const { theme } = req.body
 
     if (!userId) {

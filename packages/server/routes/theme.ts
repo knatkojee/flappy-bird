@@ -1,6 +1,6 @@
 import { Router } from 'express'
 import { getTheme, updateTheme } from '../controllers/themeController'
-import { authMiddleware } from '../middleware/auth'
+import { authMiddleware } from '../authMiddleware'
 
 const router = Router()
 

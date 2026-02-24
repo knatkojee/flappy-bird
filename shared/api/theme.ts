@@ -11,13 +11,9 @@ const apiInstance = axios.create({
   withCredentials: true,
 })
 
-export const getTheme = async (userId: number): Promise<Theme> => {
+export const getTheme = async (): Promise<Theme> => {
   try {
-    const response = await apiInstance.get<ThemeResponse>('/user/theme', {
-      headers: {
-        'X-User-Id': userId.toString(),
-      },
-    })
+    const response = await apiInstance.get<ThemeResponse>('/user/theme')
     return response.data.theme
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>
@@ -25,20 +21,11 @@ export const getTheme = async (userId: number): Promise<Theme> => {
   }
 }
 
-export const updateTheme = async (
-  userId: number,
-  theme: Theme
-): Promise<Theme> => {
+export const updateTheme = async (theme: Theme): Promise<Theme> => {
   try {
-    const response = await apiInstance.put<ThemeResponse>(
-      '/user/theme',
-      { theme },
-      {
-        headers: {
-          'X-User-Id': userId.toString(),
-        },
-      }
-    )
+    const response = await apiInstance.put<ThemeResponse>('/user/theme', {
+      theme,
+    })
     return response.data.theme
   } catch (error) {
     const axiosError = error as AxiosError<ErrorResponse>
