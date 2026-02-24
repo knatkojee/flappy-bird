@@ -17,7 +17,6 @@
   background-color: var(--bg-primary);
   border-radius: var(--radius-lg);
   padding: 0;
-  overflow: hidden;
 }
 
 .editor {
