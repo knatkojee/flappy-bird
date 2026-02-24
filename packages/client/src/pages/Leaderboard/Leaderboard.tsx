@@ -12,7 +12,7 @@ import {
 import { useState, useMemo, useRef } from 'react'
 import styles from './Leaderboard.module.css'
 import { PAGE_TITLES } from '@/constants/pageTitles'
-import { useGetAllUsersQuery } from '@/store/leaderboardApi'
+import { useGetAllUsersQuery } from '@shared/store/leaderboardApi'
 import { Stats } from './Components/Stats/Stats'
 import { Players } from './Components/Players/Players'
 

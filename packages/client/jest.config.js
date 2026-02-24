@@ -7,7 +7,8 @@ export default {
   testMatch: ['<rootDir>/src/**/*.test.{ts,tsx}'],
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
-    '^@shared$': '<rootDir>/../../shared',
+    '^@shared/(.*)$': '<rootDir>/../../shared/$1',
+    '^@shared$': '<rootDir>/../../shared',  
     '\\.(css|less|scss|sass)$': 'identity-obj-proxy',
   },
   globals: {
