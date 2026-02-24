@@ -21,26 +21,14 @@
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "lib": [
-      "es2020",
-      "DOM"
-    ],
-    "types": [
-      "node",
-      "jest"
-    ],
+    "lib": ["es2020", "DOM"],
+    "types": ["node", "jest"],
     "baseUrl": ".",
     "outDir": "dist",
     "paths": {
-      "@/*": [
-        "../client/src/*"
-      ],
-      "@shared/*": [
-        "../../shared/*"
-      ],
-      "@server/*": [
-        "./*"
-      ]
+      "@/*": ["../client/src/*"],
+      "@shared/*": ["../../shared/*"],
+      "@server/*": ["./*"]
     }
   },
   "ts-node": {
@@ -51,11 +39,7 @@
     "transpileOnly": true,
     "files": true
   },
-  "include": [
-    "./*.ts",
-    "./**/*.ts",
-    "../shared/**/*"
-  ],
+  "include": ["./*.ts", "./**/*.ts", "../shared/**/*", "./api"],
   "exclude": [
     "node_modules",
     "dist",
