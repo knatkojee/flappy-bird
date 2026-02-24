@@ -29,24 +29,29 @@ flappy-bird/
 ### Режимы запуска
 
 **Запуск всего (клиент + SSR сервер):**
+
 ```bash
 yarn dev
 ```
 
 **Только клиент (SPA режим):**
+
 ```bash
 yarn dev --scope=client
 # или
 yarn dev:client
 ```
+
 Доступен на http://localhost:3000
 
 **Только SSR сервер:**
+
 ```bash
 yarn dev --scope=server
 # или
 yarn dev:server
 ```
+
 Доступен на http://localhost:3001
 
 ### Важно
@@ -93,13 +98,16 @@ yarn dev:server
 И чтобы посмотреть что получилось:
 
 **Запуск обоих серверов:**
+
 ```bash
 yarn preview
 ```
+
 - 📦 Client (SPA): http://localhost:4173
 - 🚀 Server (SSR): http://localhost:3001
 
 **Запуск отдельно:**
+
 ```bash
 yarn preview:client  # Только клиент на порту 4173
 yarn preview:server  # Только SSR сервер на порту 3001
@@ -118,16 +126,19 @@ yarn preview:server  # Только SSR сервер на порту 3001
 Выполняет проверку типов TypeScript во всех частях приложения без сборки.
 
 **Использование:**
+
 ```bash
 yarn check:types
 ```
 
 **Или напрямую:**
+
 ```bash
 ./scripts/check-types.sh
 ```
 
 **Что проверяется:**
+
 - `shared` - TypeScript проверка
 - `packages/client` - TypeScript проверка
 - `packages/server` - TypeScript проверка
@@ -139,16 +150,19 @@ yarn check:types
 Выполняет проверку типов TypeScript и полную сборку всех частей приложения.
 
 **Использование:**
+
 ```bash
 yarn check:all
 ```
 
 **Или напрямую:**
+
 ```bash
 ./scripts/check-build-all.sh
 ```
 
 **Что проверяется:**
+
 - `shared` - TypeScript проверка
 - `packages/client` - TypeScript проверка + сборка (Vite build)
 - `packages/server` - TypeScript проверка + сборка (tsc)
@@ -158,6 +172,7 @@ yarn check:all
 ### Результаты выполнения
 
 Скрипты используют цветовой вывод для наглядности:
+
 - 🟢 **Зелёный** - проверка успешно пройдена
 - 🔴 **Красный** - обнаружены ошибки
 
@@ -177,7 +192,6 @@ yarn check:all
 - name: Check TypeScript and build
   run: yarn check:all
 ```
-
 
 ## Хуки
 
@@ -212,6 +226,7 @@ yarn check:all
 API для управления цветовыми темами пользователей (`light` / `dark`).
 
 ### Быстрая проверка
+
 ```bash
 curl -X GET "http://localhost:3001/api/user/theme" \
   -H "X-User-Id: 1"
@@ -221,7 +236,6 @@ curl -X GET "http://localhost:3001/api/user/theme" \
 
 - `GET /api/user/theme` - получить тему пользователя
 - `PUT /api/user/theme` - установить тему (body: `{"theme": "dark"}`)
-
 
 ## Архитектура и соглашения
 
@@ -255,3 +269,5 @@ curl -X GET "http://localhost:3001/api/user/theme" \
   ```
 
 ## Видео с демонстрацией работоспособности приложения
+
+https://disk.yandex.ru/i/7-t-BzVqmoBBDw

@@ -10,15 +10,20 @@ export const getTheme = async (req: Request, res: Response): Promise<void> => {
       return
     }
 
-    const user = await User.findByPk(userId)
+    let user = await User.findByPk(userId)
 
+    // Если пользователя нет - создаём с дефолтной темой
     if (!user) {
-      res.status(404).json({ error: 'User not found' })
-      return
+      user = await User.create({
+        id: userId,
+        login: req.user?.login || `user${userId}`,
+        theme: 'light',
+      })
     }
 
     res.json({ theme: user.theme })
   } catch (error) {
+    console.error('getTheme error:', error)
     res.status(500).json({ error: 'Internal server error' })
   }
 }
@@ -41,17 +46,22 @@ export const updateTheme = async (
       return
     }
 
-    const user = await User.findByPk(userId)
+    let user = await User.findByPk(userId)
 
+    // Если пользователя нет - создаём
     if (!user) {
-      res.status(404).json({ error: 'User not found' })
-      return
+      user = await User.create({
+        id: userId,
+        login: req.user?.login || `user${userId}`,
+        theme,
+      })
+    } else {
+      await user.update({ theme })
     }
-
-    await user.update({ theme })
 
     res.json({ theme: user.theme })
   } catch (error) {
+    console.error('updateTheme error:', error)
     res.status(500).json({ error: 'Internal server error' })
   }
 }
