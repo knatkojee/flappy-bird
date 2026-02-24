@@ -7,6 +7,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { logout } from '@shared'
 import { toast } from 'react-toastify'
 import { useNavigate } from 'react-router-dom'
+import { ThemeToggle } from '@/components/common/ThemeToggle/ThemeToggle'
 
 export default function Header() {
   const location = useLocation()
@@ -45,7 +46,7 @@ export default function Header() {
         <nav className={styles.nav}>
           {navLinks.map(link => (
             <Link key={link.path} to={link.path} className={styles.navLink}>
-              <Button variant={isActive(link.path) ? 'default' : 'ghost'}>
+              <Button variant={isActive(link.path) ? 'primary' : 'ghost'}>
                 {link.label}
               </Button>
             </Link>
@@ -53,6 +54,7 @@ export default function Header() {
         </nav>
 
         <div className={styles.authButtons}>
+          <ThemeToggle />
           {!isAuthenticated ? (
             <>
               <Link to={ROUTES.PUBLIC.LOGIN}>
@@ -67,7 +69,7 @@ export default function Header() {
               <Link to={ROUTES.PROTECTED.PROFILE}>
                 <Button variant="outline">Профиль</Button>
               </Link>
-              <Button variant="secondary" onClick={handleLogout}>
+              <Button variant="primary" onClick={handleLogout}>
                 Выход
               </Button>
             </>

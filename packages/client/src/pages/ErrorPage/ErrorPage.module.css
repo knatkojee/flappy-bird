@@ -15,12 +15,14 @@
 .text {
   text-align: center;
   margin-bottom: 60px;
+  color: var(--text-primary);
 }
 
 .code {
   font-size: 120px;
   font-weight: 900;
   margin: 0;
+  color: var(--text-primary);
 }
 
 .message {

@@ -1,5 +1,5 @@
 .footer {
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: var(--bg-primary);
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border);
 }
@@ -24,6 +24,7 @@
   display: flex;
   align-items: center;
   gap: var(--spacing-sm);
+  color: var(--text-primary);
 }
 
 .footerBrandIcon {
@@ -32,12 +33,13 @@
 
 .footerDescription {
   font-size: var(--font-sm);
-  color: var(--muted-foreground);
+  color: var(--text-muted);
 }
 
 .footerSectionTitle {
   font-weight: 600;
   margin-bottom: var(--spacing-md);
+  color: var(--text-primary);
 }
 
 .footerLinks {
@@ -52,12 +54,12 @@
 
 .footerLink {
   font-size: var(--font-sm);
-  color: var(--muted-foreground);
+  color: var(--text-muted);
   text-decoration: none;
 }
 
 .footerLink:hover {
-  color: var(--foreground);
+  color: var(--text-primary);
 }
 
 .footerBottom {
@@ -65,7 +67,7 @@
   padding-top: var(--spacing-lg);
   text-align: center;
   font-size: var(--font-sm);
-  color: var(--muted-foreground);
+  color: var(--text-muted);
 }
 
 @media (min-width: 768px) {

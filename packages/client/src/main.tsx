@@ -1,6 +1,7 @@
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
+import './styles/themes.css'
 import { StrictMode } from 'react'
 import { Provider } from 'react-redux'
 import { createAppStore } from './store'

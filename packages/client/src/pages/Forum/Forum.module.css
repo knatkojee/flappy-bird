@@ -15,7 +15,7 @@
 .table {
   width: 100%;
   border-collapse: collapse;
-  background-color: var(--background);
+  background-color: var(--bg-primary);
   border-radius: var(--radius-lg);
   overflow: hidden;
   font-weight: 700;
@@ -27,11 +27,16 @@
   th {
     text-align: left;
     background-color: var(--bird-yellow);
+    color: var(--text-primary-btn);
   }
 
   th,
   td {
     padding: 16px;
+  }
+
+  td {
+    color: var(--text-primary);
   }
 }
 

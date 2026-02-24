@@ -22,3 +22,14 @@ export type UpdateProfileData = {
   email: string
   phone: string
 }
+
+export type UpdateProfileTheme = {
+  theme: 'light' | 'dark'
+  userId: number
+}
+
+export type Theme = 'light' | 'dark'
+
+export type ThemeResponse = {
+  theme: Theme
+}

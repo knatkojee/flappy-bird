@@ -12,13 +12,14 @@
   grid-template-columns: 1fr 1fr;
   gap: 10px;
   padding: 20px;
-  background-color: var(--background);
+  background-color: var(--bg-primary);
   border-radius: var(--radius-lg);
 }
 
 .title {
   text-align: center;
   grid-column: 1/3;
+  color: var(--text-primary);
 }
 
 .repeatBtn {
@@ -37,13 +38,13 @@
   font-weight: 500;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
-  background-color: var(--background);
-  color: var(--foreground);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   text-decoration: none;
   height: var(--button-height-sm);
   padding: 0 var(--spacing-md);
   font-size: var(--font-sm);
-  border: 2px solid var(--accent-foreground);
+  border: 1px solid var(--bg-inverse);
 
   &:focus-visible {
     outline: none;
@@ -52,10 +53,10 @@
   }
 
   &:hover {
-    background-color: var(--bird-orange);
+    background-color: var(--sky-light);
   }
 
   &.selected {
-    background-color: var(--bird-orange);
+    background-color: var(--sky-light);
   }
 }

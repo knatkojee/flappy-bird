@@ -18,6 +18,7 @@
   font-size: var(--font-2xl);
   text-align: center;
   margin-bottom: var(--spacing-xl);
+  color: var(--text-primary);
 }
 
 .sectionWrap {
@@ -28,7 +29,7 @@
 }
 
 .bgWhite {
-  background-color: var(--background);
+  background-color: var(--bg-primary);
 }
 
 .bgGradient {
@@ -73,7 +74,7 @@
 
 .heroLeftSubtitle {
   font-size: var(--font-lg);
-  color: var(--muted-foreground);
+  color: var(--text-muted);
   text-align: center;
 
   @media (min-width: 768px) {
@@ -92,20 +93,22 @@
   font-size: var(--font-3xl);
   font-weight: 700;
   margin: 0;
+  color: var(--text-primary);
 }
 
 .colorYellow {
-  color: var(--bird-yellow);
+  color: var(--text-orange);
 }
 
 .heroRightSubtitle {
   font-size: var(--font-lg);
   line-height: 1.4;
+  color: var(--text-primary);
 }
 
 .heroRightNote {
   font-size: var(--font-sm);
-  color: var(--muted-foreground);
+  color: var(--text-primary);
 }
 
 /* Блок Info */
@@ -133,18 +136,19 @@
 }
 
 .infoBlockIcon svg {
-  stroke: #cb5300fa;
+  stroke: var(--orange-inverse);
 }
 
 .infoBlockTitle {
   font-size: var(--font-lg);
   font-weight: 700;
   margin: 0;
+  color: var(--text-primary);
 }
 
 .infoBlockText {
   font-size: var(--font-sm);
-  color: var(--muted-foreground);
+  color: var(--text-muted);
   margin: 0;
 }
 
@@ -172,6 +176,7 @@
   text-align: center;
   font-size: var(--font-lg);
   margin: 0;
+  color: var(--text-primary);
 }
 
 @media (min-width: 768px) {
