@@ -19,6 +19,8 @@
     "noUnusedLocals": false,
     "forceConsistentCasingInFileNames": true,
     "skipLibCheck": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "lib": ["es2020", "DOM"],
     "types": ["node", "jest"],
     "baseUrl": ".",
@@ -37,7 +39,7 @@
     "transpileOnly": true,
     "files": true
   },
-  "include": ["./*.ts", "../shared/**/*", "./api"],
+  "include": ["./*.ts", "./**/*.ts", "../shared/**/*", "./api"],
   "exclude": [
     "node_modules",
     "dist",

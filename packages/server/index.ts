@@ -1,3 +1,4 @@
+import 'reflect-metadata'
 import dotenv from 'dotenv'
 import cors from 'cors'
 dotenv.config()
@@ -5,6 +6,8 @@ dotenv.config()
 import express from 'express'
 import { createClientAndConnect } from './db'
 import { ssrHandler, apiHandler } from './ssr-router'
+import { initDatabase } from './models'
+import themeRoutes from './routes/theme'
 import {
   logoutHandler,
   signinHandler,
@@ -50,26 +53,34 @@ app.use(cookieParser())
 const port = Number(process.env.SERVER_PORT) || 3001
 
 createClientAndConnect()
+initDatabase()
 
 app.get('/api/health', apiHandler)
 
+// Auth API
 app.post('/api/auth/signin', signinHandler)
 app.post('/api/auth/signup', signupHandler)
 app.post('/api/auth/logout', logoutHandler)
 
+// User API
 app.put('/api/user/profile/avatar', authMiddleware, changeAvatarHandler)
 app.put('/api/user/profile', authMiddleware, updateProfileHandler)
 app.put('/api/user/password', authMiddleware, changePasswordHandler)
 
+// Leaderboard API
 app.post('/api/leaderboard', authMiddleware, addUserToLeaderboardHandler)
 app.post('/api/leaderboard/all', authMiddleware, getAllLeaderboardHandler)
 
+// OAuth API
 app.get('/api/oauth/yandex/service-id', yandexServiceIdHandler)
 app.post('/api/oauth/yandex', yandexSigninHandler)
 
 app.get('/api/auth/user', authMiddleware, (req, res) => {
   res.json(req.user)
 })
+
+// Theme API
+app.use('/api', themeRoutes)
 
 app.get('*', ssrHandler)
 
