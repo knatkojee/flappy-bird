@@ -3,7 +3,6 @@ import type {
   ChangePasswordData,
   UserResponse,
   UpdateProfileData,
-  UpdateProfileTheme,
 } from '@/types/user'
 
 export const changePassword = async (

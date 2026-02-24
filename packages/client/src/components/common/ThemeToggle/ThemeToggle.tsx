@@ -1,4 +1,3 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useTheme } from '../../../hooks/useTheme'
 import { updateUserTheme } from '@/store/themeSlice'
