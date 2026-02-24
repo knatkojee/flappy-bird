@@ -39,9 +39,22 @@ declare global {
 
 const app = express()
 
+const allowedOrigins = [
+  'http://localhost:3000', // dev client
+  'http://localhost:4173', // preview client
+]
+
 app.use(
   cors({
-    origin: 'http://localhost:3000',
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true)
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    },
     credentials: true,
     exposedHeaders: ['set-cookie'],
   })
@@ -71,6 +84,9 @@ app.put('/api/user/password', authMiddleware, changePasswordHandler)
 app.post('/api/leaderboard', authMiddleware, addUserToLeaderboardHandler)
 app.post('/api/leaderboard/all', authMiddleware, getAllLeaderboardHandler)
 
+// Theme API
+app.use('/api', themeRoutes)
+
 // OAuth API
 app.get('/api/oauth/yandex/service-id', yandexServiceIdHandler)
 app.post('/api/oauth/yandex', yandexSigninHandler)
@@ -78,9 +94,6 @@ app.post('/api/oauth/yandex', yandexSigninHandler)
 app.get('/api/auth/user', authMiddleware, (req, res) => {
   res.json(req.user)
 })
-
-// Theme API
-app.use('/api', themeRoutes)
 
 app.get('*', ssrHandler)
 
