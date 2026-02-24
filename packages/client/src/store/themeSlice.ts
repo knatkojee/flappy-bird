@@ -34,25 +34,20 @@ const initialState: ThemeState = {
 
 export const fetchUserTheme = createAsyncThunk<
   { theme: Theme },
-  number,
+  void,
   { state: RootState }
->('theme/fetchUserTheme', async userId => {
-  const response = await getThemeProfile(userId)
+>('theme/fetchUserTheme', async () => {
+  const response = await getThemeProfile()
   return { theme: response.theme }
 })
 
 export const updateUserTheme = createAsyncThunk<
   { theme: Theme },
-  { userId: number; theme: Theme },
+  Theme,
   { state: RootState }
->('theme/updateUserTheme', async ({ userId, theme }) => {
-  const response = await updateThemeProfile({ userId, theme })
-
-  if ('theme' in response) {
-    return { theme: response.theme as Theme }
-  }
-
-  return { theme }
+>('theme/updateUserTheme', async theme => {
+  const response = await updateThemeProfile(theme)
+  return { theme: response.theme }
 })
 
 const themeSlice = createSlice({

@@ -15,7 +15,7 @@ export const ThemeToggle = () => {
     toggleTheme()
 
     if (user?.id) {
-      dispatch(updateUserTheme({ userId: user.id, theme: newTheme }))
+      dispatch(updateUserTheme(newTheme))
     }
   }
 

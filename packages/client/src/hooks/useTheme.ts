@@ -24,7 +24,7 @@ export const useTheme = () => {
 
   useEffect(() => {
     if (user?.id) {
-      dispatch(fetchUserTheme(user.id))
+      dispatch(fetchUserTheme())
     }
   }, [user?.id, dispatch])
 
@@ -33,12 +33,7 @@ export const useTheme = () => {
     dispatch(toggleThemeAction())
 
     if (user?.id) {
-      await dispatch(
-        updateUserTheme({
-          userId: user.id,
-          theme: newTheme,
-        })
-      )
+      await dispatch(updateUserTheme(newTheme))
     }
   }, [dispatch, user?.id, theme])
 
@@ -47,12 +42,7 @@ export const useTheme = () => {
       dispatch(setThemeAction(newTheme))
 
       if (user?.id) {
-        await dispatch(
-          updateUserTheme({
-            userId: user.id,
-            theme: newTheme,
-          })
-        )
+        await dispatch(updateUserTheme(newTheme))
       }
     },
     [dispatch, user?.id]

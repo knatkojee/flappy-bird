@@ -59,14 +59,13 @@ export const updateProfile = async (
   return response.json()
 }
 
-export const getThemeProfile = async (
-  userId: number
-): Promise<{ theme: 'light' | 'dark' }> => {
+export const getThemeProfile = async (): Promise<{
+  theme: 'light' | 'dark'
+}> => {
   const response = await fetch(`${BASE_URL}/user/theme`, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      'X-User-Id': userId.toString(),
     },
     credentials: 'include',
   })
@@ -79,20 +78,19 @@ export const getThemeProfile = async (
 }
 
 export const updateThemeProfile = async (
-  data: UpdateProfileTheme
-): Promise<UserResponse> => {
+  theme: 'light' | 'dark'
+): Promise<{ theme: 'light' | 'dark' }> => {
   const response = await fetch(`${BASE_URL}/user/theme`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
-      'X-User-Id': data.userId.toString(),
     },
     credentials: 'include',
-    body: JSON.stringify({ theme: data.theme }),
+    body: JSON.stringify({ theme }),
   })
 
   if (!response.ok) {
-    throw new Error('Failed to update profile')
+    throw new Error('Failed to update theme')
   }
 
   return response.json()
