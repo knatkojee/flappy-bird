@@ -37,13 +37,4 @@ jobs:
           file: Dockerfile
           target: client
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/client:latest
-
-      - name: Build and push Server image
-        uses: docker/build-push-action@v4
-        with:
-          context: .
-          file: Dockerfile
-          target: server
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/server:latest
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
