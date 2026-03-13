@@ -5,7 +5,10 @@ import { fetchUser, signinWithYandex } from '@shared'
 import { ROUTES } from '@/constants/routes'
 import { toast } from 'react-toastify'
 
-const REDIRECT_URI = window.location.origin
+const REDIRECT_URI =
+  typeof window !== 'undefined'
+    ? window.location.origin
+    : 'http://localhost:3000'
 
 export const useYandexAuth = () => {
   const [searchParams] = useSearchParams()
