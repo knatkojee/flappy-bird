@@ -12,7 +12,7 @@ import { useAppDispatch } from '@/hooks/useAppDispatch'
 import { useForm } from '@/hooks/useForm'
 import { loginValidator, passwordValidator } from '@/lib/validators'
 
-const REDIRECT_URI = 'http://localhost:3000'
+const REDIRECT_URI = window.location.origin
 
 const Login = () => {
   const navigate = useNavigate()
