@@ -7,10 +7,7 @@ type ErrorResponse = {
 }
 
 export const apiInstance = axios.create({
-  baseURL:
-    typeof window !== 'undefined' && (window as any).VITE_API_URL
-      ? (window as any).VITE_API_URL
-      : process.env.VITE_API_URL || 'http://localhost:3001/api',
+  baseURL: '/api',
   withCredentials: true,
 })
 
