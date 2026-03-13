@@ -1,6 +1,7 @@
 ARG NODE_VERSION=20.19.0
 ARG SERVER_PORT=3001
 ARG CLIENT_PORT=3000
+ARG VITE_API_URL
 
 FROM node:${NODE_VERSION}-bookworm as builder
 WORKDIR /app
@@ -13,6 +14,9 @@ COPY shared/package.json ./shared/
 RUN yarn install --frozen-lockfile
 
 COPY . .
+
+ARG VITE_API_URL
+ENV VITE_API_URL=${VITE_API_URL}
 
 RUN yarn build --scope=client
 

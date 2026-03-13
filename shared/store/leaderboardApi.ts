@@ -35,7 +35,7 @@ type GetAllUsersResponse = {
 export const LeaderBoardApi = createApi({
   reducerPath: 'leaderApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3001/api',
+    baseUrl: import.meta.env.VITE_API_URL || 'http://localhost:3001/api',
     credentials: 'include',
   }),
 

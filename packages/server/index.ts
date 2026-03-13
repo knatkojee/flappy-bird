@@ -42,7 +42,8 @@ const app = express()
 const allowedOrigins = [
   'http://localhost:3000', // dev client
   'http://localhost:4173', // preview client
-]
+  process.env.CLIENT_URL, // production client
+].filter(Boolean)
 
 app.use(
   cors({

@@ -38,3 +38,5 @@ jobs:
           target: client
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          build-args: |
+            VITE_API_URL=http://178.154.219.101:3001/api
