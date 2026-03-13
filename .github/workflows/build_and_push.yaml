@@ -37,6 +37,15 @@ jobs:
           file: Dockerfile
           target: client
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:client
           build-args: |
             VITE_API_URL=http://178.154.219.101:3001/api
+
+      - name: Build and push Server image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          file: Dockerfile
+          target: server
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:server
