@@ -12,7 +12,7 @@ export const signinHandler = async (req: Request, res: Response) => {
 
       cookies.forEach((cookieString: string) => {
         const localCookie = cookieString
-          .replace(/; Domain=[^;]+/gi, '; Domain=localhost')
+          .replace(/; Domain=[^;]+/gi, '')
           .replace(/; Secure/gi, '')
           .replace(/; SameSite=None/gi, '; SameSite=Lax')
           .replace(/; Expires=[^;]+/gi, '; Max-Age=86400')
@@ -40,7 +40,6 @@ export const logoutHandler = async (req: Request, res: Response) => {
         secure: false,
         sameSite: 'lax',
         path: '/',
-        domain: 'localhost',
       })
     })
 
@@ -59,7 +58,7 @@ export const logoutHandler = async (req: Request, res: Response) => {
 
     const cookiesToClear = ['uuid', 'authCookie', 'sessionid', 'Session_id']
     cookiesToClear.forEach(cookieName => {
-      res.clearCookie(cookieName, { path: '/', domain: 'localhost' })
+      res.clearCookie(cookieName, { path: '/' })
     })
 
     res
@@ -84,7 +83,7 @@ export const signupHandler = async (req: Request, res: Response) => {
       if (cookies && cookies.length > 0) {
         cookies.forEach((cookieString: string) => {
           const localCookie = cookieString
-            .replace(/; Domain=[^;]+/gi, '; Domain=localhost')
+            .replace(/; Domain=[^;]+/gi, '')
             .replace(/; Secure/gi, '')
             .replace(/; SameSite=None/gi, '; SameSite=Lax')
 
@@ -165,7 +164,7 @@ export const yandexSigninHandler = async (req: Request, res: Response) => {
 
     cookies.forEach((cookieString: string) => {
       const localCookie = cookieString
-        .replace(/; Domain=ya-praktikum.tech/gi, '; Domain=localhost')
+        .replace(/; Domain=[^;]+/gi, '')
         .replace(/; Secure/gi, '')
         .replace(/; SameSite=None/gi, '; SameSite=Lax')
         .replace(/; Expires=[^;]+/gi, '; Max-Age=86400')

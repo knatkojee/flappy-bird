@@ -70,7 +70,7 @@ export const updateProfileHandler = async (req: Request, res: Response) => {
     if (cookies) {
       cookies.forEach((cookieString: string) => {
         const localCookie = cookieString
-          .replace(/; Domain=[^;]+/gi, '; Domain=localhost')
+          .replace(/; Domain=[^;]+/gi, '')
           .replace(/; Secure/gi, '')
           .replace(/; SameSite=None/gi, '; SameSite=Lax')
         res.append('Set-Cookie', localCookie)
