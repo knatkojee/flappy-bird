@@ -56,7 +56,10 @@ export const Players = ({ filteredPlayers }: PlayersProps) => {
                 {user.score.toLocaleString()}
               </span>
             </TableCell>
-            <TableCell align="right" responsive="md">
+            <TableCell
+              align="right"
+              responsive="md"
+              className={styles.countGames}>
               {user.score}
             </TableCell>
           </TableRow>
