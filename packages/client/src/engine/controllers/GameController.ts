@@ -13,6 +13,7 @@ export class GameController implements GameControllerInterface {
   private animationId: number | null = null
   private isInitialized = false
   private onGameOver?: (score: number) => void
+  private isGameOverFired = false
 
   constructor(
     canvas: HTMLCanvasElement,
@@ -33,6 +34,7 @@ export class GameController implements GameControllerInterface {
   start(): void {
     if (this.animationId || !this.isInitialized) return
 
+    this.isGameOverFired = false
     this.model.start()
     this.gameLoop()
   }
@@ -53,7 +55,10 @@ export class GameController implements GameControllerInterface {
     }
 
     if (state.isGameOver && this.onGameOver) {
-      this.onGameOver(state.score)
+      if (!this.isGameOverFired) {
+        this.isGameOverFired = true
+        this.onGameOver(state.score)
+      }
       this.stop()
       return
     }
@@ -71,6 +76,7 @@ export class GameController implements GameControllerInterface {
   reset(): void {
     this.stop()
     this.model.reset()
+    this.isGameOverFired = false
     this.start()
   }
 
