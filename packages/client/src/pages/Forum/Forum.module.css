@@ -10,6 +10,7 @@
 .title {
   text-align: center;
   margin: 20px 0;
+  color: var(--text-primary);
 }
 
 .table {
@@ -65,9 +66,11 @@
   width: 100%;
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+  background-color: var(--bg-primary);
   padding: 16px;
   margin: 10px 0;
   resize: none;
+  color: var(--text-primary);
 
   &:focus {
     outline: none;
