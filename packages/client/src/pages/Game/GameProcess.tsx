@@ -29,6 +29,11 @@ const GameProcess = ({
   const containerRef = useRef<HTMLDivElement>(null)
   const controllerRef = useRef<GameController | null>(null)
 
+  const onGameOverRef = useRef(onGameOver)
+  useEffect(() => {
+    onGameOverRef.current = onGameOver
+  }, [onGameOver])
+
   const initGame = useCallback(() => {
     if (!canvasRef.current) return
     controllerRef.current?.destroy()
@@ -37,8 +42,8 @@ const GameProcess = ({
       canvasRef.current,
       DEFAULT_CONFIG,
       (finalScore: number) => {
-        if (onGameOver) {
-          onGameOver(finalScore)
+        if (onGameOverRef.current) {
+          onGameOverRef.current(finalScore)
         }
       }
     )
@@ -46,7 +51,7 @@ const GameProcess = ({
     if (!showStartScreen) {
       controllerRef.current.start()
     }
-  }, [showStartScreen, onGameOver])
+  }, [showStartScreen])
 
   const resizeCanvas = useCallback(() => {
     const canvas = canvasRef.current
@@ -85,6 +90,12 @@ const GameProcess = ({
     resizeCanvas()
     initGame()
 
+    return () => {
+      controllerRef.current?.destroy()
+    }
+  }, [resizeCanvas, initGame])
+
+  useEffect(() => {
     const handleResize = () => {
       resizeCanvas()
     }
@@ -104,10 +115,8 @@ const GameProcess = ({
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('orientationchange', handleResize)
       document.removeEventListener('keydown', handleKeyDown)
-
-      controllerRef.current?.destroy()
     }
-  }, [resizeCanvas, initGame, handleJump])
+  }, [resizeCanvas, handleJump])
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
