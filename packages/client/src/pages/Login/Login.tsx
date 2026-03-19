@@ -16,7 +16,6 @@ const REDIRECT_URI =
   typeof window !== 'undefined'
     ? window.location.origin
     : 'http://localhost:3000'
-const clientID = 'fb5281a87e0c43738b9238fe17ccf02c'
 
 const Login = () => {
   const navigate = useNavigate()
@@ -51,7 +50,8 @@ const Login = () => {
 
   const handleYandexLogin = async () => {
     try {
-      const yandexAuthUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${clientID}&redirect_uri=${REDIRECT_URI}`
+      const { service_id } = await getYandexServiceId(REDIRECT_URI)
+      const yandexAuthUrl = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${service_id}&redirect_uri=${REDIRECT_URI}`
       window.open(yandexAuthUrl, '_blank')
     } catch (error) {
       if (error instanceof Error) {
